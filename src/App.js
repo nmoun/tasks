@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Register from 'Register';
 
 class App extends Component {
 
@@ -7,7 +8,7 @@ class App extends Component {
   }
 
   render(){
-    return <div>Blabla</div>
+    return <Register/>
   }
 };
 

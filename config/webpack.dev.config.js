@@ -1,6 +1,11 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+    entry: './src/index.js',
+    devtool: 'source-map',
+    resolve:{
+        modules: ['node_modules', 'src']
+    },
     module: {
         rules: [
             {
@@ -34,7 +39,7 @@ module.exports = {
     ],
     devServer: {
         proxy: {            
-            "/test": "http://localhost:3000"
+            "/api": "http://localhost:3000"
         },
         overlay: true
     }
