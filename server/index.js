@@ -1,33 +1,44 @@
 const express = require('express')
 const path = require('path')
 const routes = require('./routes')
-var mongoose = require('mongoose');
+const mongoose = require('mongoose')
+const session = require('express-session')
+const MongoStore = require('connect-mongo')(session)
 
 
 const app = express()
 
 //connect to MongoDB
-var connectWithRetry = function() {
+const connectWithRetry = function() {
   return mongoose.connect('mongodb://localhost/test', function(err) {
     if (err) {
       console.error('Failed to connect to mongo on startup - retrying in 10 sec', err);
       setTimeout(connectWithRetry, 10000);
     }
-  });
-};
-connectWithRetry();
+  })
+}
+connectWithRetry()
 
-var db = mongoose.connection;
+const db = mongoose.connection
 
 //handle mongo error
-db.on('error', console.error.bind(console, 'connection error:'));
+db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', function () {
   // we're connected!
-});
+})
 
 console.log('process.env.NODE_ENV : ' + process.env.NODE_ENV)
 
 app.use(express.static(path.join(__dirname, '..', 'dist')))
+
+app.use(session({
+  secret: 'wth',
+  resave: true,
+  saveUninitialized: false,
+  store: new MongoStore({
+    mongooseConnection: db
+  })
+}));
 
 app.use(express.json());
 

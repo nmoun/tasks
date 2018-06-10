@@ -18,7 +18,11 @@ class Register extends React.Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(this.state)
-        }).then(res => console.log("response"));
+        }).then(function(res){
+            res
+                .json()
+                .then((responseJson) => console.log('response status: ' + responseJson.status))
+        });
     }
 
     handleChange(event) {
