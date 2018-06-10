@@ -19,9 +19,10 @@ class Register extends React.Component {
             },
             body: JSON.stringify(this.state)
         }).then(function(res){
+            console.log('response status: ' + res.status)
             res
                 .json()
-                .then((responseJson) => console.log('response status: ' + responseJson.status))
+                .then((responseJson) => console.log('server response: ' + JSON.stringify(responseJson)))
         });
     }
 
