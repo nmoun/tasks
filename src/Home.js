@@ -1,10 +1,16 @@
 import React from 'react'
+import fakeAuth from 'utils/fakeAuth'
+import { Redirect } from 'react-router-dom'
 
 class Home extends React.Component {
 
   constructor() {
     super()
+    this.state = {
+      dummy: ""
+    }
     this.launchService = this.launchService.bind(this)
+    this.logout = this.logout.bind(this)
   }
 
   launchService() {
@@ -27,8 +33,19 @@ class Home extends React.Component {
     });
   }
 
+  logout() {
+    fakeAuth.logout().then(() => this.setState({dummy: ""}))
+  }
+
   render() {
-    return <div>Home    <button onClick={this.launchService}>Launch protected service</button></div>
+    if(fakeAuth.isAuthenticated){
+      return <div>Home    <button onClick={this.launchService}>Launch protected service</button>
+        <button onClick={this.logout}>Logout</button></div>
+    } else {
+      return <Redirect
+        to={{pathname: '/'}}
+      />
+    }
   }
 }
 

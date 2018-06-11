@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const User = require('../models/users')
 const passport = require('passport')
+const db = require('../db')
 
 router.post('/api/register', function(req, res, next) {
   if (req.body.password !== req.body.passwordConf) {
@@ -44,12 +45,21 @@ router.post('/api/login', passport.authenticate('local'),
   }
 );
 
+router.post('/api/logout', (req, res, next) => {
+  console.log('/api/logout')
+  req.session.destroy();
+  next();
+}, (req, res) => {
+  console.log('/api/logout after')
+  req.logout();
+  res.sendStatus(200);
+})
+
 router.get('/api/authRequired', (req, res) => {
-  console.log('Inside GET /authrequired callback')
-  console.log(`User authenticated? ${req.isAuthenticated()}`)
   if(req.isAuthenticated()) {
     res.send({'message': 'protected message'})
   } else {
+    console.log('unauthorized')
     res.sendStatus(401)
   }
 })

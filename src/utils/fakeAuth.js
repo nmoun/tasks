@@ -1,5 +1,6 @@
 const fakeAuth = {
   isAuthenticated: false,
+
   authenticate(data) {
     return fetch('/api/login', {
       method: 'post',
@@ -10,10 +11,25 @@ const fakeAuth = {
       body: JSON.stringify(data),
       credentials: 'same-origin'
     }).then((res) => {
-      console.log("login success")
       if (res.status === 200) {
+        console.log("login success")
         this.isAuthenticated = true;
-        // Cookies.set("SESSIONID","DUMMY")
+      }
+    });
+  },
+
+  logout() {
+    return fetch('/api/logout', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      credentials: 'same-origin'
+    }).then((res) => {
+      if (res.status === 200) {
+        console.log("logout success")
+        this.isAuthenticated = false;
       }
     });
   }
