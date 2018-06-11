@@ -2,7 +2,7 @@ const router = require('express').Router();
 const User = require('../models/users')
 const passport = require('passport')
 
-router.post('/api/register', function (req, res, next) {
+router.post('/api/register', function(req, res, next) {
   if (req.body.password !== req.body.passwordConf) {
     var err = new Error('Passwords do not match.');
     err.status = 400;
@@ -21,7 +21,7 @@ router.post('/api/register', function (req, res, next) {
       password: req.body.password
     }
 
-    User.create(userData, function (error, user) {
+    User.create(userData, function(error, user) {
       if (error) {
         return next(error);
       } else {
@@ -34,14 +34,15 @@ router.post('/api/register', function (req, res, next) {
 });
 
 router.post('/api/login', passport.authenticate('local'),
-function(req, res) {
-  // If this function gets called, authentication was successful.
-  // `req.user` contains the authenticated user.
-  console.log('login sucess')
-  if(req.user && typeof req.user === "object")
-    console.log(JSON.stringify(req.user))
-  res.send({message: 'ok'});
-});
+  function(req, res) {
+    // If this function gets called, authentication was successful.
+    // `req.user` contains the authenticated user.
+    console.log('login sucess')
+    if(req.user && typeof req.user === "object")
+      console.log(JSON.stringify(req.user))
+    res.send({message: 'ok'});
+  }
+);
 
 router.get('/api/authRequired', (req, res) => {
   console.log('Inside GET /authrequired callback')
