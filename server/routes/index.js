@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const User = require('../models/users')
 const passport = require('passport')
-const db = require('../db')
+const jwt = require('jsonwebtoken');
 
 router.post('/api/register', function(req, res, next) {
   if (req.body.password !== req.body.passwordConf) {
@@ -34,16 +34,29 @@ router.post('/api/register', function(req, res, next) {
   }
 });
 
-router.post('/api/login', passport.authenticate('local'),
-  function(req, res) {
-    // If this function gets called, authentication was successful.
-    // `req.user` contains the authenticated user.
-    console.log('login sucess')
-    if(req.user && typeof req.user === "object")
-      console.log(JSON.stringify(req.user))
-    res.send({message: 'ok'});
-  }
-);
+router.post('/api/login', function(req, res, next){
+  passport.authenticate('local', { session: false }, (err, user, info) => {
+    if (err || !user) {
+      return res.status(400).json({
+        message: 'Something is not right',
+        user: user
+      });
+    }
+
+    console.log('/api/login, typeof user: ' + typeof user)
+    req.login(user, { session: false }, (err) => {
+      if (err) {
+        res.send(err);
+      }
+
+      // generate a signed son web token with the contents of user object and return it in the response
+      console.log('cb /api/login, user: ' + user)
+      console.log('cb /api/login, typeof user: ' + typeof user)
+      const token = jwt.sign(user, process.env.JWT_SECRET, {expiresIn: '2h'});
+      return res.json({ user, token });
+    });
+  })(req, res, next);
+})
 
 router.post('/api/logout', (req, res, next) => {
   console.log('/api/logout')
@@ -52,16 +65,11 @@ router.post('/api/logout', (req, res, next) => {
 }, (req, res) => {
   console.log('/api/logout after')
   req.logout();
-  res.sendStatus(200);
+  res.redirect('/')
 })
 
-router.get('/api/authRequired', (req, res) => {
-  if(req.isAuthenticated()) {
-    res.send({'message': 'protected message'})
-  } else {
-    console.log('unauthorized')
-    res.sendStatus(401)
-  }
+router.get('/api/authRequired', passport.authenticate('jwt', {session: false}), (req, res) => {
+  res.send({'message': 'protected message'})
 })
 
 module.exports = router;

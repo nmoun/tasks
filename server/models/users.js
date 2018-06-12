@@ -20,8 +20,8 @@ var UserSchema = new mongoose.Schema({
   }
 });
 
-UserSchema.methods.validPassword = function(password) {
-  return bcrypt.compareSync(password, this.password)
+UserSchema.statics.validPassword = function(dpassword, epassword) {
+  return bcrypt.compareSync(dpassword, epassword)
 }
 
 //hashing a password before saving it to the database

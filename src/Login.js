@@ -1,6 +1,6 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
-import fakeAuth from './utils/fakeAuth'
+import {authenticate, isLoggedIn} from './service/AuthService'
 
 class Login extends React.Component {
   constructor() {
@@ -12,10 +12,9 @@ class Login extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    fakeAuth
-      .authenticate(this.state)
+    authenticate(this.state)
       .then(() => {
-        if (fakeAuth.isAuthenticated) {
+        if (isLoggedIn()) {
           this.setState({ redirectToReferrer: true })
         }
       })
@@ -27,7 +26,6 @@ class Login extends React.Component {
 
   render() {
     const from = this.props.location.state ? this.props.location.state.from : { pathname: '/home' }
-    console.log("from.pathname value: " + from.pathname)
     const { redirectToReferrer } = this.state;
     if (redirectToReferrer)
       return <Redirect

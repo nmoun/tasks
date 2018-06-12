@@ -4,7 +4,7 @@ import Login from 'Login';
 import Welcome from 'Welcome';
 import Home from 'Home';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import PrivateRoute from './utils/PrivateRoute'
+import PrivateRoute from 'utils/PrivateRoute'
 
 class App extends Component {
 

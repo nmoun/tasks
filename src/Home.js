@@ -1,6 +1,7 @@
 import React from 'react'
-import fakeAuth from 'utils/fakeAuth'
+import {isLoggedIn, logout} from 'service/AuthService'
 import { Redirect } from 'react-router-dom'
+import { JWT_TOKEN } from 'utils/constants'
 
 class Home extends React.Component {
 
@@ -18,7 +19,8 @@ class Home extends React.Component {
       method: 'get',
       headers: {
         'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'bearer ' + localStorage.getItem(JWT_TOKEN),
       },
       credentials: 'same-origin'
     }).then((res) => {
@@ -29,16 +31,18 @@ class Home extends React.Component {
     }).then((data) => {
       console.log('message: ' + data.message)
     }).catch(error => {
-      console.log('message: ' + data.message)
+      console.log('error: ' + error)
     });
   }
 
   logout() {
-    fakeAuth.logout().then(() => this.setState({dummy: ""}))
+    logout().then(() => {
+      this.setState({dummy: ""})
+    })
   }
 
   render() {
-    if(fakeAuth.isAuthenticated){
+    if(isLoggedIn()){
       return <div>Home    <button onClick={this.launchService}>Launch protected service</button>
         <button onClick={this.logout}>Logout</button></div>
     } else {
