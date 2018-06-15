@@ -1,0 +1,30 @@
+// Custom.scss
+// Option B: Include parts of Bootstrap
+
+$body-bg: white;
+$emo: #563d7c;
+
+$theme-colors: (
+  "emo": $emo
+);
+
+.container-emo{
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
+
+@import "node_modules/bootstrap/scss/bootstrap";
+
+// Required
+// @import "node_modules/bootstrap/scss/functions";
+// @import "node_modules/bootstrap/scss/variables";
+// @import "node_modules/bootstrap/scss/mixins";
+
+
+// @import "node_modules/bootstrap/scss/utilities/text";
+// @import "node_modules/bootstrap/scss/utilities/flex";
+// @import "node_modules/bootstrap/scss/buttons";
+// @import "node_modules/bootstrap/scss/reboot";
