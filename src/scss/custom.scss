@@ -1,19 +1,24 @@
 // Custom.scss
 // Option B: Include parts of Bootstrap
 
-$body-bg: white;
-$emo: #563d7c;
+$emo: #e60099;
+$emo-dark: rgb(31, 30, 30);
+$body-bg: $emo-dark;
 
 $theme-colors: (
-  "emo": $emo
+  "emo": $emo,
+  "emo-dark": $emo-dark
 );
+
+$btn-border-width: 2px;
 
 .container-emo{
   min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
   min-height: 100vh; /* These two lines are counted as one :-)       */
 
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 @import "node_modules/bootstrap/scss/bootstrap";
