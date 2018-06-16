@@ -2,12 +2,13 @@
 // Option B: Include parts of Bootstrap
 
 $emo: #e60099;
-$emo-dark: rgb(31, 30, 30);
+$emo-dark: #212529;
 $body-bg: $emo-dark;
 
 $theme-colors: (
   "emo": $emo,
-  "emo-dark": $emo-dark
+  "emo-dark": $emo-dark,
+  "emo-trans": transparent
 );
 
 $btn-border-width: 2px;
@@ -15,11 +16,24 @@ $btn-border-width: 2px;
 .container-emo{
   min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
   min-height: 100vh; /* These two lines are counted as one :-)       */
-
+  background-image: url('../assets/background.svg');
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  justify-content: flex-start;
+  background-size: 40px;
 }
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 
 @import "node_modules/bootstrap/scss/bootstrap";
 

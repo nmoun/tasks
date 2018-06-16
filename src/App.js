@@ -14,12 +14,12 @@ class App extends Component {
 
   render() {
     return <Router>
-        <Switch>
-          <PrivateRoute path="/home" component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/" component={Welcome} />
-        </Switch>
+      <Switch>
+        <PrivateRoute path="/home" component={Home} />
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+        <Route path="/" component={Welcome} />
+      </Switch>
     </Router>
   }
 };
