@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import Register from 'Register';
-import Login from 'Login';
-import Welcome from 'Welcome';
-import Home from 'Home';
+import Register from 'pages/Register';
+import Login from 'pages/Login';
+import Home from 'pages/Home';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import PrivateRoute from 'utils/PrivateRoute'
 
@@ -15,10 +14,9 @@ class App extends Component {
   render() {
     return <Router>
       <Switch>
-        <PrivateRoute path="/home" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <Route path="/" component={Welcome} />
+        <Route path="/" component={Home} />
       </Switch>
     </Router>
   }

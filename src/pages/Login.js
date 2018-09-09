@@ -1,6 +1,8 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
-import {authenticate, isLoggedIn} from './service/AuthService'
+import { authenticate, isLoggedIn } from 'service/AuthService'
+
+import "scss/custom.scss";
 
 class Login extends React.Component {
   constructor() {
@@ -25,7 +27,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const from = this.props.location.state ? this.props.location.state.from : { pathname: '/home' }
+    const from = this.props.location.state ? this.props.location.state.from : { pathname: '/' }
     const { redirectToReferrer } = this.state;
     if (redirectToReferrer)
       return <Redirect
@@ -33,15 +35,17 @@ class Login extends React.Component {
       />
     else
       return (
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="username">Username</label>
-          <input id="username" name="username" type="username" onChange={this.handleChange} />
+        <div className="container-emo">
+          <form onSubmit={this.handleSubmit}>
+            <label htmlFor="username">Username</label>
+            <input id="username" name="username" type="username" onChange={this.handleChange} />
 
-          <label htmlFor="password">Password</label>
-          <input id="password" name="password" type="password" onChange={this.handleChange} />
+            <label htmlFor="password">Password</label>
+            <input id="password" name="password" type="password" onChange={this.handleChange} />
 
-          <button>Send</button>
-        </form>
+            <button>Send</button>
+          </form>
+        </div>
       );
   }
 }

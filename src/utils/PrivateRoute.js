@@ -1,4 +1,4 @@
-import {isLoggedIn} from '../service/AuthService'
+import {isLoggedIn} from 'service/AuthService'
 import { Route, Redirect } from 'react-router-dom'
 import React from 'react'
 

@@ -36,6 +36,8 @@ router.post('/api/register', function(req, res, next) {
 
 router.post('/api/login', function(req, res, next){
   passport.authenticate('local', { session: false }, (err, user, info) => {
+    // custom callback to handle authentication
+
     if (err || !user) {
       return res.status(400).json({
         message: 'Something is not right',
@@ -68,6 +70,7 @@ router.post('/api/logout', (req, res, next) => {
   res.redirect('/')
 })
 
+// protected route, client must have a valid token
 router.get('/api/authRequired', passport.authenticate('jwt', {session: false}), (req, res) => {
   res.send({'message': 'protected message'})
 })

@@ -1,7 +1,8 @@
 import React from 'react'
-import {isLoggedIn, logout} from 'service/AuthService'
-import { Redirect } from 'react-router-dom'
+import {logout} from 'service/AuthService'
+import { isLoggedIn } from 'service/AuthService'
 import { JWT_TOKEN } from 'utils/constants'
+import Welcome from 'pages/Welcome'
 
 class Home extends React.Component {
 
@@ -46,9 +47,7 @@ class Home extends React.Component {
       return <div>Home    <button onClick={this.launchService}>Launch protected service</button>
         <button onClick={this.logout}>Logout</button></div>
     } else {
-      return <Redirect
-        to={{pathname: '/'}}
-      />
+      return <Welcome />
     }
   }
 }

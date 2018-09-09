@@ -18,6 +18,7 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
+// strategy to login
 passport.use(new LocalStrategy(
   function(username, password, done) {
     User.findOne({ username: username }).lean().exec(function(err, user){
@@ -33,6 +34,7 @@ passport.use(new LocalStrategy(
   }
 ));
 
+// strategy to protect private API
 passport.use(new JWTStrategy({
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
   secretOrKey   : process.env.JWT_SECRET
