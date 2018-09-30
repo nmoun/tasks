@@ -1,8 +1,7 @@
 import React from 'react'
 import {logout} from 'service/AuthService'
-import { isLoggedIn } from 'service/AuthService'
 import { JWT_TOKEN } from 'utils/constants'
-import Welcome from 'pages/Welcome'
+import ProtectedPage from 'components/ProtectedPage';
 
 class Home extends React.Component {
 
@@ -16,7 +15,7 @@ class Home extends React.Component {
   }
 
   launchService() {
-    return fetch('/api/authRequired', {
+    return fetch('/api/tasks', {
       method: 'get',
       headers: {
         'Accept': 'application/json, text/plain, */*',
@@ -29,8 +28,8 @@ class Home extends React.Component {
         throw new Error('Error')
       }
       return res.json()
-    }).then((data) => {
-      console.log('message: ' + data.message)
+    }).then((tasks) => {
+      console.log('fetched tasks: ' + JSON.stringify(tasks) )
     }).catch(error => {
       console.log('error: ' + error)
     });
@@ -43,12 +42,11 @@ class Home extends React.Component {
   }
 
   render() {
-    if(isLoggedIn()){
-      return <div>Home    <button onClick={this.launchService}>Launch protected service</button>
-        <button onClick={this.logout}>Logout</button></div>
-    } else {
-      return <Welcome />
-    }
+    return (<ProtectedPage>
+      <div>Home    <button onClick={this.launchService}>Launch protected service</button>
+        <button onClick={this.logout}>Logout</button>
+      </div>
+    </ProtectedPage>)
   }
 }
 

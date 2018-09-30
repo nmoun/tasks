@@ -2,6 +2,7 @@ const router = require('express').Router();
 const User = require('../models/users')
 const passport = require('passport')
 const jwt = require('jsonwebtoken');
+const taskRouter = require('./tasks');
 
 router.post('/api/register', function(req, res, next) {
   if (req.body.password !== req.body.passwordConf) {
@@ -74,5 +75,7 @@ router.post('/api/logout', (req, res, next) => {
 router.get('/api/authRequired', passport.authenticate('jwt', {session: false}), (req, res) => {
   res.send({'message': 'protected message'})
 })
+
+router.use('/api/tasks', taskRouter);
 
 module.exports = router;

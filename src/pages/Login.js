@@ -8,22 +8,18 @@ class Login extends React.Component {
   constructor() {
     super();
     this.state = { redirectToReferrer: false };
-    this.handleChange = this.handleChange.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    authenticate(this.state)
+    authenticate(this.username.value, this.password.value)
       .then(() => {
         if (isLoggedIn()) {
           this.setState({ redirectToReferrer: true })
         }
       })
-  }
-
-  handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
   }
 
   render() {
@@ -38,10 +34,10 @@ class Login extends React.Component {
         <div className="container-emo">
           <form onSubmit={this.handleSubmit}>
             <label htmlFor="username">Username</label>
-            <input id="username" name="username" type="username" onChange={this.handleChange} />
+            <input id="username" name="username" type="username" ref={el => {this.username = el}}/>
 
             <label htmlFor="password">Password</label>
-            <input id="password" name="password" type="password" onChange={this.handleChange} />
+            <input id="password" name="password" type="password" ref={el => {this.password = el}}/>
 
             <button>Send</button>
           </form>

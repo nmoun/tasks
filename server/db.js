@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 //connect to MongoDB
-mongoose.connect('mongodb://localhost/test', function(err) {
+mongoose.connect(process.env.DB_HOST, function(err) {
   if (err) {
     console.error('Failed to connect to mongo on startup', err);
   }

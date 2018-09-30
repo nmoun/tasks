@@ -17,7 +17,8 @@ function isTokenExpired(token) {
   return expirationDate < new Date();
 }
 
-export function authenticate(data) {
+export function authenticate(username, password) {
+  const data = {username, password}
   return fetch('/api/login', {
     method: 'post',
     headers: {
