@@ -5,10 +5,9 @@ import { authenticate, isLoggedIn } from 'service/AuthService'
 import "scss/custom.scss";
 
 class Login extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { redirectToReferrer: false };
-    // this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 

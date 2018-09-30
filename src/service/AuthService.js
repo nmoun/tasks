@@ -49,7 +49,6 @@ export function logout() {
   }).then((res) => {
     if (res.status === 200) {
       console.log("logout success")
-      // this.isAuthenticated = false;
       localStorage.removeItem(JWT_TOKEN)
     }
   });

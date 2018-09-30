@@ -1,5 +1,7 @@
 import React from 'react'
 import Widget from './Widget'
+import { connect } from 'react-redux'
+import {getTasks} from 'reducers'
 
 class WidgetList extends React.Component {
 
@@ -11,12 +13,18 @@ class WidgetList extends React.Component {
   render(){
     return <div>
       {
-        this.props.entities.map(function(entity, index){
-          return <Widget key={index} title={entity.title} />
+        this.props.tasks.map(function(entity){
+          return <Widget key={entity.id} title={entity.title}/>
         })
       }
     </div>
   }
 }
 
-export default WidgetList
+const mapStateToProps = (state) => ({
+  tasks: getTasks(state),
+})
+
+export default connect(
+  mapStateToProps,
+)(WidgetList)
