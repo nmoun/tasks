@@ -1,0 +1,27 @@
+
+@import "scss/variables.scss";
+
+.header {
+  height: 40px;
+  font-family: $font-family-app;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.headerButton {
+  background-image: url('../../assets/menuIcon.svg');
+  background-size: 25px; 
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 40px;
+  width: 40px;
+  margin-right: auto;
+}
+
+.headerTitle {
+  position: absolute;
+  left:50%;
+  transform: translate(-50%, 0);
+}

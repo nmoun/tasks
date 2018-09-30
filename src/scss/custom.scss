@@ -1,17 +1,5 @@
-// Custom.scss
-// Option B: Include parts of Bootstrap
 
-$emo: #e60099;
-$emo-dark: #212529;
-$body-bg: $emo-dark;
-
-$theme-colors: (
-  "emo": $emo,
-  "emo-dark": $emo-dark,
-  "emo-trans": transparent
-);
-
-$btn-border-width: 2px;
+@import "variables.scss";
 
 .container-emo{
   min-height: 100%;  /* Fallback for browsers do NOT support vh unit */

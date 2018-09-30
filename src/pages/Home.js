@@ -1,38 +1,32 @@
 import React from 'react'
 import {logout} from 'service/AuthService'
-import { JWT_TOKEN } from 'utils/constants'
 import ProtectedPage from 'components/ProtectedPage';
+import * as tasksApi from 'service/TaskService';
+import WidgetList from 'components/WidgetList';
+import Header from 'components/Header';
 
 class Home extends React.Component {
 
   constructor() {
     super()
     this.state = {
-      dummy: ""
+      dummy: "",
+      tasks: []
     }
     this.launchService = this.launchService.bind(this)
     this.logout = this.logout.bind(this)
   }
 
   launchService() {
-    return fetch('/api/tasks', {
-      method: 'get',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json',
-        'Authorization': 'bearer ' + localStorage.getItem(JWT_TOKEN),
-      },
-      credentials: 'same-origin'
-    }).then((res) => {
-      if (!res.ok) {
-        throw new Error('Error')
-      }
-      return res.json()
-    }).then((tasks) => {
-      console.log('fetched tasks: ' + JSON.stringify(tasks) )
-    }).catch(error => {
-      console.log('error: ' + error)
-    });
+    tasksApi.fetchTasks()
+      .then((tasks) => {
+        console.log('fetched tasks: ' + JSON.stringify(tasks) );
+        this.setState({
+          tasks
+        })
+      }).catch(error => {
+        console.log('error: ' + error)
+      });
   }
 
   logout() {
@@ -43,8 +37,12 @@ class Home extends React.Component {
 
   render() {
     return (<ProtectedPage>
-      <div>Home    <button onClick={this.launchService}>Launch protected service</button>
-        <button onClick={this.logout}>Logout</button>
+      <div className="container-emo">
+        <Header title='TODO'/>
+        <div>Home    <button onClick={this.launchService}>Fetch tasks</button>
+          <button onClick={this.logout}>Logout</button>
+          <WidgetList entities={this.state.tasks}/>
+        </div>
       </div>
     </ProtectedPage>)
   }

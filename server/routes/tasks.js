@@ -17,11 +17,6 @@ const tasks = [
 ]
 
 router.get('/', passport.authenticate('jwt', {session: false}), (req, res) => {
-  res.send({response: tasks})
-})
-
-// TODO delete below
-router.get('/test', (req, res) => {
   res.send(tasks)
 })
 

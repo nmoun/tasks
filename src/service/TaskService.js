@@ -1,3 +1,4 @@
+import {JWT_TOKEN} from 'utils/constants'
 
 export function fetchTasks() {
   return fetch('/api/tasks', {
@@ -10,8 +11,6 @@ export function fetchTasks() {
     credentials: 'same-origin'
   }).then((res) => {
     return res.json()
-  }).then((tasks) => {
-    
   }).catch(error => {
     console.log('error: ' + error)
   });

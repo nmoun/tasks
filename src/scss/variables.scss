@@ -1,0 +1,12 @@
+$emo: #e60099;
+$emo-dark: #212529;
+$body-bg: $emo-dark;
+
+$theme-colors: (
+  "emo": $emo,
+  "emo-dark": $emo-dark,
+  "emo-trans": transparent
+);
+
+$font-family-app: 'Work sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$btn-border-width: 2px;

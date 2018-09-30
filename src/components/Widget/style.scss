@@ -1,0 +1,13 @@
+
+@import "scss/variables.scss";
+
+.widget {
+  background: linear-gradient(125deg, #cc3399, #f15858 50%, #ff9933);
+  height: 50px;
+  margin: 2px 1px;
+  padding: 0 5px;
+  font-family: $font-family-app;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
