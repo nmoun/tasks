@@ -1,12 +1,13 @@
 import React from 'react'
 import {logout} from 'service/AuthService'
 import ProtectedPage from 'components/ProtectedPage'
-import WidgetList from 'components/WidgetList'
+import TaskList from 'components/TaskList'
 import Header from 'components/Header'
 import {withRouter} from 'react-router-dom'
 import {fetchTasks} from 'actions/tasks'
 import {getTasks, getIsFetching} from 'reducers'
 import { connect } from 'react-redux'
+import LoadingWidget from 'components/LoadingWidget';
 
 class Home extends React.Component {
 
@@ -25,12 +26,16 @@ class Home extends React.Component {
   }
 
   render() {
+    const {isFetching, tasks} = this.props;
     return (<ProtectedPage>
       <div className="container-emo">
         <Header title='TODO'/>
         <div>Home    <button onClick={this.props.fetchTasks}>Fetch tasks</button>
           <button onClick={this.logout}>Logout</button>
-          <WidgetList/>
+          {
+            (isFetching && !tasks.length) ?
+              <LoadingWidget /> : <TaskList/>
+          }
         </div>
       </div>
     </ProtectedPage>)
