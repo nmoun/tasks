@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import Register from 'modules/Register';
-import Login from 'modules/Login';
-import Home from 'modules/Home';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import MainRouter from './MainRouter'
 
 class App extends Component {
 
@@ -11,13 +8,7 @@ class App extends Component {
   }
 
   render() {
-    return <Router>
-      <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        <Route path="/" component={Home} />
-      </Switch>
-    </Router>
+    return <MainRouter/>
   }
 };
 

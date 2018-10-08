@@ -1,5 +1,6 @@
 import React from 'react'
 import Widget from 'components/Widget'
+import {Link} from 'react-router-dom'
 
 import './style.scss'
 
@@ -11,7 +12,7 @@ class TaskWidget extends React.Component {
 
 
   render(){
-    return <Widget {...this.props} className="task-widget"/>
+    return <Link to={this.props.type}><Widget {...this.props} className="task-widget"/></Link>
   }
 }
 

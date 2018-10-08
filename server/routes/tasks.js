@@ -4,18 +4,18 @@ const passport = require('passport')
 const tasks = [
   {
     id: 987,
-    title: "Task 1",
-    type: 1
+    title: "Order task 1",
+    type: "order"
   },
   {
     id: 9787,
-    title: "Task 2",
-    type: 1
+    title: "Order task 2",
+    type: "order"
   },
   {
     id: 55987,
-    title: "Task 4",
-    type: 2
+    title: "Reception task 4",
+    type: "reception"
   }
 ]
 

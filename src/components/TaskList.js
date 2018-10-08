@@ -9,11 +9,11 @@ class WidgetList extends React.Component{
   }
 
   render(){
-    var {entities} = this.props;
+    var {tasks} = this.props;
     return <div>
       {
-        entities.map(function(entity){
-          return <TaskWidget key={entity.id} title={entity.title}/>
+        tasks.map(function(task){
+          return <TaskWidget key={task.id} title={task.title} type={task.type}/>
         })
       }
     </div>
@@ -21,7 +21,7 @@ class WidgetList extends React.Component{
 }
 
 const mapStateToProps = (state) => ({
-  entities: getTasks(state),
+  tasks: getTasks(state),
 })
 
 export default connect(
