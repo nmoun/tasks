@@ -1,6 +1,6 @@
 import React from 'react'
 import {logout} from 'service/AuthService'
-import ProtectedPage from 'components/ProtectedPage'
+import ThemedProtectedPage from 'components/pages/ThemedProtectedPage'
 import TaskList from 'components/TaskList'
 import Header from 'components/Header'
 import {withRouter} from 'react-router-dom'
@@ -27,18 +27,16 @@ class Home extends React.Component {
 
   render() {
     const {isFetching, tasks} = this.props;
-    return (<ProtectedPage>
-      <div className="container-emo">
-        <Header title='TODO'/>
-        <div>Home    <button onClick={this.props.fetchTasks}>Fetch tasks</button>
-          <button onClick={this.logout}>Logout</button>
-          {
-            (isFetching && !tasks.length) ?
-              <LoadingWidget /> : <TaskList/>
-          }
-        </div>
+    return (<ThemedProtectedPage>
+      <Header title='TODO'/>
+      <div>Home    <button onClick={this.props.fetchTasks}>Fetch tasks</button>
+        <button onClick={this.logout}>Logout</button>
+        {
+          (isFetching && !tasks.length) ?
+            <LoadingWidget /> : <TaskList/>
+        }
       </div>
-    </ProtectedPage>)
+    </ThemedProtectedPage>)
   }
 }
 
