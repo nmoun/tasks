@@ -7,7 +7,7 @@ import {withRouter} from 'react-router-dom'
 import {fetchTasks} from 'actions/tasks'
 import {getTasks, getIsFetching} from 'reducers'
 import { connect } from 'react-redux'
-import LoadingWidget from 'components/LoadingWidget'
+import LoadingWidget from 'components/widgets/LoadingWidget'
 
 class Home extends React.Component {
 

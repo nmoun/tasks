@@ -58,3 +58,26 @@ export function isLoggedIn(){
   const idToken = localStorage.getItem(JWT_TOKEN);
   return !!idToken && !isTokenExpired(idToken);
 }
+
+export function register(username, email, password, passwordConf){
+  let bodyReq = {
+    username,
+    email,
+    password,
+    passwordConf
+  }
+
+  return fetch('/api/register', {
+    method: 'post',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(bodyReq)
+  }).then(function(res) {
+    console.log('response status: ' + res.status)
+    res
+      .json()
+      .then((responseJson) => console.log('server response: ' + JSON.stringify(responseJson)))
+  });
+}

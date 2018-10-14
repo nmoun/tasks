@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 import {getTasks} from 'reducers'
-import TaskWidget from 'components/TaskWidget'
+import TaskWidget from 'components/widgets/TaskWidget'
 import React from 'react'
 
 class WidgetList extends React.Component{
