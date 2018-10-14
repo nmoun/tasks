@@ -1,9 +1,7 @@
-import {connect} from 'react-redux'
-import {getTasks} from 'reducers'
 import TaskWidget from 'components/widgets/TaskWidget'
 import React from 'react'
 
-class WidgetList extends React.Component{
+export default class WidgetList extends React.Component{
   constructor(props){
     super(props)
   }
@@ -19,11 +17,3 @@ class WidgetList extends React.Component{
     </div>
   }
 }
-
-const mapStateToProps = (state) => ({
-  tasks: getTasks(state),
-})
-
-export default connect(
-  mapStateToProps,
-)(WidgetList)
