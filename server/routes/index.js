@@ -76,6 +76,6 @@ router.get('/api/authRequired', passport.authenticate('jwt', {session: false}), 
   res.send({'message': 'protected message'})
 })
 
-router.use('/api/tasks', taskRouter);
+router.use('/api/tasks', passport.authenticate('jwt', {session: false}), taskRouter);
 
 module.exports = router;

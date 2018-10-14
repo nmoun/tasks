@@ -1,28 +1,14 @@
 const router = require('express').Router();
-const passport = require('passport')
+const Task = require('../models/tasks')
 
-const tasks = [
-  {
-    id: 987,
-    title: "Order task 1",
-    type: "order"
-  },
-  {
-    id: 9787,
-    title: "Order task 2",
-    type: "order"
-  },
-  {
-    id: 55987,
-    title: "Reception task 4",
-    type: "reception"
-  }
-]
+router.get('/',  (req, res) => {
+  Task.find((err, result) => {
+    if(err){
+      console.log("error: "+ err)
+    }
 
-router.get('/', passport.authenticate('jwt', {session: false}), (req, res) => {
-  setTimeout(() => {
-    res.send(tasks)
-  }, 300);
+    res.send(result)
+  })
 })
 
 module.exports = router

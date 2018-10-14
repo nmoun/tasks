@@ -6,12 +6,6 @@ import Home from 'screens/Home';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 function MainRouter(){
-  let adrsrs = [];
-  for(let module in modules){
-    console.log("module: "+ module.URL)
-  }
-
-
   return <Router>
     <Switch>
       <Route path="/order" component={modules.Order} />
