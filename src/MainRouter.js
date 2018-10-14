@@ -1,16 +1,21 @@
 import React from 'react'
-import Order from 'modules/Order'
-import Reception from 'modules/Reception'
-import Register from 'modules/Register';
-import Login from 'modules/Login';
-import Home from 'modules/Home';
+import * as modules from 'screens/modules'
+import Register from 'screens/Register';
+import Login from 'screens/Login';
+import Home from 'screens/Home';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 function MainRouter(){
+  let adrsrs = [];
+  for(let module in modules){
+    console.log("module: "+ module.URL)
+  }
+
+
   return <Router>
     <Switch>
-      <Route path="/order" component={Order} />
-      <Route path="/reception" component={Reception} />
+      <Route path="/order" component={modules.Order} />
+      <Route path="/reception" component={modules.Reception} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
       <Route path="/" component={Home} />

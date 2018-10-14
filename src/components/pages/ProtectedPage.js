@@ -1,6 +1,6 @@
 import React from 'react'
 import { isLoggedIn } from 'service/AuthService'
-import Welcome from 'modules/Welcome'
+import Welcome from 'screens/Welcome'
 
 class ProtectedPage extends React.Component {
 
