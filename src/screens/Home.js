@@ -1,13 +1,14 @@
 import React from 'react'
-import {logout} from 'service/AuthService'
+import { logout } from 'service/AuthService'
 import ThemedProtectedPage from 'components/pages/ThemedProtectedPage'
 import TaskList from 'containers/TaskList'
 import Header from 'components/Header'
-import {withRouter} from 'react-router-dom'
-import {fetchTasks} from 'actions/tasks'
-import {getTasks, getIsFetching} from 'reducers'
+import { withRouter } from 'react-router-dom'
+import { fetchTasks } from 'actions/tasks'
+import { getTasks, getIsFetching } from 'reducers'
 import { connect } from 'react-redux'
 import LoadingWidget from 'components/widgets/LoadingWidget'
+import SidePanel from 'components/SidePanel'
 
 class Home extends React.Component {
 
@@ -15,29 +16,59 @@ class Home extends React.Component {
     super()
     this.state = {
       dummy: "",
+      isDisplayedSidePanel: false
     }
     this.logout = this.logout.bind(this)
+    this.displaySidePanel = this.displaySidePanel.bind(this)
+  }
+
+  displaySidePanel() {
+    this.setState({
+      isDisplayedSidePanel: !this.state.isDisplayedSidePanel,
+    });
   }
 
   logout() {
     logout().then(() => {
-      this.setState({dummy: ""})
+      this.setState({ dummy: "" })
     })
   }
 
   render() {
-    const {isFetching, tasks} = this.props;
+    const { isFetching, tasks } = this.props;
+    const leftIcon = this.state.isDisplayedSidePanel ? Header.ICONS.BACK : Header.ICONS.MENU;
     return (<ThemedProtectedPage>
-      <Header title='TODO'/>
-      <div>Home    <button onClick={this.props.fetchTasks}>Fetch tasks</button>
-        <button onClick={this.logout}>Logout</button>
+      <Header
+        title='TODO'
+        leftIcon={leftIcon}
+        onLeftClick={this.displaySidePanel}
+        rightText="Fetch tasks"
+        onRightClick={this.props.fetchTasks} />
+      <AppSidePanel
+        logout={this.logout}
+        isDisplayed={this.state.isDisplayedSidePanel} />
+      <div>
         {
           (isFetching && !tasks.length) ?
-            <LoadingWidget /> : <TaskList/>
+            <LoadingWidget /> : <TaskList />
         }
       </div>
     </ThemedProtectedPage>)
   }
+}
+
+function AppSidePanel(props) {
+  let entries = [
+    {
+      entryId: 1,
+      entryLabel: "Logout",
+      onEntryClick: props.logout
+    }
+  ]
+
+  let newProps = { ...props, entries }
+
+  return <SidePanel {...newProps} />
 }
 
 const mapStateToProps = (state) => ({
@@ -47,5 +78,5 @@ const mapStateToProps = (state) => ({
 
 export default withRouter(connect(
   mapStateToProps,
-  {fetchTasks}
+  { fetchTasks }
 )(Home))

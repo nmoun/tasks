@@ -31,7 +31,7 @@ class Login extends React.Component {
       />
     else
       return (
-        <div className="container-fluid">
+        <div className="container-all">
           <div className="container d-flex flex-column justify-content-center align-items-center">
             <input className="p-2" id="username" name="username" type="username" ref={el => {this.username = el}} placeholder="Username"/>
             <input className="p-2" id="password" name="password" type="password" ref={el => {this.password = el}} placeholder="Password"/>

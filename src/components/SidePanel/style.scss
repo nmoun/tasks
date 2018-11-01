@@ -1,0 +1,43 @@
+
+@import "scss/variables.scss";
+
+.side-panel-container {
+  position: relative;
+}
+
+.side-panel {
+  -webkit-transition: left 200ms cubic-bezier(0.19, 1, 0.22, 1);
+  transition: left 200ms cubic-bezier(0.19, 1, 0.22, 1); 
+  left: 0;
+  position: absolute;
+  width: 100%;
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+  z-index: 1000;
+  background-color: var(--primary-bg);
+}
+
+.side-panel.hide {
+  -webkit-transition: left 200ms cubic-bezier(0.19, 1, 0.22, 1);
+  transition: left 200ms cubic-bezier(0.19, 1, 0.22, 1); 
+  left: -100%;
+  overflow: hidden;
+}
+
+ul.entries {
+  padding: 0 !important;
+  display: block;
+  width: 100%;
+}
+
+li.entry {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 40px;
+  padding-left: 20px;
+  border-bottom: solid 1px var(--primary-border);
+  width: 100%;
+  font-family: $font-family-app;
+  color: var(--primary-color);
+}

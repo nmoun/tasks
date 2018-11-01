@@ -6,7 +6,7 @@ import ThemedButton from 'components/buttons/ThemedButton'
 import "scss/custom.scss";
 
 function Welcome() {
-  return (<div className="container-fluid">
+  return (<div className="container-all">
     <div className="d-flex flex-column justify-content-center" style={{ height: '40vh', overflow: 'hidden' }}>
       <img src={logo} className="App-logo" alt="circle" />
     </div>
