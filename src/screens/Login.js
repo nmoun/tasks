@@ -1,6 +1,7 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { authenticate, isLoggedIn } from 'service/AuthService'
+import ThemedButton from 'components/buttons/ThemedButton'
 
 import "scss/custom.scss";
 
@@ -30,16 +31,14 @@ class Login extends React.Component {
       />
     else
       return (
-        <div className="container-emo">
-          <form onSubmit={this.handleSubmit}>
-            <label htmlFor="username">Username</label>
-            <input id="username" name="username" type="username" ref={el => {this.username = el}}/>
-
-            <label htmlFor="password">Password</label>
-            <input id="password" name="password" type="password" ref={el => {this.password = el}}/>
-
-            <button>Send</button>
-          </form>
+        <div className="container-fluid">
+          <div className="container d-flex flex-column justify-content-center align-items-center">
+            <input className="p-2" id="username" name="username" type="username" ref={el => {this.username = el}} placeholder="Username"/>
+            <input className="p-2" id="password" name="password" type="password" ref={el => {this.password = el}} placeholder="Password"/>
+            <div className="p-2">
+              <ThemedButton text="Send" onClick={this.handleSubmit}/>
+            </div>
+          </div>
         </div>
       );
   }

@@ -1,13 +1,28 @@
 
 @import "variables.scss";
 
-.container-emo{
+:root {
+  --primary-bg: #{$primary-bg};
+  --primary-color: #{$primary-color};
+  --primary-border: #{$primary-border};
+}
+
+.container-fluid {
   min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
   min-height: 100vh; /* These two lines are counted as one :-)       */
   background-image: url('../assets/background.svg');
   display: flex;
   flex-direction: column;
   background-size: 40px;
+}
+
+.container{
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+}
+
+.themed-container {
+  background-color: var(--primary-bg);
 }
 
 .App-logo {

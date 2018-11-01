@@ -1,7 +1,7 @@
 import React from 'react'
 
 const ThemedPage = function(props){
-  return (<div className="container-emo">
+  return (<div className="container-fluid">
     {props.children}
   </div>)
 }
