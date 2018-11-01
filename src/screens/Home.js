@@ -42,7 +42,7 @@ class Home extends React.Component {
         title='TODO'
         leftIcon={leftIcon}
         onLeftClick={this.displaySidePanel}
-        rightText="Fetch tasks"
+        rightText="Reload"
         onRightClick={this.props.fetchTasks} />
       <AppSidePanel
         logout={this.logout}

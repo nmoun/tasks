@@ -1,11 +1,19 @@
 import React from 'react'
+import Header from 'components/Header'
+import ThemedProtectedPage from 'components/pages/ThemedProtectedPage'
+import {withRouter} from 'react-router-dom'
 
-export class Order extends React.Component{
-  constructor(props){
-    super(props)
+///
+function Order(props){
+  let {history} = props;
+  let goBack = () => {
+    history.goBack();
   }
-
-  render(){
-    return <div className="text-white">Order</div>
-  }
+  return <ThemedProtectedPage>
+    <Header title="Order" leftIcon={Header.ICONS.BACK} onLeftClick={goBack}/>
+  </ThemedProtectedPage>
 }
+
+Order = withRouter(Order)
+
+export {Order}

@@ -10,14 +10,14 @@ function Header(props){
   let classLeft = 'header-left' + (props.leftIcon ? ' ' + props.leftIcon : '');
 
   return <div className='header'>
-    <div className={classLeft} onClick={props.onLeftClick}>
+    <a className={classLeft} onClick={props.onLeftClick}>
       <span>{props.leftText}</span>
-    </div>
+    </a>
     <div className='headerTitle'>
       <span className='text-white'>{props.title}</span>
     </div>
     <div className='header-right' onClick={props.onRightClick}>
-      <span>{props.rightText}</span>
+      <a>{props.rightText}</a>
     </div>
   </div>
 }
