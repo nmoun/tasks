@@ -1,8 +1,8 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path')
 
 module.exports = {
   entry: './src/index.js',
-  devtool: 'source-map',
   resolve: {
     modules: ['node_modules', 'src']
   },
@@ -64,10 +64,8 @@ module.exports = {
       file: './index.html'
     })
   ],
-  devServer: {
-    proxy: {
-      "/api": "http://localhost:3000"
-    },
-    overlay: true
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, '../dist')
   }
 };
