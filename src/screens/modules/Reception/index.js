@@ -15,4 +15,4 @@ function Reception(props){
 
 Reception = withRouter(Reception)
 
-export {Reception}
+export default Reception

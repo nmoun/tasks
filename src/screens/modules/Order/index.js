@@ -3,7 +3,6 @@ import Header from 'components/Header'
 import ThemedProtectedPage from 'components/pages/ThemedProtectedPage'
 import {withRouter} from 'react-router-dom'
 
-///
 function Order(props){
   let {history} = props;
   let goBack = () => {
@@ -16,4 +15,4 @@ function Order(props){
 
 Order = withRouter(Order)
 
-export {Order}
+export default Order

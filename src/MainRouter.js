@@ -1,5 +1,5 @@
 import React from 'react'
-import * as modules from 'screens/modules'
+import Modules from 'screens/modules'
 import Register from 'screens/Register';
 import Login from 'screens/Login';
 import Home from 'screens/Home';
@@ -8,8 +8,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 function MainRouter(){
   return <Router>
     <Switch>
-      <Route path="/order" component={modules.Order} />
-      <Route path="/reception" component={modules.Reception} />
+      <Route path="/modules" component={Modules} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
       <Route path="/" component={Home} />
