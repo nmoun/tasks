@@ -11,6 +11,8 @@ const byId =  function(state = {}, action) {
         id: el.id,
         title: el.title,
         type: el.type,
+        header: el.header,
+        content: el.content
       }
     });
     return newState
@@ -54,6 +56,13 @@ export default combineReducers({
 export const getTasks = function(state){
   return state.tasks.allIds.map((id) => {
     return state.tasks.byId[id]
+  });
+}
+
+export const getTask = function(state, fetchedTaskId){
+  return state.tasks.allIds.map((id) => {
+    if(id === fetchedTaskId)
+      return state.tasks.byId[id]
   });
 }
 

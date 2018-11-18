@@ -12,4 +12,3 @@ export const configureStore = () => {
   let store = createStore(reducer, applyMiddleware(...middlewares))
   return store
 } 
-
