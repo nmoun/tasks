@@ -16,6 +16,9 @@ var TaskSchema = new mongoose.Schema({
   type: {
     type: String,
     required: true,
+  },
+  header: {
+    type: Object
   }
 });
 

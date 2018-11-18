@@ -6,6 +6,11 @@ export default combineReducers({
   tasks,
 })
 
+export const getTask = function(state, taskId){
+  console.log("getTask selector: " + JSON.stringify(taskId))
+  return fromTasks.getTask(state.tasks, taskId)
+}
+
 export const getTasks = function(state){
   return fromTasks.getTasks(state.tasks)
 }

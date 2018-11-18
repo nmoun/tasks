@@ -59,11 +59,12 @@ export const getTasks = function(state){
   });
 }
 
-export const getTask = function(state, fetchedTaskId){
-  return state.tasks.allIds.map((id) => {
-    if(id === fetchedTaskId)
-      return state.tasks.byId[id]
-  });
+export const getTask = function(state, taskId){
+  return state.tasks.allIds.filter((id) => {
+    return id === taskId
+  }).map((id) => {
+    return state.tasks.byId[id]
+  })[0];
 }
 
 export const getIsFetching = function(state){
