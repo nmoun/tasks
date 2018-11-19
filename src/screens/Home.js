@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom'
 import { fetchTasks } from 'actions/tasks'
 import { getTasks, getIsFetching } from 'reducers'
 import { connect } from 'react-redux'
-import LoadingWidget from 'components/widgets/LoadingWidget'
+import LoadingList from 'components/LoadingList'
 import SidePanel from 'components/SidePanel'
 
 class Home extends React.Component {
@@ -50,7 +50,7 @@ class Home extends React.Component {
       <div>
         {
           (isFetching && !tasks.length) ?
-            <LoadingWidget /> : <TaskList />
+            <LoadingList /> : <TaskList />
         }
       </div>
     </ThemedProtectedPage>)
