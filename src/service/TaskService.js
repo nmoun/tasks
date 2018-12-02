@@ -1,5 +1,4 @@
 import {JWT_TOKEN} from 'utils/constants'
-import {Promise} from 'es6-promise'
 
 export function fetchTasks() {
   // var p = new Promise(function(resolve, reject) {

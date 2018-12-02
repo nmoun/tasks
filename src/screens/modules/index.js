@@ -1,8 +1,13 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-
-import Order from './Order'
+import Loadable from 'react-loadable'
+// import Order from './Order'
 import Reception from './Reception'
+
+const Order = Loadable({
+  loader: () => import('./Order'),
+  loading: function(){ return <div>Loading module...</div>},
+});
 
 /**
  * Contains routes to all the business modules

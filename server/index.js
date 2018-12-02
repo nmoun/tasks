@@ -31,6 +31,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
 
+app.use('/', (req, res, next) => {
+  console.log('request received')
+  next()
+})
+
 app.use(express.static(path.resolve(__dirname, "../dist")));
 
 app.use('/', routes)
