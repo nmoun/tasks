@@ -12,7 +12,10 @@
 }
 
 .header-left {
-  margin-right: auto;
+  left: 0;
+  position: absolute;
+  width: 40px;
+  height: 40px;
 }
 
 .header-icon-menu {
@@ -20,8 +23,6 @@
   background-size: 25px; 
   background-repeat: no-repeat;
   background-position: center;
-  height: 40px;
-  width: 40px;
 }
 
 .header-icon-back {
@@ -29,8 +30,6 @@
   background-size: 25px; 
   background-repeat: no-repeat;
   background-position: center;
-  height: 40px;
-  width: 40px;
 }
 
 .header-title {
@@ -40,6 +39,7 @@
 }
 
 .header-right {
-  margin-left: auto;
+  position: absolute;
   margin-right: 10px;
+  right: 0;
 }

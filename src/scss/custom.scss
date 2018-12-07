@@ -28,6 +28,10 @@ a {
   min-height: 100vh; /* These two lines are counted as one :-)       */
 }
 
+.clickable:hover {
+  cursor: pointer;
+}
+
 .themed-container {
   background-color: var(--primary-bg);
 }

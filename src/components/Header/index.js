@@ -7,17 +7,17 @@ import './style.scss'
  * @param {string} leftIcon - possible values in Header.ICONS
  */
 function Header(props){
-  let classLeft = 'header-left' + (props.leftIcon ? ' ' + props.leftIcon : '');
+  let classLeft = 'header-left clickable' + (props.leftIcon ? ' ' + props.leftIcon : '');
 
   return <div className='header'>
-    <a className={classLeft} onClick={props.onLeftClick}>
+    <div className={classLeft} onClick={props.onLeftClick}>
       <span>{props.leftText}</span>
-    </a>
-    <div className='headerTitle'>
+    </div>
+    <div className='header-title'>
       <span className='text-white'>{props.title}</span>
     </div>
-    <div className='header-right' onClick={props.onRightClick}>
-      <a>{props.rightText}</a>
+    <div className='header-right clickable' onClick={props.onRightClick}>
+      <span>{props.rightText}</span>
     </div>
   </div>
 }
