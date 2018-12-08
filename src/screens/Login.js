@@ -2,6 +2,7 @@ import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { authenticate, isLoggedIn } from 'service/AuthService'
 import ThemedButton from 'components/buttons/ThemedButton'
+import Error from 'components/Error'
 
 import "scss/custom.scss";
 
@@ -20,11 +21,15 @@ class Login extends React.Component {
           this.setState({ redirectToReferrer: true })
         }
       })
+      .catch((err) => {
+        console.log("err: " + err)
+        this.setState({err: "Wrong credentials"}) // TODO display error
+      })
   }
 
   render() {
     const from = this.props.location.state ? this.props.location.state.from : { pathname: '/' }
-    const { redirectToReferrer } = this.state;
+    const { redirectToReferrer, err } = this.state;
     if (redirectToReferrer)
       return <Redirect
         to={from}
@@ -38,6 +43,7 @@ class Login extends React.Component {
             <div className="p-2">
               <ThemedButton text="Send" onClick={this.handleSubmit}/>
             </div>
+            {err && <Error message={err} /> }
           </div>
         </div>
       );

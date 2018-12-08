@@ -1,19 +1,43 @@
 import React from 'react'
 import { register } from 'service/AuthService'
 import ThemedButton from 'components/buttons/ThemedButton'
+import Error from 'components/Error'
+import { Redirect } from 'react-router-dom'
 
 class Register extends React.Component {
   constructor() {
     super();
+    this.state = {}
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(event) {
+    var comp = this
     event.preventDefault();
     register(this.username.value, this.email.value, this.password.value, this.passwordConf.value)
+      .then((response) => {
+        if(response.status === 200){
+          comp.setState({registered: true})
+        } 
+        response
+          .json()
+          .then((responseJson) => {
+            comp.setState({errorMessage: responseJson.message})
+          })
+      })
+      .catch((err) => {
+        console.log("err: " + err)
+        comp.setState({errorMessage: err.message})
+      })
   }
 
   render() {
+    const { registered, errorMessage } = this.state
+
+    if(registered === true){
+      return <Redirect to="/" />
+    }
+
     return (<div className="container-all">
       <div className="container d-flex flex-column justify-content-center align-items-center">
         <input className="p-2" id="username" name="username" type="text" ref={el => { this.username = el }} placeholder="Username" />
@@ -23,6 +47,7 @@ class Register extends React.Component {
         <div className="p-2">
           <ThemedButton text="Send" onClick={this.handleSubmit} />
         </div>
+        { errorMessage && <Error message={errorMessage} /> } 
       </div>
     </div>
     );

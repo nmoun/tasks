@@ -74,10 +74,5 @@ export function register(username, email, password, passwordConf){
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(bodyReq)
-  }).then(function(res) {
-    console.log('response status: ' + res.status)
-    res
-      .json()
-      .then((responseJson) => console.log('server response: ' + JSON.stringify(responseJson)))
-  });
+  })
 }
