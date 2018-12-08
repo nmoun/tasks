@@ -34,20 +34,27 @@ router.post('/register', function(req, res, next) {
 });
 
 router.post('/login', function(req, res, next){
+
+  if(!req.body.username || !req.body.password){
+    return res.status(400).json({
+      message: 'Mandatory credentials',
+    });
+  }
+
   passport.authenticate('local', { session: false }, (err, user, info) => {
     // custom callback to handle authentication
-
     if (err || !user) {
       return res.status(400).json({
-        message: 'Something is not right',
-        user: user
+        message: 'Wrong credentials'
       });
     }
 
     console.log('/api/login, typeof user: ' + typeof user)
     req.login(user, { session: false }, (err) => {
       if (err) {
-        res.send(err);
+        return res.status(400).json({
+          message: 'Wrong credentials',
+        });
       }
 
       // generate a signed son web token with the contents of user object and return it in the response

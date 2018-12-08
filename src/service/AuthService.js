@@ -27,15 +27,18 @@ export function authenticate(username, password) {
     },
     body: JSON.stringify(data),
     credentials: 'same-origin'
-  }).then((res) => {
-    if (res.status === 200) {
-      console.log("login success")
-      // this.isAuthenticated = true;
-      return res.json();
-    }
-  }).then(data => {
-    localStorage.setItem(JWT_TOKEN, data.token)
-  });
+  })
+    .then((res) => {
+      if (res.status === 200) {
+        console.log("login success")
+        res
+          .json()
+          .then((data) => {
+            localStorage.setItem(JWT_TOKEN, data.token)
+          });
+      }
+      return res
+    })
 };
 
 export function logout() {

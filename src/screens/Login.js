@@ -15,21 +15,35 @@ class Login extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+
+    if(!this.username.value || !this.password.value){
+      this.setState({errorMessage: "Mandatory credentials"})
+      return;
+    }
+
     authenticate(this.username.value, this.password.value)
-      .then(() => {
+      .then((response) => {
+        if(response.status === 400){
+          response
+            .json()
+            .then((responseJson) => {
+              this.setState({errorMessage: responseJson.message})
+            })
+        } 
+
         if (isLoggedIn()) {
           this.setState({ redirectToReferrer: true })
         }
       })
       .catch((err) => {
         console.log("err: " + err)
-        this.setState({err: "Wrong credentials"}) // TODO display error
+        this.setState({errorMessage: err.message}) 
       })
   }
 
   render() {
     const from = this.props.location.state ? this.props.location.state.from : { pathname: '/' }
-    const { redirectToReferrer, err } = this.state;
+    const { redirectToReferrer, errorMessage } = this.state;
     if (redirectToReferrer)
       return <Redirect
         to={from}
@@ -43,7 +57,7 @@ class Login extends React.Component {
             <div className="p-2">
               <ThemedButton text="Send" onClick={this.handleSubmit}/>
             </div>
-            {err && <Error message={err} /> }
+            <Error message={errorMessage} />
           </div>
         </div>
       );

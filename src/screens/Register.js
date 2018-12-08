@@ -18,12 +18,13 @@ class Register extends React.Component {
       .then((response) => {
         if(response.status === 200){
           comp.setState({registered: true})
-        } 
-        response
-          .json()
-          .then((responseJson) => {
-            comp.setState({errorMessage: responseJson.message})
-          })
+        } else {
+          response
+            .json()
+            .then((responseJson) => {
+              comp.setState({errorMessage: responseJson.message})
+            })
+        }
       })
       .catch((err) => {
         console.log("err: " + err)
@@ -47,7 +48,7 @@ class Register extends React.Component {
         <div className="p-2">
           <ThemedButton text="Send" onClick={this.handleSubmit} />
         </div>
-        { errorMessage && <Error message={errorMessage} /> } 
+        <Error message={errorMessage} />
       </div>
     </div>
     );
