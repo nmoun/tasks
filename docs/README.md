@@ -11,7 +11,7 @@ npm run build
 npm run launch
 
 # Screenshots
-![alt text](/test.gif)
+![alt text](/docs/test.gif)
 
 # TODO
 language settings
