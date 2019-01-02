@@ -1,14 +1,18 @@
-<h1>Launching</h1>
-<p>Launch mongo daemon at url specified in .env file</p>
-<h2>DEV</h2>
-<p>npm i</p>
-<p>npm run start</p>
-<h2>PROD</h2>
-<p>npm i</p>
-<p>npm run build</p>
-<p>npm run launch</p>
-<h1>Screenshots</h1>
-![alt text](test.gif)
-<h1>TODO</h1>
+# Launching
+Launch mongo daemon at url specified in .env file
+
+## DEV
+npm i
+npm run start
+
+## PROD
+npm i
+npm run build
+npm run launch
+
+# Screenshots
+![alt text](/test.gif)
+
+# TODO
 language settings
 auth0?
