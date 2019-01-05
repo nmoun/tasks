@@ -2,17 +2,17 @@
 Launch mongo daemon at url specified in .env file
 
 ## DEV
-npm i
+npm i<br/>
 npm run start
 
 ## PROD
-npm i
-npm run build
+npm i<br/>
+npm run build<br/>
 npm run launch
 
 # Screenshots
 ![alt text](/docs/test.gif)
 
 # TODO
-language settings
+language settings<br/>
 auth0?
