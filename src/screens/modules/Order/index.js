@@ -2,17 +2,29 @@ import React from 'react'
 import Header from 'components/Header'
 import ThemedProtectedPage from 'components/pages/ThemedProtectedPage'
 import {withRouter} from 'react-router-dom'
+import { connect } from 'react-redux'
+import { getTask } from 'reducers'
 
-function Order(props){
-  let {history} = props;
-  let goBack = () => {
-    history.goBack();
+class Order extends React.Component{
+  constructor(props){
+    super(props)
   }
-  return <ThemedProtectedPage>
-    <Header title="Order" leftIcon={Header.ICONS.BACK} onLeftClick={goBack}/>
-  </ThemedProtectedPage>
+
+  render(){
+    let {history} = this.props;
+    let goBack = () => {
+      history.goBack();
+    }
+    return <ThemedProtectedPage>
+      <Header title={this.props.task.title} leftIcon={Header.ICONS.BACK} onLeftClick={goBack}/>
+    </ThemedProtectedPage>
+  }
 }
 
-Order = withRouter(Order)
+const mapStateToProps = (state, props) => ({
+  task: getTask(state, props.match.params.id),
+})
 
-export default Order
+export default withRouter(connect(
+  mapStateToProps,
+)(Order))

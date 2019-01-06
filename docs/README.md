@@ -1,3 +1,6 @@
+# Description
+Testing stuff
+
 # Launching
 Launch mongo daemon at url specified in .env file
 
@@ -14,5 +17,6 @@ npm run launch
 ![alt text](/docs/test.gif)
 
 # TODO
+articles (service mockup & client)<br/>
 language settings<br/>
 auth0?
