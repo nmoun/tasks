@@ -1,0 +1,27 @@
+
+@import "scss/variables.scss";
+
+.article-cell {
+  height: 70px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: $font-family;
+  background-color: $secondary-bg;
+  color: $secondary-color;
+}
+
+.article-cell-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 10px 0 0 10px;
+}
+
+.article-cell-description {
+  font-size: 1em;
+}
+
+.article-cell-composition {
+  font-size: 0.75em;
+}

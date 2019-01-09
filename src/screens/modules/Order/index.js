@@ -1,30 +1,11 @@
 import React from 'react'
-import Header from 'components/Header'
-import ThemedPage from 'components/pages/ThemedPage'
-import {withRouter} from 'react-router-dom'
-import { connect } from 'react-redux'
-import { getTask } from 'reducers'
+import {Route, withRouter} from 'react-router-dom'
+import OrderArticleList from './OrderArticleList';
 
-class Order extends React.Component{
-  constructor(props){
-    super(props)
-  }
-
-  render(){
-    let {history} = this.props;
-    let goBack = () => {
-      history.goBack();
-    }
-    return <ThemedPage>
-      <Header title={this.props.task.title} leftIcon={Header.ICONS.BACK} onLeftClick={goBack}/>
-    </ThemedPage>
-  }
+function Order(props){
+  return <React.Fragment>
+    <Route path={props.match.path + "/:id"} exact component={OrderArticleList} />
+  </React.Fragment>
 }
 
-const mapStateToProps = (state, props) => ({
-  task: getTask(state, props.match.params.id),
-})
-
-export default withRouter(connect(
-  mapStateToProps,
-)(Order))
+export default withRouter(Order)

@@ -2,6 +2,7 @@ import React from 'react'
 import Loadable from 'react-loadable'
 import withAuthentication from 'enhancers/withAuthentication'
 import Reception from 'screens/modules/Reception'
+import Order from 'screens/modules/Order'
 import Register from 'screens/Register';
 import Login from 'screens/Login';
 import Home from 'screens/Home';
@@ -21,15 +22,16 @@ const routes = [
     component: Register
   },
   {
-    path: "/modules/order/:id",
-    component: Loadable({
-      loader: () => import('screens/modules/Order'),
-      loading: function(){ return <div>Loading module...</div>},
-      render(loaded, props){
-        let Order = withAuthentication(loaded.default)
-        return <Order {...props} />
-      }
-    })
+    path: "/modules/order",
+    component: withAuthentication(Order)
+    // component: Loadable({
+    //   loader: () => import('screens/modules/Order'),
+    //   loading: function(){ return <div>Loading module...</div>},
+    //   render(loaded, props){
+    //     let Order = withAuthentication(loaded.default)
+    //     return <Order {...props} />
+    //   }
+    // })
   },
   {
     path: "/modules/reception/:id",

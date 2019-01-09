@@ -51,6 +51,8 @@ module.exports = {
             }
           }
         }, {
+          loader: 'resolve-url-loader'
+        }, {
           loader: 'sass-loader', // compiles Sass to CSS
           options:{
             sourceMap: true
@@ -58,7 +60,7 @@ module.exports = {
         }]
       },
       {
-        test: /\.(svg)$/,
+        test: /\.(svg|woff2)$/,
         loader: 'file-loader',
         options: {
           name: '[hash].[ext]'
