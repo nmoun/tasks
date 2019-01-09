@@ -1,7 +1,7 @@
 import React from 'react'
 import { logout } from 'service/AuthService'
 import ThemedPage from 'components/pages/ThemedPage'
-import TaskList from 'containers/TaskList'
+import TaskList from 'components/TaskList'
 import Header from 'components/Header'
 import { withRouter } from 'react-router-dom'
 import { fetchTasks } from 'actions/tasks'
@@ -38,7 +38,7 @@ class Home extends React.Component {
     const leftIcon = this.state.isDisplayedSidePanel ? Header.ICONS.BACK : Header.ICONS.MENU;
     return (<ThemedPage>
       <Header
-        title='TODO'
+        title='Tasks'
         leftIcon={leftIcon}
         onLeftClick={this.displaySidePanel}
         rightText="Reload"
@@ -49,7 +49,7 @@ class Home extends React.Component {
       <div>
         {
           (isFetching && !tasks.length) ?
-            <LoadingList /> : <TaskList />
+            <LoadingList /> : <TaskList tasks={tasks}/>
         }
       </div>
     </ThemedPage>)

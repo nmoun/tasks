@@ -1,6 +1,4 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {getTasks} from 'reducers'
 import TaskWidget from 'components/widgets/TaskWidget'
 
 function TaskList(props){
@@ -14,10 +12,4 @@ function TaskList(props){
   </div>
 }
 
-const mapStateToProps = (state) => ({
-  tasks: getTasks(state),
-})
-
-export default connect(
-  mapStateToProps,
-)(TaskList)
+export default TaskList
