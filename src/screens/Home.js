@@ -1,6 +1,6 @@
 import React from 'react'
 import { logout } from 'service/AuthService'
-import ThemedProtectedPage from 'components/pages/ThemedProtectedPage'
+import ThemedPage from 'components/pages/ThemedProtectedPage'
 import TaskList from 'containers/TaskList'
 import Header from 'components/Header'
 import { withRouter } from 'react-router-dom'
@@ -37,7 +37,7 @@ class Home extends React.Component {
   render() {
     const { isFetching, tasks } = this.props;
     const leftIcon = this.state.isDisplayedSidePanel ? Header.ICONS.BACK : Header.ICONS.MENU;
-    return (<ThemedProtectedPage>
+    return (<ThemedPage>
       <Header
         title='TODO'
         leftIcon={leftIcon}
@@ -53,7 +53,7 @@ class Home extends React.Component {
             <LoadingList /> : <TaskList />
         }
       </div>
-    </ThemedProtectedPage>)
+    </ThemedPage>)
   }
 }
 
