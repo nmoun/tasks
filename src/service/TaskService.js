@@ -22,8 +22,6 @@ export function fetchTasks() {
   // });
 
   // return p;
-
-
   return fetch('/api/tasks', {
     method: 'get',
     headers: {

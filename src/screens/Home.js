@@ -1,6 +1,6 @@
 import React from 'react'
 import { logout } from 'service/AuthService'
-import ThemedPage from 'components/pages/ThemedProtectedPage'
+import ThemedPage from 'components/pages/ThemedPage'
 import TaskList from 'containers/TaskList'
 import Header from 'components/Header'
 import { withRouter } from 'react-router-dom'
@@ -15,7 +15,6 @@ class Home extends React.Component {
   constructor() {
     super()
     this.state = {
-      dummy: "",
       isDisplayedSidePanel: false
     }
     this.logout = this.logout.bind(this)
@@ -30,7 +29,7 @@ class Home extends React.Component {
 
   logout() {
     logout().then(() => {
-      this.setState({ dummy: "" })
+      this.props.history.replace('/')
     })
   }
 

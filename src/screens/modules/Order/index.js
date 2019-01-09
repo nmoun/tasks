@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from 'components/Header'
-import ThemedPage from 'components/pages/ThemedProtectedPage'
+import ThemedPage from 'components/pages/ThemedPage'
 import {withRouter} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getTask } from 'reducers'

@@ -31,13 +31,15 @@ export function authenticate(username, password) {
     .then((res) => {
       if (res.status === 200) {
         console.log("login success")
-        res
-          .json()
-          .then((data) => {
-            localStorage.setItem(JWT_TOKEN, data.token)
-          });
+        return res.json()
       }
-      return res
+    })
+    .then((data) => {
+      if(data && data.token){
+        localStorage.setItem(JWT_TOKEN, data.token)
+        console.log('token saved')
+      }
+      return data
     })
 };
 
