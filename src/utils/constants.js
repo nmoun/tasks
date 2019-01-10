@@ -1,5 +1,9 @@
-// export const JWT_TOKEN = "JWT_TOKEN"
+// module.exports = "JWT_TOKEN"
 
-// export const DADA = "DADA"
+// export default {
+//   JWT_TOKEN: "JWT_TOKEN",
+//   STATE: "STATE",
+// }
 
-module.exports = "JWT_TOKEN"
+export const JWT_TOKEN = "JWT_TOKEN"
+export const STATE = "STATE"

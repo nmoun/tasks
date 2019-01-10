@@ -8,6 +8,7 @@ const byId =  function(state = {}, action) {
   case 'RECEIVE_TASKS':
     newState = {...state}
     action.tasks.forEach(task => {
+      // eslint-disable-next-line no-unused-vars
       let {content, ...rest} = task
       newState[task.id] = {...rest}
     });
