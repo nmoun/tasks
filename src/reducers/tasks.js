@@ -3,17 +3,13 @@ import {combineReducers} from 'redux'
 
 
 const byId =  function(state = {}, action) {
+  let newState;
   switch (action.type) {
   case 'RECEIVE_TASKS':
-    let newState = {...state}
-    action.tasks.forEach(el => {
-      newState[el.id] = {
-        id: el.id,
-        title: el.title,
-        type: el.type,
-        header: el.header,
-        content: el.content
-      }
+    newState = {...state}
+    action.tasks.forEach(task => {
+      let {content, ...rest} = task
+      newState[task.id] = {...rest}
     });
     return newState
   default:

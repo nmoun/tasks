@@ -5,12 +5,13 @@ import './style.scss'
 
 function ArticleCell(props){
 
-  function onChange(quantity){
-    if(props.onChangeValue)
+  function handleChange(quantity){
+    if(props.onChangeValue){
       props.onChangeValue(props.id, quantity)
+    }
   }
 
-  function onLeftClick(articleId){
+  function handleLeftClick(articleId){
     return function(){
       if(props.onLeftClick)
         props.onLeftClick(articleId)
@@ -18,12 +19,12 @@ function ArticleCell(props){
   }
 
   return <div className="article-cell">
-    <div className="article-cell-left" onClick={onLeftClick(props.id)}>
+    <div className="article-cell-left" onClick={handleLeftClick(props.id)}>
       <div><span className="article-cell-description">{props.description}</span></div>
       <div><span className="article-cell-composition">{props.composition}</span></div>
     </div>
     <div className="article-cell-right">
-      <QuantityBlock onChangeQuantity={onChange} quantity={props.quantity} name="quantity" id="quantity"/>
+      <QuantityBlock onChangeQuantity={handleChange} quantity={props.quantity} name="quantity" id="quantity"/>
     </div>
   </div>
 }

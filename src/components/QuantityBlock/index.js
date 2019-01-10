@@ -10,7 +10,9 @@ function QuantityBlock(props){
   }
 
   function handleChange(event){
-    props.onChangeQuantity(event.target.value)
+    if(props.onChangeQuantity){
+      props.onChangeQuantity(event.target.value)
+    }
   }
   return <div className="quantity-block" onClick={handleClick}>
     <input type="text" value={props.quantity} name="quantity" id="quantity" ref={textInput} onChange={handleChange}/>

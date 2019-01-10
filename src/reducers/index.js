@@ -1,9 +1,12 @@
 import { combineReducers } from 'redux'
 import tasks from './tasks'
 import * as fromTasks from './tasks'
+import articles from './articles'
+import * as fromArticles from './articles'
 
 export default combineReducers({
   tasks,
+  articles
 })
 
 export const getTask = function(state, taskId){
@@ -16,4 +19,8 @@ export const getTasks = function(state){
 
 export const getIsFetching = function(state){
   return fromTasks.getIsFetching(state.tasks)
+}
+
+export const getArticles = function(state, taskId){
+  return fromArticles.getArticles(state.articles, taskId)
 }

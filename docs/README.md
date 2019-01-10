@@ -17,6 +17,6 @@ npm run launch
 ![alt text](/docs/test.gif)
 
 # TODO
-articles (service mockup & client)<br/>
+normalizr<br/>
 language settings<br/>
 auth0?
