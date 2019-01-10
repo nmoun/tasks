@@ -13,11 +13,18 @@ const startFetching = () => {
   }
 }
 
+const stopFetching = () => {
+  return {
+    type: "STOP_FETCHING"
+  }
+}
+
 export const fetchTasks = function(){
   return function(dispatch){
     dispatch(startFetching());
     return api.fetchTasks().then((tasks) => {
       dispatch(receiveTasks(tasks))
+      dispatch(stopFetching());
     });
   };
 }

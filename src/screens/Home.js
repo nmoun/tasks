@@ -48,13 +48,22 @@ class Home extends React.Component {
         isDisplayed={this.state.isDisplayedSidePanel} />
       <div>
         {
-          (isFetching && !tasks.length) ?
-            <LoadingList /> : <TaskList tasks={tasks}/>
+          isFetching ? <LoadingList /> : <TaskList tasks={tasks}/>
         }
       </div>
     </ThemedPage>)
   }
 }
+
+const mapStateToProps = (state) => ({
+  tasks: getTasks(state),
+  isFetching: getIsFetching(state)
+})
+
+export default withRouter(connect(
+  mapStateToProps,
+  { fetchTasks }
+)(Home))
 
 function AppSidePanel(props) {
   let entries = [
@@ -69,13 +78,3 @@ function AppSidePanel(props) {
 
   return <SidePanel {...newProps} />
 }
-
-const mapStateToProps = (state) => ({
-  tasks: getTasks(state),
-  isFetching: getIsFetching(state)
-})
-
-export default withRouter(connect(
-  mapStateToProps,
-  { fetchTasks }
-)(Home))

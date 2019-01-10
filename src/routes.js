@@ -22,7 +22,7 @@ const routes = [
     component: Register
   },
   {
-    path: "/modules/order",
+    path: "/modules/order/:id",
     component: withAuthentication(Order)
     // component: Loadable({
     //   loader: () => import('screens/modules/Order'),

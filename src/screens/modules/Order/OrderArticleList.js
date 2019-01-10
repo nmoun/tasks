@@ -9,7 +9,6 @@ import { getTask } from 'reducers'
 class OrderArticleList extends React.Component{
   constructor(props){
     super(props)
-    console.log('OrderArticleList: ' + JSON.stringify(props.match))
   }
 
   render(){
@@ -27,7 +26,7 @@ class OrderArticleList extends React.Component{
 }
 
 const mapStateToProps = (state, props) => ({
-  task: getTask(state, props.match.params.id),
+  task: getTask(state, props.taskId),
 })
 
 export default withRouter(connect(
