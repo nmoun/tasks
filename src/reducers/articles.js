@@ -1,4 +1,5 @@
 import {combineReducers} from 'redux'
+import transaction from './transaction'
 
 const byId =  function(state = {}, action) {
   let newState;
@@ -44,16 +45,16 @@ const allIds = (state = {}, action) => {
   }
 }
 
-const articles = combineReducers({
+const articles = transaction(combineReducers({
   byId,
   allIds
-})
+}))
 
 export default articles
 
 export function getArticles(state, taskId){
-  return state.allIds[taskId] ?
-    state.allIds[taskId].map((joinId) => {
-      return state.byId[joinId]
+  return state.wip.allIds[taskId] ?
+    state.wip.allIds[taskId].map((joinId) => {
+      return state.wip.byId[joinId]
     }) : []
 }
