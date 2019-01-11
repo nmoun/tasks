@@ -18,6 +18,14 @@ var TaskSchema = new mongoose.Schema({
   },
   header: {
     type: Object
+  },
+  content: {
+    articles: [{
+      id: String,
+      description: String,
+      composition: String,
+      quantity: Number
+    }]
   }
 });
 

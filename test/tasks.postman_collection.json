@@ -1,0 +1,213 @@
+{
+	"info": {
+		"_postman_id": "8d0a2741-f2fa-489a-af61-687646dc715f",
+		"name": "tasks",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "creation/update task",
+			"item": [
+				{
+					"name": "http://localhost:3000/api/login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4d2b0b53-2206-48be-9615-5a5af18bb51f",
+								"exec": [
+									"const token = pm.response.json().token;",
+									"console.log('token: ' + token);",
+									"pm.environment.set(\"token\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"{{username}}\",\"password\": \"{{password}}\"}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/:task",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"Order\",\n\t\"type\": \"order\",\n\t\"content\": {\n\t\t\"articles\": [\n\t\t{\t\n\t\t\t\"id\": \"1\",\n\t\t\t\"description\": \"Coca 1.5L\",\n\t\t\t\"composition\": \"6x1.5L\",\n\t\t\t\"quantity\": \"10\"\n\t\t},\n\t\t{\t\n\t\t\t\"id\": \"2\",\n\t\t\t\"description\": \"Toblerone\",\n\t\t\t\"composition\": \"1SKU\",\n\t\t\t\"quantity\": \"10\"\n\t\t},\n\t\t{\t\n\t\t\t\"id\": \"3\",\n\t\t\t\"description\": \"Snickers\",\n\t\t\t\"composition\": \"1SKU\",\n\t\t\t\"quantity\": \"10\"\n\t\t},\n\t\t{\t\n\t\t\t\"id\": \"4\",\n\t\t\t\"description\": \"Ricola Citron\",\n\t\t\t\"composition\": \"5x1SKU\",\n\t\t\t\"quantity\": \"10\"\n\t\t},\n\t\t{\t\n\t\t\t\"id\": \"5\",\n\t\t\t\"description\": \"Samsung S7\",\n\t\t\t\"composition\": \"1SKU\",\n\t\t\t\"quantity\": \"10\"\n\t\t},\n\t\t{\n\t\t\t\"id\": \"6\",\n\t\t\t\"description\": \"Orangina 1.5L\",\n\t\t\t\"composition\": \"6x1.5L\",\n\t\t\t\"quantity\": \"10\"\n\t\t}]\n\t}\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/tasks/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"tasks",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "get tasks",
+			"item": [
+				{
+					"name": "http://localhost:3000/api/login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4d2b0b53-2206-48be-9615-5a5af18bb51f",
+								"exec": [
+									"const token = pm.response.json().token;",
+									"",
+									"console.log('token: ' + token);",
+									"",
+									"pm.environment.set(\"token\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"{{username}}\",\"password\": \"{{password}}\"}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:3000/api/tasks",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "9c93137a-16e1-4ef5-9588-1055b1e78b46",
+								"exec": [
+									"const token = pm.environment.get(\"token\");",
+									"console.log('token: ' + token)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "7be203f9-a86b-49ee-9671-3fa17a7c85d6",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body response is an array\", function () {\r",
+									"    var jsonData = pm.response.json()\r",
+									"     pm.expect(jsonData instanceof Array).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
