@@ -11,6 +11,16 @@ const db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', function() {
   // we're connected!
+  console.log('connected to database')
 })
 
-module.exports = db
+function handleError(err, res){
+  var msg = 'Error: ' + err.name + ": " + err.code
+  console.log(msg)
+  res.status(500).send(msg)
+}
+
+module.exports = {
+  db,
+  handleError
+}

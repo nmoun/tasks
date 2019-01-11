@@ -6,7 +6,67 @@
 	},
 	"item": [
 		{
-			"name": "creation/update task",
+			"name": "login",
+			"item": [
+				{
+					"name": "http://localhost:3000/api/login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4d2b0b53-2206-48be-9615-5a5af18bb51f",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"const token = pm.response.json().token;",
+									"",
+									"pm.test(\"token is a string\", function () {",
+									"    pm.expect(typeof token === \"string\").to.be.true;",
+									"});",
+									"",
+									"console.log('token: ' + token);",
+									"",
+									"pm.environment.set(\"token\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"{{username}}\",\"password\": \"{{password}}\"}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "create/update task",
 			"item": [
 				{
 					"name": "http://localhost:3000/api/login",
@@ -104,9 +164,7 @@
 								"id": "4d2b0b53-2206-48be-9615-5a5af18bb51f",
 								"exec": [
 									"const token = pm.response.json().token;",
-									"",
 									"console.log('token: ' + token);",
-									"",
 									"pm.environment.set(\"token\", token);"
 								],
 								"type": "text/javascript"
@@ -191,6 +249,115 @@
 						"body": {
 							"mode": "raw",
 							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "create task",
+			"item": [
+				{
+					"name": "http://localhost:3000/api/login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4d2b0b53-2206-48be-9615-5a5af18bb51f",
+								"exec": [
+									"const token = pm.response.json().token;",
+									"console.log('token: ' + token);",
+									"pm.environment.set(\"token\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"{{username}}\",\"password\": \"{{password}}\"}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/:task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "897e060b-18d7-4371-8b33-3fd48a3f6f98",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"const dataResponse = pm.response.json();",
+									"",
+									"pm.test(\"Response contains the new task\", function () {",
+									"    pm.expect(typeof dataResponse.id === \"string\").to.be.true;",
+									"    pm.expect(typeof dataResponse.title === \"string\").to.be.true;",
+									"    pm.expect(typeof dataResponse.content === \"object\").to.be.true;",
+									"    pm.expect(dataResponse.content.articles instanceof Array).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"Order\",\n\t\"type\": \"order\",\n\t\"content\": {\n\t\t\"articles\": [\n\t\t{\t\n\t\t\t\"id\": \"17\",\n\t\t\t\"description\": \"Coca 1.5L\",\n\t\t\t\"composition\": \"6x1.5L\",\n\t\t\t\"quantity\": \"10\"\n\t\t}]\n\t}\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/tasks",
