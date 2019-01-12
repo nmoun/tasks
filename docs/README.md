@@ -17,7 +17,8 @@ npm run launch
 ![alt text](/docs/test.gif)
 
 # TODO
-wip state or transaction system<br/>
+Test state management<br/>
+Simplifier état articles<br/>
 normalizr<br/>
 language settings<br/>
 auth0?

@@ -1,6 +1,6 @@
 import * as api from 'service/TaskService'
 
-const receiveTasks = (tasks) => {
+export const receiveTasks = (tasks) => {
   return {
     type: "RECEIVE_TASKS",
     tasks
