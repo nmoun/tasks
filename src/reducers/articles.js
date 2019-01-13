@@ -58,3 +58,7 @@ export function getArticles(state, taskId){
       return state.wip.byId[joinId]
     }) : []
 }
+
+export function hasChanges(state){
+  return state.wip !== state.current
+}

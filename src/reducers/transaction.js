@@ -28,13 +28,13 @@ function transaction(reducer){
     case 'START_TRANSACTION':
       return {
         current,
-        wip,
+        wip: current,
         runningTransaction: true
       }
     case 'STOP_TRANSACTION':
       return {
         current,
-        wip,
+        wip: current,
         runningTransaction: false
       }
     default:

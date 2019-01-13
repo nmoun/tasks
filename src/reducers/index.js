@@ -24,3 +24,7 @@ export const getIsFetching = function(state){
 export const getArticles = function(state, taskId){
   return fromArticles.getArticles(state.articles, taskId)
 }
+
+export const hasChanges = function(state){
+  return fromArticles.hasChanges(state.articles)
+}

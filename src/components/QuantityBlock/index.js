@@ -15,7 +15,7 @@ function QuantityBlock(props){
     }
   }
   return <div className="quantity-block" onClick={handleClick}>
-    <input type="text" value={props.quantity} name="quantity" id="quantity" ref={textInput} onChange={handleChange}/>
+    <input type="text" value={props.quantity} name="quantity" id="quantity" ref={textInput} onChange={handleChange} maxLength="4"/>
   </div>
 }
 

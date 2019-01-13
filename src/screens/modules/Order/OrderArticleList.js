@@ -4,7 +4,7 @@ import ThemedPage from 'components/pages/ThemedPage'
 import ArticleList from 'components/ArticleList'
 import {withRouter} from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getTask, getArticles } from 'reducers'
+import { getTask, getArticles, hasChanges } from 'reducers'
 import {updateQuantity} from 'actions/articles'
 import { discardChanges, saveChanges } from 'actions/transaction'
 import { openDialogConfirm, closeDialogConfirm } from 'components/dialogs/DialogConfirm'
@@ -22,20 +22,24 @@ class OrderArticleList extends React.Component{
   render(){
     let {history} = this.props;
     let goBack = () => {
-      openDialogConfirm({
-        isDismissible: true,
-        message: "Save changes?", 
-        handleYes: () => {
-          this.props.saveChanges()
-          closeDialogConfirm();
-          history.goBack();
-        }, 
-        handleNo: () => {
-          this.props.discardChanges()
-          closeDialogConfirm();
-          history.goBack();
-        }
-      })
+      if(!this.props.transactionHasChanges){
+        history.goBack();
+      } else {
+        openDialogConfirm({
+          isDismissible: true,
+          message: "Save changes?", 
+          handleYes: () => {
+            this.props.saveChanges()
+            closeDialogConfirm();
+            history.goBack();
+          }, 
+          handleNo: () => {
+            this.props.discardChanges()
+            closeDialogConfirm();
+            history.goBack();
+          }
+        })
+      }
     }
 
     return <ThemedPage>
@@ -49,7 +53,8 @@ class OrderArticleList extends React.Component{
 
 const mapStateToProps = (state, props) => ({
   task: getTask(state, props.taskId),
-  articles: getArticles(state, props.taskId)
+  articles: getArticles(state, props.taskId),
+  transactionHasChanges: hasChanges(state)
 })
 
 const mapDispatchToProps = {
