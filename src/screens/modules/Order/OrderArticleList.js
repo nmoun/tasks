@@ -6,6 +6,8 @@ import {withRouter} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getTask, getArticles } from 'reducers'
 import {updateQuantity} from 'actions/articles'
+import { discardChanges, saveChanges } from 'actions/transaction'
+import { openDialogConfirm, closeDialogConfirm } from 'components/dialogs/DialogConfirm'
 
 class OrderArticleList extends React.Component{
   constructor(props){
@@ -20,7 +22,20 @@ class OrderArticleList extends React.Component{
   render(){
     let {history} = this.props;
     let goBack = () => {
-      history.goBack();
+      openDialogConfirm({
+        isDismissible: true,
+        message: "Save changes?", 
+        handleYes: () => {
+          this.props.saveChanges()
+          closeDialogConfirm();
+          history.goBack();
+        }, 
+        handleNo: () => {
+          this.props.discardChanges()
+          closeDialogConfirm();
+          history.goBack();
+        }
+      })
     }
 
     return <ThemedPage>
@@ -38,7 +53,9 @@ const mapStateToProps = (state, props) => ({
 })
 
 const mapDispatchToProps = {
-  updateQuantity
+  updateQuantity,
+  discardChanges,
+  saveChanges
 }
 
 export default withRouter(connect(

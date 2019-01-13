@@ -1,6 +1,6 @@
 import React from 'react'
 import {Route, withRouter} from 'react-router-dom'
-import OrderArticleList from './OrderArticleList';
+import OrderArticleList from './OrderArticleList'
 
 function Order(props){
   let taskId = props.match.params.id

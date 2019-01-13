@@ -1,6 +1,6 @@
 import React from 'react'
-import {startTransaction, stopTransaction, discardChanges} from 'actions/transaction'
-import {connect} from 'react-redux'
+import { startTransaction, stopTransaction } from 'actions/transaction'
+import { connect } from 'react-redux'
 
 function withTransaction(WrappedComponent){
   class WithTransaction extends React.Component {
@@ -13,7 +13,6 @@ function withTransaction(WrappedComponent){
     }
 
     componentWillUnmount(){
-      this.props.discardChanges()
       this.props.stopTransaction()
     }
 
@@ -24,8 +23,7 @@ function withTransaction(WrappedComponent){
 
   const mapDispatchToProps = {
     startTransaction,
-    stopTransaction,
-    discardChanges,
+    stopTransaction
   }
 
   return connect(null, mapDispatchToProps)(WithTransaction)
