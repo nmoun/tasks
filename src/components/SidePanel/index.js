@@ -22,7 +22,7 @@ function SidePanel(props) {
 export default SidePanel
 
 function Entry(props) {
-  return <li className="entry" id={props.entryId} onClick={props.onEntryClick}>
+  return <li className="entry clickable" id={props.entryId} onClick={props.onEntryClick}>
     <span>{props.entryLabel}</span>
   </li>
 }

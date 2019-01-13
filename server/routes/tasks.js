@@ -3,7 +3,7 @@ const Task = require('../models/tasks')
 const {handleError} = require('../db')
 
 router.get('/',  (req, res) => {
-  Task.find((err, result) => {
+  Task.find().sort({type: 'asc'}).exec((err, result) => {
     if(err){
       res.sendStatus(500)
     }

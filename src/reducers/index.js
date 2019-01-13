@@ -25,6 +25,10 @@ export const getArticles = function(state, taskId){
   return fromArticles.getArticles(state.articles, taskId)
 }
 
+export const getArticle = function(state, taskId, articleId){
+  return fromArticles.getArticle(state.articles, taskId, articleId)
+}
+
 export const hasChanges = function(state){
   return fromArticles.hasChanges(state.articles)
 }

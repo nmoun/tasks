@@ -10,8 +10,8 @@ function ArticleList(props){
     args.onChangeValue = props.onChangeValue
   }
 
-  if(props.onLeftClick){
-    args.onLeftClick = props.onLeftClick
+  if(props.onClickLeft){
+    args.onClickLeft = props.onClickLeft
   }
 
   return <ul className="article-list">

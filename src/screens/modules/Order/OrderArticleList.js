@@ -5,18 +5,24 @@ import ArticleList from 'components/ArticleList'
 import {withRouter} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getTask, getArticles, hasChanges } from 'reducers'
-import {updateQuantity} from 'actions/articles'
+import { updateQuantity } from 'actions/articles'
 import { discardChanges, saveChanges } from 'actions/transaction'
 import { openDialogConfirm, closeDialogConfirm } from 'components/dialogs/DialogConfirm'
 
 class OrderArticleList extends React.Component{
   constructor(props){
     super(props)
-    this.onChangeValue = this.onChangeValue.bind(this)
+    this.handleChangeValue = this.handleChangeValue.bind(this)
+    this.handleClickLeft = this.handleClickLeft.bind(this)
   }
 
-  onChangeValue(articleId, quantity){
+  handleChangeValue(articleId, quantity){
     this.props.updateQuantity(this.props.taskId, articleId, quantity);
+  }
+
+  handleClickLeft(articleId){
+    const {history, match} = this.props;
+    history.push(match.url + "/" + articleId)
   }
 
   render(){
@@ -45,7 +51,8 @@ class OrderArticleList extends React.Component{
     return <ThemedPage>
       <Header title={this.props.task.title} leftIcon={Header.ICONS.BACK} onLeftClick={goBack}/>
       {this.props.articles.length > 0 ?
-        <ArticleList articles={this.props.articles} onChangeValue={this.onChangeValue}/> : <div>No articles</div>
+        <ArticleList articles={this.props.articles} onChangeValue={this.handleChangeValue} onClickLeft={this.handleClickLeft}/>
+        : <div>No articles</div>
       }
     </ThemedPage>
   }

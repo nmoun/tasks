@@ -24,7 +24,7 @@ const routes = [
   },
   {
     path: "/order/:id",
-    component: withTransaction(withAuthentication(Order))
+    component: withAuthentication(withTransaction(Order))
     // component: Loadable({
     //   loader: () => import('screens/modules/Order'),
     //   loading: function(){ return <div>Loading module...</div>},

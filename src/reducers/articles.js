@@ -8,21 +8,20 @@ const byId =  function(state = {}, action) {
     newState = {...state}
     action.tasks.forEach(task => {
       if(task.content && task.content.articles){
+        newState[task.id] = {}
         task.content.articles.forEach((article) => {
-          let joinId = "" + task.id + article.id;
-          newState[joinId] = {...article}
+          newState[task.id][article.id] = {...article}
         })
       }
     });
     return newState
   case 'UPDATE_QUANTITY':
     newState = {...state}
-    let joinId = "" + action.taskId + action.articleId,
-      article = newState[joinId]
+    let article = newState[action.taskId][action.articleId]
     if(article){
       let newArticle = {...article}
       newArticle.quantity = action.quantity
-      newState[joinId] = newArticle
+      newState[action.taskId] = {...newState[action.taskId], [action.articleId]: newArticle}
     }
     return newState
   default:
@@ -33,10 +32,10 @@ const byId =  function(state = {}, action) {
 const allIds = (state = {}, action) => {
   switch(action.type){
   case 'RECEIVE_TASKS':
-    let newState = {}
+    let newState = {...state}
     action.tasks.forEach((task) => {
       newState[task.id] = (task.content && task.content.articles) ? task.content.articles.map((article) => {
-        return "" + task.id + article.id
+        return article.id
       }) : []
     })
     return newState
@@ -54,9 +53,13 @@ export default articles
 
 export function getArticles(state, taskId){
   return state.wip.allIds[taskId] ?
-    state.wip.allIds[taskId].map((joinId) => {
-      return state.wip.byId[joinId]
+    state.wip.allIds[taskId].map((articleId) => {
+      return state.wip.byId[taskId][articleId]
     }) : []
+}
+
+export function getArticle(state, taskId, articleId){
+  return state.wip.byId[taskId][articleId]
 }
 
 export function hasChanges(state){

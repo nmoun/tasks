@@ -11,15 +11,13 @@ function ArticleCell(props){
     }
   }
 
-  function handleLeftClick(articleId){
-    return function(){
-      if(props.onLeftClick)
-        props.onLeftClick(articleId)
-    }
+  function handleLeftClick(){
+    if(props.onClickLeft)
+      props.onClickLeft(props.id)
   }
 
   return <div className="article-cell">
-    <div className="article-cell-left" onClick={handleLeftClick(props.id)}>
+    <div className="article-cell-left" onClick={handleLeftClick}>
       <div><span className="article-cell-description">{props.description}</span></div>
       <div><span className="article-cell-composition">{props.composition}</span></div>
     </div>
