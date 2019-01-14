@@ -1,12 +1,5 @@
 const mongoose = require('mongoose');
 
-var articleSchema = new mongoose.Schema({
-  id: String,
-  description: String,
-  composition: String,
-  quantity: Number
-}, { _id: false });
-
 var TaskSchema = new mongoose.Schema({
   id: {
     type: String,
@@ -26,9 +19,8 @@ var TaskSchema = new mongoose.Schema({
   header: {
     type: Object
   },
-  content: {
-    articles: [articleSchema]
-  }
+  content: Object,
+  articles: [Object]
 });
 
 

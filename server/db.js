@@ -17,6 +17,7 @@ db.once('open', function() {
 function handleError(err, res){
   var msg = 'Error: ' + err.name + ": " + err.code
   console.log(msg)
+  console.log(err)
   res.status(500).send(msg)
 }
 

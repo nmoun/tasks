@@ -412,6 +412,167 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "articles",
+			"item": [
+				{
+					"name": "http://localhost:3000/api/login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4d2b0b53-2206-48be-9615-5a5af18bb51f",
+								"exec": [
+									"const token = pm.response.json().token;",
+									"console.log('token: ' + token);",
+									"pm.environment.set(\"token\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"{{username}}\",\"password\": \"{{password}}\"}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "article",
+			"item": [
+				{
+					"name": "http://localhost:3000/api/login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4d2b0b53-2206-48be-9615-5a5af18bb51f",
+								"exec": [
+									"const token = pm.response.json().token;",
+									"console.log('token: ' + token);",
+									"pm.environment.set(\"token\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"{{username}}\",\"password\": \"{{password}}\"}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:3000/api/articles/:articleCode",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "9c93137a-16e1-4ef5-9588-1055b1e78b46",
+								"exec": [
+									"const token = pm.environment.get(\"token\");",
+									"console.log('token: ' + token)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "7be203f9-a86b-49ee-9671-3fa17a7c85d6",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/articles/7418",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"articles",
+								"7418"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
