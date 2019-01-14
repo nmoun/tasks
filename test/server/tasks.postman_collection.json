@@ -115,6 +115,43 @@
 				},
 				{
 					"name": "api/:task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f20b0ccb-5048-4a52-9166-22ecadb9e2b9",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Task is updated/created\", function () {\r",
+									"    const token = pm.environment.get('token')\r",
+									"    const getRequest = {\r",
+									"      url: 'http://localhost:3000/api/tasks',\r",
+									"      method: 'GET',\r",
+									"      header: 'Authorization:bearer ' + token + '\\nContent-Type:application/json'\r",
+									"    };\r",
+									"    \r",
+									"    pm.sendRequest(getRequest, function (err, res) {\r",
+									"      console.log(err ? err : res.json());\r",
+									"      pm.test('response should contains task with id 3', function () {\r",
+									"        pm.expect(res).to.have.property('code', 200);\r",
+									"        var jsonData = res.json()\r",
+									"        var task = jsonData.filter((task) => {return task.id == 3})\r",
+									"        pm.expect(task).to.not.be.null;\r",
+									"        pm.expect(task).to.be.an('array').that.have.lengthOf(1)\r",
+									"        pm.expect(task[0]).to.have.property('id', \"3\");\r",
+									"      });\r",
+									"    });\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "PUT",
 						"header": [

@@ -17,8 +17,8 @@ npm run launch
 ![alt text](/docs/test.gif)
 
 # TODO
-Test state management<br/>
-Simplifier état articles<br/>
 normalizr<br/>
+Scan article<br/>
+Save task<br/>
 language settings<br/>
 auth0?
