@@ -1,11 +1,11 @@
-import { schema } from 'normalizr';
+// import { schema } from 'normalizr';
+// normalizr removed
+// const article = new schema.Entity('articles', {}, {
+//   idAttribute: (value, parent) => {
+//     return value.id + "_" + parent.id
+//   }
+// })
+// const task = new schema.Entity('tasks', { articles: new schema.Array(article) })
+// const tasks = [task];
 
-const article = new schema.Entity('articles', {}, {
-  idAttribute: (value, parent) => {
-    return value.id + "_" + parent.id
-  }
-})
-const task = new schema.Entity('tasks', { articles: new schema.Array(article) })
-const tasks = [task];
-
-export default tasks
+// export default tasks

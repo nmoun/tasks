@@ -7,9 +7,9 @@ export function updateQuantity(taskId, articleId, quantity){
   }
 }
 
-export function receiveArticle(article, taskId){
+export function addArticle(article, taskId){
   return {
-    type: 'RECEIVE_ARTICLE',
+    type: 'ADD_ARTICLE',
     taskId,
     article
   }
@@ -18,6 +18,14 @@ export function receiveArticle(article, taskId){
 export function deleteArticle(articleId, taskId){
   return {
     type: 'DELETE_ARTICLE',
+    taskId,
+    articleId
+  }
+}
+
+export function incrementArticle(articleId, taskId){
+  return {
+    type: 'INC_QUANTITY',
     taskId,
     articleId
   }

@@ -5,7 +5,7 @@ import ArticleList from 'components/ArticleList'
 import {withRouter} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getTask, getArticles, hasChanges } from 'reducers'
-import { updateQuantity, receiveArticle, deleteArticle } from 'actions/articles'
+import { updateQuantity, addArticle, deleteArticle, incrementArticle } from 'actions/articles'
 import { discardChanges, saveChanges } from 'actions/transaction'
 import { openDialogConfirm, closeDialogConfirm } from 'components/dialogs/DialogConfirm'
 import { openDialogScan } from 'components/dialogs/DialogScan'
@@ -61,8 +61,14 @@ class OrderArticleList extends React.Component{
     const handleSubmitArticleCode = (articleCode) => {
       api.fetchArticle(articleCode)
         .then((res) => {
+          console.log('response article: ' + JSON.stringify(res))
           if(res.length > 0){
-            this.props.receiveArticle(res[0], this.props.task.id)
+            let tmp = this.props.articles.filter((article) => (article.id == res[0].id))
+            if(tmp.length === 0){
+              this.props.addArticle(res[0], this.props.task.id)
+            }else{
+              this.props.incrementArticle(tmp[0].id, this.props.task.id)
+            }
           }
         })
     }
@@ -96,8 +102,9 @@ const mapDispatchToProps = {
   updateQuantity,
   discardChanges,
   saveChanges,
-  receiveArticle,
-  deleteArticle
+  addArticle,
+  deleteArticle,
+  incrementArticle
 }
 
 export default withRouter(connect(

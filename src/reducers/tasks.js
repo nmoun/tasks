@@ -6,22 +6,13 @@ const byId =  function(state = {}, action) {
   switch (action.type) {
   case 'RECEIVE_TASKS':
     // only the tasks present in the database must be displayed
-    return {...action.response.entities.tasks}
-  case 'RECEIVE_ARTICLE':
-    newState = {...state}
-    newId = action.article.id + "_" + action.taskId
-    newState[action.taskId] = {...newState[action.taskId]}
-    newState[action.taskId].articles = (newState[action.taskId].articles.indexOf(newId) === -1) ?
-      newState[action.taskId].articles.concat(newId) : newState[action.taskId].articles
+    newState = {}
+    action.response.forEach((task) => {
+      newState[task.id] = task
+    })
     return newState
 
-  case 'DELETE_ARTICLE':
-    newState = {...state}
-    newId = action.articleId + "_" + action.taskId
-    newState[action.taskId] = {...newState[action.taskId], articles: newState[action.taskId].articles.filter((id) => (id !== newId))}
-    return newState
-
-  case 'NON_EXISTANT_ACTION_UPDATE_QUANTITY': // UPDATE_QUANTITY, simple, no normalization etc
+  case 'UPDATE_QUANTITY': // UPDATE_QUANTITY, simple, no normalization etc
     newState = {...state}
     newState[action.taskId] = {...newState[action.taskId]}
     newArticles = newState[action.taskId].articles.map((article) => {
@@ -30,7 +21,7 @@ const byId =  function(state = {}, action) {
     newState[action.taskId].articles = newArticles
     return newState
 
-  case 'NON_EXISTANT_ACTION_DELETE_ARTICLE': 
+  case 'DELETE_ARTICLE': 
     newState = {...state}
     newState[action.taskId] = {
       ...newState[action.taskId],
@@ -39,18 +30,20 @@ const byId =  function(state = {}, action) {
       })}
     return newState
 
-  case 'NON_EXISTANT_ACTION_ADD_ARTICLE': 
+  case 'ADD_ARTICLE': 
     newState = {...state}
     newState[action.taskId] = {
       ...newState[action.taskId],
-      articles: newState[action.taskId].articles.concat(action.article)
+      articles: newState[action.taskId].articles.concat({...action.article, quantity: 1})
     }
     return newState
 
-  case 'NON_EXISTANT_ACTION_INC_QUANTITY':
+  case 'INC_QUANTITY':
+  console.log('AALLLLOOOOOOO??' + JSON.stringify(action, null, 2))
     newState = {...state}
     newState[action.taskId] = {...newState[action.taskId]}
     newArticles = newState[action.taskId].articles.map((article) => {
+      if(article.id == action.articleId) console.log('new qt: ' + parseInt(article.quantity, 10) + 1)
       return (article.id == action.articleId) ? {...article, quantity: parseInt(article.quantity, 10) + 1} : article
     })
     newState[action.taskId].articles = newArticles
@@ -64,7 +57,7 @@ const byId =  function(state = {}, action) {
 const allIds = (state = [], action) => {
   switch(action.type){
   case 'RECEIVE_TASKS':
-    return action.response.result
+    return action.response.map((task) => (task.id))
   default:
     return state;
   }
@@ -101,19 +94,14 @@ export const getTask = function(state, taskId){
   return state.tasks.byId[taskId];
 }
 
-export const getArticles = function(state, articles, taskId){
-  return state.tasks.byId[taskId].articles.map((articleId) => {
-    return articles.byId[articleId]
-  })
+export const getArticles = function(state, taskId){
+  return state.tasks.byId[taskId].articles
 }
 
-export const getArticle = function(state, articles, taskId, articleId){
+export const getArticle = function(state, taskId, articleId){
   return state.tasks.byId[taskId].articles
     .filter((artId) => {
-      return artId === articleId + "_" + taskId
-    })
-    .map((artId) => {
-      return articles.byId[artId]
+      return artId === articleId
     })[0]
 }
 

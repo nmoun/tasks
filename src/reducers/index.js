@@ -6,7 +6,7 @@ import transaction from './transaction'
 
 export default transaction(combineReducers({
   tasks,
-  articles
+  // articles
 }))
 
 export const getTask = function(state, taskId){
@@ -22,11 +22,11 @@ export const getIsFetching = function(state){
 }
 
 export const getArticles = function(state, taskId){
-  return fromTasks.getArticles(state.wip.tasks, state.wip.articles, taskId)
+  return fromTasks.getArticles(state.wip.tasks, taskId)
 }
 
 export const getArticle = function(state, taskId, articleId){
-  return fromTasks.getArticle(state.wip.tasks, state.wip.articles, taskId, articleId)
+  return fromTasks.getArticle(state.wip.tasks, taskId, articleId)
 }
 
 export const hasChanges = function(state){
