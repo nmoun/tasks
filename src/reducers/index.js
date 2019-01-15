@@ -22,11 +22,11 @@ export const getIsFetching = function(state){
 }
 
 export const getArticles = function(state, taskId){
-  return fromArticles.getArticles(state.articles, taskId)
+  return fromTasks.getArticles(state.tasks, state.articles, taskId)
 }
 
 export const getArticle = function(state, taskId, articleId){
-  return fromArticles.getArticle(state.articles, taskId, articleId)
+  return fromTasks.getArticle(state.tasks, state.articles, taskId, articleId)
 }
 
 export const hasChanges = function(state){

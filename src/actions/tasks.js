@@ -3,7 +3,7 @@ import * as api from 'service/TaskService'
 export const receiveTasks = (tasks) => {
   return {
     type: "RECEIVE_TASKS",
-    tasks
+    response: tasks
   }
 }
 

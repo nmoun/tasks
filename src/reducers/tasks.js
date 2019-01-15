@@ -3,16 +3,10 @@ import {combineReducers} from 'redux'
 
 
 const byId =  function(state = {}, action) {
-  let newState;
   switch (action.type) {
   case 'RECEIVE_TASKS':
-    newState = {...state}
-    action.tasks.forEach(task => {
-      // eslint-disable-next-line no-unused-vars
-      let {content, ...rest} = task
-      newState[task.id] = {...rest}
-    });
-    return newState
+    // only the tasks present in the database must be displayed
+    return {...action.response.entities.tasks}
   default:
     return state
   }
@@ -21,9 +15,7 @@ const byId =  function(state = {}, action) {
 const allIds = (state = [], action) => {
   switch(action.type){
   case 'RECEIVE_TASKS':
-    return action.tasks.map((task) => {
-      return task.id
-    })
+    return action.response.result
   default:
     return state;
   }
@@ -57,11 +49,23 @@ export const getTasks = function(state){
 }
 
 export const getTask = function(state, taskId){
-  return state.tasks.allIds.filter((id) => {
-    return id === taskId
-  }).map((id) => {
-    return state.tasks.byId[id]
-  })[0];
+  return state.tasks.byId[taskId];
+}
+
+export const getArticles = function(state, articles, taskId){
+  return state.tasks.byId[taskId].articles.map((articleId) => {
+    return articles.wip.byId[articleId]
+  })
+}
+
+export const getArticle = function(state, articles, taskId, articleId){
+  return state.tasks.byId[taskId].articles
+    .filter((artId) => {
+      return artId === articleId + "_" + taskId
+    })
+    .map((artId) => {
+      return articles.wip.byId[artId]
+    })[0]
 }
 
 export const getIsFetching = function(state){

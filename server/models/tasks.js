@@ -20,7 +20,7 @@ var TaskSchema = new mongoose.Schema({
     type: Object
   },
   content: Object,
-  articles: [Object]
+  // articles: [Object]
 });
 
 
