@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from 'components/Header'
-import ThemedPage from 'components/pages/ThemedPage'
+import ThemedPage from 'components/layout/ThemedPage'
 import ArticleList from 'components/ArticleList'
 import {withRouter} from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -48,7 +48,7 @@ class OrderArticleList extends React.Component{
       }
     }
 
-    return <ThemedPage>
+    return <ThemedPage fab={true} handleClickFab={() => {console.log('fab clicked')}}>
       <Header title={this.props.task.title} leftIcon={Header.ICONS.BACK} onLeftClick={goBack}/>
       {this.props.articles.length > 0 ?
         <ArticleList articles={this.props.articles} onChangeValue={this.handleChangeValue} onClickLeft={this.handleClickLeft}/>

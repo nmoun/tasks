@@ -1,6 +1,6 @@
 import React from 'react'
 import ArticleCell from 'components/ArticleCell'
-import ThemedPage from 'components/pages/ThemedPage'
+import ThemedPage from 'components/layout/ThemedPage'
 import Header from 'components/Header'
 import { getArticle } from 'reducers'
 import { withRouter } from 'react-router-dom'

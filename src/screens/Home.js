@@ -1,6 +1,6 @@
 import React from 'react'
 import { logout } from 'service/AuthService'
-import ThemedPage from 'components/pages/ThemedPage'
+import ThemedPage from 'components/layout/ThemedPage'
 import TaskList from 'components/TaskList'
 import Header from 'components/Header'
 import { withRouter } from 'react-router-dom'
