@@ -11,8 +11,12 @@ function Dialog(props){
     }
   }
 
+  function handleClickPopup(e){
+    e.stopPropagation()
+  }
+
   return <div className="overlay" onClick={handleClickOverlay}>
-    <div className="dialog">{props.children}</div>
+    <div className="dialog" onClick={handleClickPopup}>{props.children}</div>
   </div>
 }
 

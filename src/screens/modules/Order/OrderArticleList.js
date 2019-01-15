@@ -8,6 +8,7 @@ import { getTask, getArticles, hasChanges } from 'reducers'
 import { updateQuantity } from 'actions/articles'
 import { discardChanges, saveChanges } from 'actions/transaction'
 import { openDialogConfirm, closeDialogConfirm } from 'components/dialogs/DialogConfirm'
+import { openDialogScan, closeDialogScan } from 'components/dialogs/DialogScan'
 
 class OrderArticleList extends React.Component{
   constructor(props){
@@ -27,7 +28,7 @@ class OrderArticleList extends React.Component{
 
   render(){
     let {history} = this.props;
-    let goBack = () => {
+    const goBack = () => {
       if(!this.props.transactionHasChanges){
         history.goBack();
       } else {
@@ -48,7 +49,20 @@ class OrderArticleList extends React.Component{
       }
     }
 
-    return <ThemedPage fab={true} handleClickFab={() => {console.log('fab clicked')}}>
+    const openDialog = () => {
+      openDialogScan({
+        isDismissible: true,
+        message: "Scan article code",
+        handleSubmit: handleSubmitArticleCode
+      })
+    }
+
+    const handleSubmitArticleCode = (articleCode) => {
+      console.log('article code: ' + articleCode)
+    }
+
+
+    return <ThemedPage fab={true} handleClickFab={() => {openDialog()}}>
       <Header title={this.props.task.title} leftIcon={Header.ICONS.BACK} onLeftClick={goBack}/>
       {this.props.articles.length > 0 ?
         <ArticleList articles={this.props.articles} onChangeValue={this.handleChangeValue} onClickLeft={this.handleClickLeft}/>

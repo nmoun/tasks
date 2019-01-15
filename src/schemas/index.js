@@ -2,7 +2,6 @@ import { schema } from 'normalizr';
 
 const article = new schema.Entity('articles', {}, {
   idAttribute: (value, parent) => {
-    console.log('parent: ' + parent.id)
     return value.id + "_" + parent.id
   }
 })
