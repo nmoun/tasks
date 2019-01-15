@@ -2,16 +2,23 @@
 import {combineReducers} from 'redux'
 
 const byId =  function(state = {}, action) {
+  var newState, newId;
   switch (action.type) {
   case 'RECEIVE_TASKS':
     // only the tasks present in the database must be displayed
     return {...action.response.entities.tasks}
   case 'RECEIVE_ARTICLE':
-    let newState = {...state},
-      newId= action.article.id + "_" + action.taskId
+    newState = {...state}
+    newId = action.article.id + "_" + action.taskId
     newState[action.taskId] = {...newState[action.taskId]}
     newState[action.taskId].articles = (newState[action.taskId].articles.indexOf(newId) === -1) ?
       newState[action.taskId].articles.concat(newId) : newState[action.taskId].articles
+    return newState
+
+  case 'DELETE_ARTICLE':
+    newState = {...state}
+    newId = action.articleId + "_" + action.taskId
+    newState[action.taskId] = {...newState[action.taskId], articles: newState[action.taskId].articles.filter((id) => (id !== newId))}
     return newState
   default:
     return state

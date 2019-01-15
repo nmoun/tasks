@@ -16,13 +16,23 @@ function ArticleCell(props){
       props.onClickLeft(props.id)
   }
 
+  function handleClickRemoval(){
+    if(props.onClickRemoval)
+      props.onClickRemoval(props.id)
+  }
+
   return <div className="article-cell">
-    <div className="article-cell-left" onClick={handleLeftClick}>
-      <div><span className="article-cell-description">{props.description}</span></div>
-      <div><span className="article-cell-composition">{props.composition}</span></div>
+    <div className="article-cell-top">
+      <div className="article-cell-left" onClick={handleLeftClick}>
+        <div><span className="article-cell-description">{props.description}</span></div>
+        <div><span className="article-cell-composition">{props.composition}</span></div>
+      </div>
+      <div className="article-cell-right">
+        <QuantityBlock onChangeQuantity={handleChange} quantity={props.quantity} name="quantity" id="quantity"/>
+      </div>
     </div>
-    <div className="article-cell-right">
-      <QuantityBlock onChangeQuantity={handleChange} quantity={props.quantity} name="quantity" id="quantity"/>
+    <div className="clickable" onClick={handleClickRemoval}>
+      <span className="article-cell-bottom-label">Remove this article</span>
     </div>
   </div>
 }

@@ -14,6 +14,10 @@ function ArticleList(props){
     args.onClickLeft = props.onClickLeft
   }
 
+  if(props.onClickRemoval){
+    args.onClickRemoval = props.onClickRemoval
+  }
+
   return <ul className="article-list">
     {props.articles.map((article) => {
       let articleProps = {...article}

@@ -14,3 +14,11 @@ export function receiveArticle(article, taskId){
     article
   }
 }
+
+export function deleteArticle(articleId, taskId){
+  return {
+    type: 'DELETE_ARTICLE',
+    taskId,
+    articleId
+  }
+}

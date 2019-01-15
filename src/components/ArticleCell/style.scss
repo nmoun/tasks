@@ -2,13 +2,21 @@
 @import "scss/variables.scss";
 
 .article-cell {
-  height: 70px;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
   font-family: $font-family;
   background-color: $secondary-bg;
   color: $secondary-color;
+}
+
+.article-cell-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.article-cell-bottom-label {
+  padding: 10px;
 }
 
 .article-cell-left {

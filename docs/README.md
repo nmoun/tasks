@@ -17,6 +17,7 @@ npm run launch
 ![alt text](/docs/test.gif)
 
 # TODO
+deletion article<br/>
 normalizr & reselect<br/>
 Scan article<br/>
 Save task<br/>

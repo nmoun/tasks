@@ -5,7 +5,7 @@ import ArticleList from 'components/ArticleList'
 import {withRouter} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getTask, getArticles, hasChanges } from 'reducers'
-import { updateQuantity, receiveArticle } from 'actions/articles'
+import { updateQuantity, receiveArticle, deleteArticle } from 'actions/articles'
 import { discardChanges, saveChanges } from 'actions/transaction'
 import { openDialogConfirm, closeDialogConfirm } from 'components/dialogs/DialogConfirm'
 import { openDialogScan } from 'components/dialogs/DialogScan'
@@ -59,21 +59,23 @@ class OrderArticleList extends React.Component{
     }
 
     const handleSubmitArticleCode = (articleCode) => {
-      console.log('article code: ' + articleCode)
       api.fetchArticle(articleCode)
         .then((res) => {
           if(res.length > 0){
-            console.log('res: ' + JSON.stringify(res))
             this.props.receiveArticle(res[0], this.props.task.id)
           }
         })
+    }
+
+    const handleClickRemoval = (articleId) => {
+      this.props.deleteArticle(articleId, this.props.task.id)
     }
 
 
     return <ThemedPage fab={true} handleClickFab={() => {openDialog()}}>
       <Header title={this.props.task.title} leftIcon={Header.ICONS.BACK} onLeftClick={goBack}/>
       {this.props.articles.length > 0 ?
-        <ArticleList articles={this.props.articles} onChangeValue={this.handleChangeValue} onClickLeft={this.handleClickLeft}/>
+        <ArticleList articles={this.props.articles} onChangeValue={this.handleChangeValue} onClickLeft={this.handleClickLeft} onClickRemoval={handleClickRemoval}/>
         : <div>No articles</div>
       }
     </ThemedPage>
@@ -90,7 +92,8 @@ const mapDispatchToProps = {
   updateQuantity,
   discardChanges,
   saveChanges,
-  receiveArticle
+  receiveArticle,
+  deleteArticle
 }
 
 export default withRouter(connect(
