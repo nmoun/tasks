@@ -2,7 +2,7 @@
 import {combineReducers} from 'redux'
 
 const byId =  function(state = {}, action) {
-  var newState, newId;
+  var newState, newId, newArticles;
   switch (action.type) {
   case 'RECEIVE_TASKS':
     // only the tasks present in the database must be displayed
@@ -20,6 +20,42 @@ const byId =  function(state = {}, action) {
     newId = action.articleId + "_" + action.taskId
     newState[action.taskId] = {...newState[action.taskId], articles: newState[action.taskId].articles.filter((id) => (id !== newId))}
     return newState
+
+  case 'NON_EXISTANT_ACTION_UPDATE_QUANTITY': // UPDATE_QUANTITY, simple, no normalization etc
+    newState = {...state}
+    newState[action.taskId] = {...newState[action.taskId]}
+    newArticles = newState[action.taskId].articles.map((article) => {
+      return (article.id == action.articleId) ? {...article, quantity: action.quantity} : article
+    })
+    newState[action.taskId].articles = newArticles
+    return newState
+
+  case 'NON_EXISTANT_ACTION_DELETE_ARTICLE': 
+    newState = {...state}
+    newState[action.taskId] = {
+      ...newState[action.taskId],
+      articles: newState[action.taskId].articles.filter((article) => {
+        return (article.id !== action.articleId)
+      })}
+    return newState
+
+  case 'NON_EXISTANT_ACTION_ADD_ARTICLE': 
+    newState = {...state}
+    newState[action.taskId] = {
+      ...newState[action.taskId],
+      articles: newState[action.taskId].articles.concat(action.article)
+    }
+    return newState
+
+  case 'NON_EXISTANT_ACTION_INC_QUANTITY':
+    newState = {...state}
+    newState[action.taskId] = {...newState[action.taskId]}
+    newArticles = newState[action.taskId].articles.map((article) => {
+      return (article.id == action.articleId) ? {...article, quantity: parseInt(article.quantity, 10) + 1} : article
+    })
+    newState[action.taskId].articles = newArticles
+    return newState
+
   default:
     return state
   }
