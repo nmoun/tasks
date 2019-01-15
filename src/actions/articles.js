@@ -6,3 +6,11 @@ export function updateQuantity(taskId, articleId, quantity){
     quantity,
   }
 }
+
+export function receiveArticle(article, taskId){
+  return {
+    type: 'RECEIVE_ARTICLE',
+    taskId,
+    article
+  }
+}

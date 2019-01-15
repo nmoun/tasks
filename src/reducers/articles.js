@@ -1,5 +1,4 @@
 import {combineReducers} from 'redux'
-import transaction from './transaction'
 
 const byId =  function(state = {}, action) {
   let newState;
@@ -16,6 +15,10 @@ const byId =  function(state = {}, action) {
       newState[id] = {...newArticle}
       return newState
     }
+  case 'RECEIVE_ARTICLE':
+    let quantity = (state[action.article.id + "_" + action.taskId]) ? parseInt(state[action.article.id + "_" + action.taskId].quantity, 10) + 1 : 1
+    newState = {...state, [action.article.id + "_" + action.taskId]: {...action.article, quantity}}
+    return newState
   default:
     return state
   }
@@ -25,18 +28,18 @@ const allIds = (state = {}, action) => {
   switch(action.type){
   case 'RECEIVE_TASKS':
     return Object.keys(action.response.entities.articles)
+  case 'RECEIVE_ARTICLE':
+    let newId = action.article.id + "_" + action.taskId,
+      newState = (state.indexOf(newId) === -1) ? [...state].concat(newId) : [...state]
+    return newState
   default:
     return state;
   }
 }
 
-const articles = transaction(combineReducers({
+const articles = combineReducers({
   byId,
   allIds
-}))
+})
 
 export default articles
-
-export function hasChanges(state){
-  return state.wip !== state.current
-}

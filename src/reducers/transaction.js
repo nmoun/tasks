@@ -8,7 +8,7 @@ function transaction(reducer){
 
   // Return a reducer that handles undo and redo
   return function(state = initialState, action) {
-    const { current, wip, runningTransaction } = state
+    const { current, wip, runningTransaction = false } = state
 
     switch (action.type) {
     case 'DISCARD':

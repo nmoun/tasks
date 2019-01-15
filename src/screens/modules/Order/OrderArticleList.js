@@ -5,10 +5,11 @@ import ArticleList from 'components/ArticleList'
 import {withRouter} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getTask, getArticles, hasChanges } from 'reducers'
-import { updateQuantity } from 'actions/articles'
+import { updateQuantity, receiveArticle } from 'actions/articles'
 import { discardChanges, saveChanges } from 'actions/transaction'
 import { openDialogConfirm, closeDialogConfirm } from 'components/dialogs/DialogConfirm'
-import { openDialogScan, closeDialogScan } from 'components/dialogs/DialogScan'
+import { openDialogScan } from 'components/dialogs/DialogScan'
+import * as api from 'service/ArticleService'
 
 class OrderArticleList extends React.Component{
   constructor(props){
@@ -59,6 +60,13 @@ class OrderArticleList extends React.Component{
 
     const handleSubmitArticleCode = (articleCode) => {
       console.log('article code: ' + articleCode)
+      api.fetchArticle(articleCode)
+        .then((res) => {
+          if(res.length > 0){
+            console.log('res: ' + JSON.stringify(res))
+            this.props.receiveArticle(res[0], this.props.task.id)
+          }
+        })
     }
 
 
@@ -81,7 +89,8 @@ const mapStateToProps = (state, props) => ({
 const mapDispatchToProps = {
   updateQuantity,
   discardChanges,
-  saveChanges
+  saveChanges,
+  receiveArticle
 }
 
 export default withRouter(connect(

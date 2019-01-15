@@ -1,12 +1,18 @@
 
 import {combineReducers} from 'redux'
 
-
 const byId =  function(state = {}, action) {
   switch (action.type) {
   case 'RECEIVE_TASKS':
     // only the tasks present in the database must be displayed
     return {...action.response.entities.tasks}
+  case 'RECEIVE_ARTICLE':
+    let newState = {...state},
+      newId= action.article.id + "_" + action.taskId
+    newState[action.taskId] = {...newState[action.taskId]}
+    newState[action.taskId].articles = (newState[action.taskId].articles.indexOf(newId) === -1) ?
+      newState[action.taskId].articles.concat(newId) : newState[action.taskId].articles
+    return newState
   default:
     return state
   }
@@ -54,7 +60,7 @@ export const getTask = function(state, taskId){
 
 export const getArticles = function(state, articles, taskId){
   return state.tasks.byId[taskId].articles.map((articleId) => {
-    return articles.wip.byId[articleId]
+    return articles.byId[articleId]
   })
 }
 
@@ -64,7 +70,7 @@ export const getArticle = function(state, articles, taskId, articleId){
       return artId === articleId + "_" + taskId
     })
     .map((artId) => {
-      return articles.wip.byId[artId]
+      return articles.byId[artId]
     })[0]
 }
 
