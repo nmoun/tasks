@@ -18,8 +18,10 @@ npm run launch
 
 # TODO
 deletion article<br/>
-normalizr & reselect<br/>
-Scan article<br/>
+reselect<br/>
 Save task<br/>
+error notifications<br/>
+replace ThemedPage by an hoc?<br/>
+refactor Login page<br/>
 language settings<br/>
 auth0?

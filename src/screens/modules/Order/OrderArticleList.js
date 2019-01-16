@@ -4,7 +4,7 @@ import ThemedPage from 'components/layout/ThemedPage'
 import ArticleList from 'components/ArticleList'
 import {withRouter} from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getTask, getArticles, hasChanges } from 'reducers'
+import { getTask, getArticles, hasTaskChanged } from 'reducers'
 import { updateQuantity, addArticle, deleteArticle, incrementArticle } from 'actions/articles'
 import { discardChanges, saveChanges } from 'actions/transaction'
 import { openDialogConfirm, closeDialogConfirm } from 'components/dialogs/DialogConfirm'
@@ -30,7 +30,7 @@ class OrderArticleList extends React.Component{
   render(){
     let {history} = this.props;
     const goBack = () => {
-      if(!this.props.transactionHasChanges){
+      if(!this.props.hasTaskChanged){
         history.goBack();
       } else {
         openDialogConfirm({
@@ -61,7 +61,6 @@ class OrderArticleList extends React.Component{
     const handleSubmitArticleCode = (articleCode) => {
       api.fetchArticle(articleCode)
         .then((res) => {
-          console.log('response article: ' + JSON.stringify(res))
           if(res.length > 0){
             let tmp = this.props.articles.filter((article) => (article.id == res[0].id))
             if(tmp.length === 0){
@@ -95,7 +94,7 @@ class OrderArticleList extends React.Component{
 const mapStateToProps = (state, props) => ({
   task: getTask(state, props.taskId),
   articles: getArticles(state, props.taskId),
-  transactionHasChanges: hasChanges(state)
+  hasTaskChanged: hasTaskChanged(state, props.taskId)
 })
 
 const mapDispatchToProps = {

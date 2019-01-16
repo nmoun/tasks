@@ -1,4 +1,5 @@
 import * as api from 'service/TaskService'
+import {startFetchingTasks, stopFetchingTasks} from './ui'
 
 export const receiveTasks = (tasks) => {
   return {
@@ -7,24 +8,13 @@ export const receiveTasks = (tasks) => {
   }
 }
 
-const startFetching = () => {
-  return {
-    type: "START_FETCHING"
-  }
-}
-
-const stopFetching = () => {
-  return {
-    type: "STOP_FETCHING"
-  }
-}
-
 export const fetchTasks = function(){
   return function(dispatch){
-    dispatch(startFetching());
+    dispatch(startFetchingTasks());
     return api.fetchTasks().then((tasks) => {
       dispatch(receiveTasks(tasks))
-      dispatch(stopFetching());
+      setTimeout(() => {dispatch(stopFetchingTasks());}, 400)
+      // dispatch(stopFetchingTasks());
     });
   };
 }

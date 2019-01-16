@@ -1,34 +1,34 @@
 import { combineReducers } from 'redux'
 import tasks from './tasks'
+import ui from './ui'
 import * as fromTasks from './tasks'
-import articles from './articles'
-import transaction from './transaction'
+import * as fromUI from './ui'
 
-export default transaction(combineReducers({
+export default combineReducers({
   tasks,
-  // articles
-}))
+  ui
+})
 
 export const getTask = function(state, taskId){
-  return fromTasks.getTask(state.wip.tasks, taskId)
+  return fromTasks.getTask(state.tasks, taskId)
 }
 
 export const getTasks = function(state){
-  return fromTasks.getTasks(state.wip.tasks)
-}
-
-export const getIsFetching = function(state){
-  return fromTasks.getIsFetching(state.wip.tasks)
+  return fromTasks.getTasks(state.tasks)
 }
 
 export const getArticles = function(state, taskId){
-  return fromTasks.getArticles(state.wip.tasks, taskId)
+  return fromTasks.getArticles(state.tasks, taskId)
 }
 
 export const getArticle = function(state, taskId, articleId){
-  return fromTasks.getArticle(state.wip.tasks, taskId, articleId)
+  return fromTasks.getArticle(state.tasks, taskId, articleId)
 }
 
-export const hasChanges = function(state){
-  return state.wip !== state.current
+export const hasTaskChanged = function(state, taskId){
+  return fromTasks.hasTaskChanged(state.tasks, taskId)
+}
+
+export const getIsFetching = function(state){
+  return fromUI.getIsFetching(state.ui)
 }

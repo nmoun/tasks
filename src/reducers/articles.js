@@ -1,5 +1,7 @@
 import {combineReducers} from 'redux'
 
+// Old way of handling articles
+
 const byId =  function(state = {}, action) {
   let newState;
   switch (action.type) {
