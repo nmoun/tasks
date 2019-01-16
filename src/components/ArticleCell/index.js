@@ -8,11 +8,13 @@ class ArticleCell extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      
+      removeDisplayed: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleLeftClick = this.handleLeftClick.bind(this)
     this.handleClickRemoval = this.handleClickRemoval.bind(this)
+    this.handleFocus = this.handleFocus.bind(this)
+    this.handleBlur = this.handleBlur.bind(this)
   }
 
   handleChange(quantity){
@@ -31,8 +33,21 @@ class ArticleCell extends React.Component {
       this.props.onClickRemoval(this.props.id)
   }
 
+  handleFocus(){
+    this.setState({
+      removeDisplayed: true
+    })
+  }
+
+  handleBlur(){
+    this.setState({
+      removeDisplayed: false
+    })
+  }
+
   render(){
-    const classTop = "article-cell-top" + ((this.props.onClickLeft) ? " clickable" : "")
+    const classTop = "article-cell-top" + (this.props.onClickLeft ? " clickable" : "")
+    const classRemove = this.state.removeDisplayed ? "clickable" : "article-cell-bottom-hidden"
 
     return <div className="article-cell ">
       <div className={classTop}>
@@ -41,10 +56,14 @@ class ArticleCell extends React.Component {
           <div><span className="article-cell-composition">{this.props.composition}</span></div>
         </div>
         <div className="article-cell-right">
-          <QuantityBlock onChangeQuantity={this.handleChange} quantity={this.props.quantity} name="quantity" id="quantity"/>
+          <QuantityBlock
+            quantity={this.props.quantity}
+            onChangeQuantity={this.handleChange}
+            handleFocus={this.handleFocus}
+            handleBlur={this.handleBlur}/>
         </div>
       </div>
-      <div className="clickable" onClick={this.handleClickRemoval}>
+      <div className={classRemove} onMouseDown={this.handleClickRemoval}>
         <span className="article-cell-bottom-label">Remove this article</span>
       </div>
     </div>

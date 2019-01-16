@@ -16,7 +16,17 @@ function QuantityBlock(props){
   }
 
   return <div className="quantity-block clickable" onClick={handleClick}>
-    <input className="clickable" type="text" value={props.quantity} name="quantity" id="quantity" ref={textInput} onChange={handleChange} maxLength="4"/>
+    <input
+      className="clickable"
+      type="text"
+      value={props.quantity}
+      name="quantity"
+      id="quantity"
+      ref={textInput}
+      onChange={handleChange}
+      onFocus={props.handleFocus}
+      onBlur={props.handleBlur}
+      maxLength="4"/>
   </div>
 }
 

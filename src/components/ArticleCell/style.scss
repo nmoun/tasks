@@ -19,6 +19,11 @@
   padding: 10px;
 }
 
+.article-cell-bottom-hidden {
+  height: 0;
+  visibility: hidden;
+}
+
 .article-cell-left {
   display: flex;
   flex-direction: column;
