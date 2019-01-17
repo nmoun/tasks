@@ -41,9 +41,9 @@ class Home extends React.Component {
       <Header
         title='Tasks'
         leftIcon={leftIcon}
-        onLeftClick={this.displaySidePanel}
+        handleClickLeft={this.displaySidePanel}
         rightText="Reload"
-        onRightClick={this.props.fetchTasks} />
+        handleClickRight={this.props.fetchTasks} />
       <AppSidePanel
         logout={this.logout}
         isDisplayed={this.state.isDisplayedSidePanel} />

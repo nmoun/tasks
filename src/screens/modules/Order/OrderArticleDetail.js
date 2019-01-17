@@ -12,10 +12,10 @@ class OrderArticleDetail extends React.Component{
 
   constructor(props){
     super(props)
-    this.onChangeValue = this.onChangeValue.bind(this)
+    this.handleChangeValue = this.handleChangeValue.bind(this)
   }
 
-  onChangeValue(articleId, quantity){
+  handleChangeValue(articleId, quantity){
     this.props.updateQuantity(this.props.taskId, articleId, quantity);
   }
 
@@ -26,8 +26,8 @@ class OrderArticleDetail extends React.Component{
     }
 
     return <ThemedPage>
-      <Header title="Article detail" leftIcon={Header.ICONS.BACK} onLeftClick={goBack}/>
-      <ArticleCell {...this.props.article} onChangeValue={this.onChangeValue}/>
+      <Header title="Article detail" leftIcon={Header.ICONS.BACK} handleClickLeft={goBack}/>
+      <ArticleCell {...this.props.article} handleChangeValue={this.handleChangeValue}/>
     </ThemedPage>
   }
 }

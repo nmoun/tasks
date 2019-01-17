@@ -10,8 +10,8 @@ function QuantityBlock(props){
   }
 
   function handleChange(event){
-    if(props.onChangeQuantity){
-      props.onChangeQuantity(event.target.value)
+    if(props.handleChangeQuantity){
+      props.handleChangeQuantity(event.target.value)
     }
   }
 

@@ -86,8 +86,8 @@ export const getArticles = function(state, taskId){
 
 export const getArticle = function(state, taskId, articleId){
   return state.wip.byId[taskId].articles
-    .filter((artId) => {
-      return artId === articleId
+    .filter((article) => {
+      return article.id == articleId
     })[0]
 }
 

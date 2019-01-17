@@ -80,13 +80,13 @@ class OrderArticleList extends React.Component{
 
 
     return <ThemedPage fab={true} handleClickFab={() => {openDialog()}}>
-      <Header title={this.props.task.title} leftIcon={Header.ICONS.BACK} onLeftClick={goBack}/>
+      <Header title={this.props.task.title} leftIcon={Header.ICONS.BACK} handleClickLeft={goBack}/>
       {this.props.articles.length > 0 ?
         <ArticleList
           articles={this.props.articles}
-          onChangeValue={this.handleChangeValue}
-          onClickLeft={this.handleClickLeft}
-          onClickRemoval={handleClickRemoval}/>
+          handleChangeValue={this.handleChangeValue}
+          handleClickLeft={this.handleClickLeft}
+          handleClickRemoval={handleClickRemoval}/>
         : <div>No articles</div>
       }
     </ThemedPage>

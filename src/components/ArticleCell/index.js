@@ -11,26 +11,26 @@ class ArticleCell extends React.Component {
       removeDisplayed: false
     }
     this.handleChange = this.handleChange.bind(this)
-    this.handleLeftClick = this.handleLeftClick.bind(this)
+    this.handleClickLeft = this.handleClickLeft.bind(this)
     this.handleClickRemoval = this.handleClickRemoval.bind(this)
     this.handleFocus = this.handleFocus.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
   }
 
   handleChange(quantity){
-    if(this.props.onChangeValue){
-      this.props.onChangeValue(this.props.id, quantity)
+    if(this.props.handleChangeValue){
+      this.props.handleChangeValue(this.props.id, quantity)
     }
   }
 
-  handleLeftClick(){
-    if(this.props.onClickLeft)
-      this.props.onClickLeft(this.props.id)
+  handleClickLeft(){
+    if(this.props.handleClickLeft)
+      this.props.handleClickLeft(this.props.id)
   }
 
   handleClickRemoval(){
-    if(this.props.onClickRemoval)
-      this.props.onClickRemoval(this.props.id)
+    if(this.props.handleClickRemoval)
+      this.props.handleClickRemoval(this.props.id)
   }
 
   handleFocus(){
@@ -46,19 +46,19 @@ class ArticleCell extends React.Component {
   }
 
   render(){
-    const classTop = "article-cell-top" + (this.props.onClickLeft ? " clickable" : "")
+    const classTop = "article-cell-top" + (this.props.handleClickLeft ? " clickable" : "")
     const classRemove = this.state.removeDisplayed ? "clickable" : "article-cell-bottom-hidden"
 
     return <div className="article-cell ">
       <div className={classTop}>
-        <div className="article-cell-left" onClick={this.handleLeftClick}>
+        <div className="article-cell-left" onClick={this.handleClickLeft}>
           <div><span className="article-cell-description">{this.props.description}</span></div>
           <div><span className="article-cell-composition">{this.props.composition}</span></div>
         </div>
         <div className="article-cell-right">
           <QuantityBlock
             quantity={this.props.quantity}
-            onChangeQuantity={this.handleChange}
+            handleChangeQuantity={this.handleChange}
             handleFocus={this.handleFocus}
             handleBlur={this.handleBlur}/>
         </div>

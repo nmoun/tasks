@@ -6,16 +6,16 @@ import './style.scss'
 function ArticleList(props){
   let args = {}
 
-  if(props.onChangeValue){
-    args.onChangeValue = props.onChangeValue
+  if(props.handleChangeValue){
+    args.handleChangeValue = props.handleChangeValue
   }
 
-  if(props.onClickLeft){
-    args.onClickLeft = props.onClickLeft
+  if(props.handleClickLeft){
+    args.handleClickLeft = props.handleClickLeft
   }
 
-  if(props.onClickRemoval){
-    args.onClickRemoval = props.onClickRemoval
+  if(props.handleClickRemoval){
+    args.handleClickRemoval = props.handleClickRemoval
   }
 
   return <ul className="article-list">
