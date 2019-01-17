@@ -17,7 +17,7 @@ function DialogScan(props) {
   return <div>
     <div className="dialog-scan-img-container">
       <img src={Barcode}
-        alt="Grapefruit slice atop a pile of other slices" />
+        alt="Barcode" />
     </div>
     <div className="dialog-scan-msg-container">{props.message}</div>
     <div className="dialog-scan-input-container">

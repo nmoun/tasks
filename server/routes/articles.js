@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const Article = require('../models/articles')
+const { Article } = require('../models/articles')
 const {handleError} = require('../db')
 
 router.get('/',  (req, res) => {

@@ -8,6 +8,12 @@ const byId =  function(state = {}, action) {
   case 'RECEIVE_TASKS':
     return action.response.entities.tasks
 
+  case 'UPDATE_TASK':
+    return {
+      ...state,
+      ...action.response.entities.tasks
+    }
+
   case 'UPDATE_QUANTITY': 
     newState = {...state}
     newState[action.taskId] = {

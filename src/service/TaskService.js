@@ -1,6 +1,6 @@
 import {JWT_TOKEN} from 'utils/constants'
 import { normalize } from 'normalizr'
-import { tasks } from 'schemas'
+import { task as taskSchema, tasks } from 'schemas'
 
 export function fetchTasks() {
   // var p = new Promise(function(resolve, reject) {
@@ -55,6 +55,8 @@ export function saveTask(task) {
     body
   }).then((res) => {
     return res.json()
+  }).then((res) => {
+    return normalize(res, taskSchema)
   }).catch(error => {
     console.log('error: ' + error)
   });

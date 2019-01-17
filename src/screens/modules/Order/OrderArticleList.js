@@ -6,6 +6,7 @@ import {withRouter} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getTask, getArticles, hasTaskChanged } from 'reducers'
 import { updateQuantity, addArticle, deleteArticle, incrementArticle } from 'actions/articles'
+import { updateTask } from 'actions/tasks'
 import { discardChanges, saveChanges } from 'actions/transaction'
 import { openDialogConfirm, closeDialogConfirm } from 'components/dialogs/DialogConfirm'
 import { openDialogScan } from 'components/dialogs/DialogScan'
@@ -38,8 +39,9 @@ class OrderArticleList extends React.Component{
           message: "Save changes?", 
           handleYes: () => {
             this.props.saveChanges()
-            closeDialogConfirm();
-            history.goBack();
+            this.props.updateTask(this.props.task)
+            closeDialogConfirm()
+            history.goBack()
           }, 
           handleNo: () => {
             this.props.discardChanges()
@@ -103,7 +105,8 @@ const mapDispatchToProps = {
   saveChanges,
   addArticle,
   deleteArticle,
-  incrementArticle
+  incrementArticle,
+  updateTask
 }
 
 export default withRouter(connect(

@@ -8,12 +8,29 @@ export const receiveTasks = (response) => {
   }
 }
 
+const updateTaskLocal = (response) => {
+  return {
+    type: "UPDATE_TASK",
+    response
+  }
+}
+
 export const fetchTasks = function(){
   return function(dispatch){
     dispatch(startFetchingTasks());
     return api.fetchTasks().then((response) => {
       dispatch(receiveTasks(response))
       setTimeout(() => {dispatch(stopFetchingTasks());}, 500)
+    });
+  };
+}
+
+export const updateTask = function(task){
+  return function(dispatch){
+    // dispatch(startFetchingTasks());
+    return api.saveTask(task).then((response) => {
+      dispatch(updateTaskLocal(response))
+      // setTimeout(() => {dispatch(stopFetchingTasks());}, 500)
     });
   };
 }
