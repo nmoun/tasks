@@ -17,10 +17,12 @@ npm run launch
 ![alt text](/docs/test.gif)
 
 # TODO
-reselect<br/>
-Save task<br/>
-error notifications<br/>
+reselect: reorganize selectors<br/>
+Menu to create task<br/>
+Uniformise noms (handlers etc...)<br/>
+Notifications<br/>
 replace ThemedPage by an hoc?<br/>
 refactor Login page<br/>
+Reorganize folder structure (separate view & state?)<br/>
 language settings<br/>
 auth0?

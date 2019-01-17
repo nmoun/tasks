@@ -13,7 +13,7 @@ const ThemedPage = function(props){
   return (<div className="container-all">
     {props.notification.isDisplayed === true ? <Notify message={props.notification.message} status={props.notification.status} handleClick={props.hideNotification}/> : ""} 
     {props.children}
-    {props.fab === true ? <Fab handleClickFab={props.handleClickFab}/> : ""}
+    {props.fab === true ? <Fab handleClickFab={props.handleClickFab} icon={props.fabIcon}/> : ""}
   </div>)
 }
 

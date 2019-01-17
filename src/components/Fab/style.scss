@@ -15,7 +15,15 @@
   background-position: center center;
   background-repeat: no-repeat;
   background-size: 30px;
-  background-image: url('../../assets/barcode.svg');
   height: 100%;
   width: 100%;
+}
+
+.fab-image-barcode {
+  background-image: url('../../assets/barcode.svg');
+}
+
+.fab-image-plus {
+  background-size: 10px;
+  background-image: url('../../assets/plus.svg');
 }

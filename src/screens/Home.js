@@ -9,6 +9,7 @@ import { getTasks, getIsFetching } from 'reducers'
 import { connect } from 'react-redux'
 import LoadingList from 'components/LoadingList'
 import SidePanel from 'components/SidePanel'
+import { ICONS } from 'components/Fab'
 
 class Home extends React.Component {
 
@@ -36,7 +37,7 @@ class Home extends React.Component {
   render() {
     const { isFetching, tasks } = this.props;
     const leftIcon = this.state.isDisplayedSidePanel ? Header.ICONS.BACK : Header.ICONS.MENU;
-    return (<ThemedPage>
+    return (<ThemedPage fab={true} handleClickFab={() => console.log('FAB clicked')} fabIcon={ICONS.PLUS}>
       <Header
         title='Tasks'
         leftIcon={leftIcon}
