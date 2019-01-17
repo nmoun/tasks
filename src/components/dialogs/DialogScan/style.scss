@@ -4,3 +4,23 @@
   padding: 10px;
   text-align: center;
 }
+
+.dialog-scan-img-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.dialog-scan-img-container > img{
+  width: 60%;
+}
+
+.dialog-scan-input-container {
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.dialog-scan-input {
+  border: none;
+}
