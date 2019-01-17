@@ -6,11 +6,7 @@ const byId =  function(state = {}, action) {
   var newState
   switch (action.type) {
   case 'RECEIVE_TASKS':
-    newState = {}
-    action.response.forEach((task) => {
-      newState[task.id] = task
-    })
-    return newState
+    return action.response.entities.tasks
 
   case 'UPDATE_QUANTITY': 
     newState = {...state}
@@ -57,7 +53,7 @@ const byId =  function(state = {}, action) {
 const allIds = (state = [], action) => {
   switch(action.type){
   case 'RECEIVE_TASKS':
-    return action.response.map((task) => (task.id))
+    return action.response.result
   default:
     return state;
   }

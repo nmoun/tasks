@@ -1,5 +1,5 @@
 # Description
-Testing stuff
+Testing miscellaneous stuff
 
 # Launching
 Launch mongo daemon at url specified in .env file
@@ -17,7 +17,6 @@ npm run launch
 ![alt text](/docs/test.gif)
 
 # TODO
-deletion article<br/>
 reselect<br/>
 Save task<br/>
 error notifications<br/>
