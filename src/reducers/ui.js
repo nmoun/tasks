@@ -11,10 +11,32 @@ const isFetchingTasks = function(state = false, action){
   }
 }
 
+const notification = function(state = {}, action){
+  switch (action.type) {
+  case 'DISPLAY_NOTIFICATION':
+    return {
+      isDisplayed: true,
+      message: action.message,
+      status: action.status
+    }
+  case 'HIDE_NOTIFICATION':
+    return {
+      isDisplayed: false,
+    }
+  default:
+    return state
+  }
+}
+
 export default combineReducers({
-  isFetchingTasks
+  isFetchingTasks,
+  notification
 })
 
 export const getIsFetching = function(state){
   return state.isFetchingTasks;
+}
+
+export const getNotification = function(state){
+  return state.notification;
 }

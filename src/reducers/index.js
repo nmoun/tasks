@@ -32,3 +32,7 @@ export const hasTaskChanged = function(state, taskId){
 export const getIsFetching = function(state){
   return fromUI.getIsFetching(state.ui)
 }
+
+export const getNotification = function(state){
+  return fromUI.getNotification(state.ui)
+}

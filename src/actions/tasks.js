@@ -1,5 +1,5 @@
 import * as api from 'service/TaskService'
-import {startFetchingTasks, stopFetchingTasks} from './ui'
+import {startFetchingTasks, stopFetchingTasks, displayNotification } from './ui'
 
 export const receiveTasks = (response) => {
   return {
@@ -30,7 +30,7 @@ export const updateTask = function(task){
     // dispatch(startFetchingTasks());
     return api.saveTask(task).then((response) => {
       dispatch(updateTaskLocal(response))
-      // setTimeout(() => {dispatch(stopFetchingTasks());}, 500)
+      dispatch(displayNotification("Task has been updated"))
     });
   };
 }

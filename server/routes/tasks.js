@@ -40,12 +40,12 @@ router.put('/:task?',  (req, res) => {
     Task.findOne({id: taskId}, function(err, task){
       if(err) handleError(err, res)
 
-      const { title, type, header, articles } = req.body
+      const { title, header, articles } = req.body
       if(task){
         console.log("task found")
         console.log("task update with:")
-        console.log(JSON.stringify({title, type, header, articles}))
-        task.set({title, type, header, articles})
+        console.log(JSON.stringify({title, header, articles}))
+        task.set({title, header, articles})
         task.save(function(err, updatedTask) {
           if (err) handleError(err, res)
           res.status(200).send(updatedTask);
