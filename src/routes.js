@@ -1,7 +1,6 @@
 // import React from 'react'
 // import Loadable from 'react-loadable'
 import withAuthentication from 'enhancers/withAuthentication'
-import withTransaction from 'enhancers/withTransaction'
 import Reception from 'screens/modules/Reception'
 import Order from 'screens/modules/Order'
 import Register from 'screens/Register';

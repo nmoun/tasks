@@ -12,7 +12,7 @@ function SidePanel(props) {
       <div>
         <ul className="entries">
           {entries.map(function(entry) {
-            return <Entry key={entry.entryId} {...entry} />
+            return <Entry key={entry.label} {...entry} />
           })}
         </ul>
       </div>
@@ -22,7 +22,7 @@ function SidePanel(props) {
 export default SidePanel
 
 function Entry(props) {
-  return <li className="entry clickable" id={props.entryId} onClick={props.onEntryClick}>
-    <span>{props.entryLabel}</span>
+  return <li className="entry clickable" id={props.entryId} onClick={props.handleClickEntry}>
+    <span>{props.label}</span>
   </li>
 }

@@ -10,7 +10,7 @@ import { connect } from 'react-redux'
 import LoadingList from 'components/LoadingList'
 import SidePanel from 'components/SidePanel'
 import { ICONS } from 'components/Fab'
-import Menu from 'components/Menu'
+import TaskMenu from 'components/TaskMenu'
 
 class Home extends React.Component {
 
@@ -52,6 +52,11 @@ class Home extends React.Component {
     })
   }
 
+  componentDidMount(){
+    if(this.props.tasks.length === 0)
+      this.props.fetchTasks()
+  }
+
   render() {
     const { isFetching, tasks } = this.props;
     const leftIcon = (this.state.isDisplayedSidePanel || this.state.isDisplayedMenu) ? Header.ICONS.BACK : Header.ICONS.MENU;
@@ -65,7 +70,7 @@ class Home extends React.Component {
       <AppSidePanel
         logout={this.logout}
         isDisplayed={this.state.isDisplayedSidePanel} />
-      <Menu isDisplayed={this.state.isDisplayedMenu} />
+      <TaskMenu isDisplayed={this.state.isDisplayedMenu} />
       <div>
         {
           isFetching ? <LoadingList /> : <TaskList tasks={tasks}/>
@@ -88,9 +93,8 @@ export default withRouter(connect(
 function AppSidePanel(props) {
   let entries = [
     {
-      entryId: 1,
-      entryLabel: "Logout",
-      onEntryClick: props.logout
+      label: "Logout",
+      handleClickEntry: props.logout
     }
   ]
 

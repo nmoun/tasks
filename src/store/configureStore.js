@@ -2,8 +2,6 @@ import { createStore, applyMiddleware } from 'redux'
 import reducer from 'reducers'
 import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
-import {STATE} from 'utils/constants'
-
 
 export const configureStore = () => {
   const logger = createLogger({});
