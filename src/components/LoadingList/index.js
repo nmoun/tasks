@@ -12,8 +12,10 @@ class LoadingList extends React.Component {
       arr.push(<Widget key={i} className="loading-list__widget"/>)
     }
 
-    return <div className="loading-list">
-      { arr }
+    return <div className="loading-list-container">
+      <div className="loading-list">
+        { arr }
+      </div>
     </div>
   }
 }
