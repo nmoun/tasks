@@ -8,6 +8,20 @@ export const receiveTasks = (response) => {
   }
 }
 
+export const createTask = (task) => {
+  return {
+    type: "CREATE_TASK",
+    task,
+  }
+}
+
+export const deleteTask = (id) => {
+  return {
+    type: "DELETE_TASK",
+    id,
+  }
+}
+
 const updateTaskLocal = (response) => {
   return {
     type: "UPDATE_TASK",

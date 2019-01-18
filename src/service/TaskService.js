@@ -56,7 +56,7 @@ export function saveTask(task) {
   }).then((res) => {
     return res.json()
   }).then((res) => {
-    return normalize(res, taskSchema)
+    return {...normalize(res.task, taskSchema), tmpId: res.tmpId}
   }).catch(error => {
     console.log('error: ' + error)
   });

@@ -17,8 +17,9 @@ npm run launch
 ![alt text](/docs/test.gif)
 
 # TODO
-reselect: reorganize selectors<br/>
+Creation of tasks by client (action<br/>
 Menu to create task<br/>
+reselect: reorganize selectors<br/>
 Uniformise noms (handlers etc...)<br/>
 Notifications<br/>
 replace ThemedPage by an hoc?<br/>

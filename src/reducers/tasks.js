@@ -9,10 +9,30 @@ const byId =  function(state = {}, action) {
     return action.response.entities.tasks
 
   case 'UPDATE_TASK':
-    return {
+    // server response with one task
+    newState = {
       ...state,
       ...action.response.entities.tasks
     }
+    if(action.tmpId) delete newState[tmpId]
+    return newState
+
+  case 'CREATE_TASK':
+    // task creation from client
+    const { id, type, title, header = {}, articles = [] } = action.task
+    return {
+      ...state,
+      [action.task.id]: {
+        id, type, title, header, articles
+      }
+    }
+
+  case 'DELETE_TASK':
+    // task deletion from client
+    const taskId = action.id
+    newState = {...state}
+    delete newState[taskId]
+    return newState
 
   case 'UPDATE_QUANTITY': 
     newState = {...state}
@@ -60,6 +80,24 @@ const allIds = (state = [], action) => {
   switch(action.type){
   case 'RECEIVE_TASKS':
     return action.response.result
+
+  case 'CREATE_TASK':
+    // task creation from client
+    return state.concat(action.task.id)
+
+  case 'DELETE_TASK':
+    // task deletion from client
+    return state.filter((id) => {
+      return id != action.id
+    })
+
+  case 'UPDATE_TASK':
+    // server response with one task
+    if(action.tmpId)
+      return state.filter((id) => {
+        return action.tmpId != id
+      })
+
   default:
     return state;
   }
@@ -77,11 +115,11 @@ export const getTasks = function(state){
 }
 
 export const getTask = function(state, taskId){
-  return state.wip.byId[taskId];
+  return state.wip.byId[taskId] || { id: 'sale', type: 'sale', title: 'sale', header: {}, articles: [] };
 }
 
 export const getArticles = function(state, taskId){
-  return state.wip.byId[taskId].articles
+  return state.wip.byId[taskId] ? state.wip.byId[taskId].articles : []
 }
 
 export const getArticle = function(state, taskId, articleId){

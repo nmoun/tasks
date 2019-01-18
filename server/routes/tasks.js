@@ -15,7 +15,7 @@ router.get('/',  (req, res) => {
 router.put('/:task?',  (req, res) => {
   const taskId = req.params.task;
   console.log("taskId: " + taskId)
-  if(!taskId){
+  if(!taskId || isNaN(taskId)){
     // Create
     console.log('no id -> creation of task')
 
@@ -32,7 +32,7 @@ router.put('/:task?',  (req, res) => {
           handleError(err, res)
         }
         console.log('task created')
-        res.send(createdTask)
+        res.send({task: createdTask, tmpId: taskId})
       })
     })
   } else {
@@ -48,7 +48,7 @@ router.put('/:task?',  (req, res) => {
         task.set({title, header, articles})
         task.save(function(err, updatedTask) {
           if (err) handleError(err, res)
-          res.status(200).send(updatedTask);
+          res.send({task: updatedTask, tmpId: null});
         });
       }
     })
