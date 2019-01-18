@@ -17,7 +17,7 @@ router.put('/:task?',  (req, res) => {
   console.log("taskId: " + taskId)
   if(!taskId || isNaN(taskId)){
     // Create
-    console.log('no id -> creation of task')
+    console.log('id not valid -> creation of task')
 
     const { title, type, header, articles } = req.body
     // Generates id
@@ -26,7 +26,7 @@ router.put('/:task?',  (req, res) => {
         handleError(err, res)
       }
       const id = parseInt(task.id, 10) + 1;
-      console.log('task creation: new id: ' + newId)
+      console.log('task creation: new id: ' + id)
       Task.create({id, title, type, header, articles}, (err, createdTask) => {
         if(err){
           handleError(err, res)

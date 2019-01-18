@@ -6,7 +6,7 @@ import {withRouter} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getTask, getArticles, hasTaskChanged } from 'reducers'
 import { updateQuantity, addArticle, deleteArticle, incrementArticle } from 'actions/articles'
-import { updateTask, deleteTask } from 'actions/tasks'
+import { updateTask } from 'actions/tasks'
 import { discardChanges, saveChanges } from 'actions/transaction'
 import { openDialogConfirm, closeDialogConfirm } from 'components/dialogs/DialogConfirm'
 import { openDialogScan } from 'components/dialogs/DialogScan'
@@ -44,11 +44,7 @@ class OrderArticleList extends React.Component{
             history.goBack()
           }, 
           handleNo: () => {
-            if(isNaN(this.props.task.id)){
-              this.props.deleteTask(this.props.task.id)
-            } else {
-              this.props.discardChanges()
-            }
+            this.props.discardChanges()
             closeDialogConfirm();
             history.goBack();
           }
@@ -111,7 +107,6 @@ const mapDispatchToProps = {
   deleteArticle,
   incrementArticle,
   updateTask,
-  deleteTask,
 }
 
 export default withRouter(connect(

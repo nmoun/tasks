@@ -6,15 +6,16 @@ const byId =  function(state = {}, action) {
   var newState
   switch (action.type) {
   case 'RECEIVE_TASKS':
+    // server response with all the tasks
     return action.response.entities.tasks
 
   case 'UPDATE_TASK':
-    // server response with one task
+    // server response with one task updated/created
     newState = {
       ...state,
       ...action.response.entities.tasks
     }
-    if(action.tmpId) delete newState[tmpId]
+    if(action.response.tmpId) delete newState[action.response.tmpId]
     return newState
 
   case 'CREATE_TASK':
@@ -26,13 +27,6 @@ const byId =  function(state = {}, action) {
         id, type, title, header, articles
       }
     }
-
-  case 'DELETE_TASK':
-    // task deletion from client
-    const taskId = action.id
-    newState = {...state}
-    delete newState[taskId]
-    return newState
 
   case 'UPDATE_QUANTITY': 
     newState = {...state}
@@ -85,18 +79,14 @@ const allIds = (state = [], action) => {
     // task creation from client
     return state.concat(action.task.id)
 
-  case 'DELETE_TASK':
-    // task deletion from client
-    return state.filter((id) => {
-      return id != action.id
-    })
-
   case 'UPDATE_TASK':
     // server response with one task
-    if(action.tmpId)
-      return state.filter((id) => {
-        return action.tmpId != id
-      })
+    if(action.response.tmpId)
+      return state
+        .filter((id) => {
+          return action.response.tmpId != id
+        })
+        .concat(action.response.result)
 
   default:
     return state;
@@ -115,11 +105,11 @@ export const getTasks = function(state){
 }
 
 export const getTask = function(state, taskId){
-  return state.wip.byId[taskId] || { id: 'sale', type: 'sale', title: 'sale', header: {}, articles: [] };
+  return state.wip.byId[taskId]
 }
 
 export const getArticles = function(state, taskId){
-  return state.wip.byId[taskId] ? state.wip.byId[taskId].articles : []
+  return state.wip.byId[taskId].articles
 }
 
 export const getArticle = function(state, taskId, articleId){

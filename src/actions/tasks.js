@@ -15,13 +15,6 @@ export const createTask = (task) => {
   }
 }
 
-export const deleteTask = (id) => {
-  return {
-    type: "DELETE_TASK",
-    id,
-  }
-}
-
 const updateTaskLocal = (response) => {
   return {
     type: "UPDATE_TASK",

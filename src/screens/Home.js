@@ -10,22 +10,40 @@ import { connect } from 'react-redux'
 import LoadingList from 'components/LoadingList'
 import SidePanel from 'components/SidePanel'
 import { ICONS } from 'components/Fab'
+import Menu from 'components/Menu'
 
 class Home extends React.Component {
 
   constructor() {
     super()
     this.state = {
-      isDisplayedSidePanel: false
+      isDisplayedSidePanel: false,
+      isDisplayedMenu: false
     }
     this.logout = this.logout.bind(this)
-    this.displaySidePanel = this.displaySidePanel.bind(this)
+    this.toggleSidePanel = this.toggleSidePanel.bind(this)
+    this.toggleMenu = this.toggleMenu.bind(this)
+    this.handleBack = this.handleBack.bind(this)
   }
 
-  displaySidePanel() {
+  toggleSidePanel() {
     this.setState({
       isDisplayedSidePanel: !this.state.isDisplayedSidePanel,
     });
+  }
+
+  toggleMenu() {
+    this.setState({
+      isDisplayedMenu: !this.state.isDisplayedMenu,
+    });
+  }
+
+  handleBack(){
+    if(this.state.isDisplayedMenu){
+      this.toggleMenu()
+    } else {
+      this.toggleSidePanel()
+    }
   }
 
   logout() {
@@ -36,17 +54,18 @@ class Home extends React.Component {
 
   render() {
     const { isFetching, tasks } = this.props;
-    const leftIcon = this.state.isDisplayedSidePanel ? Header.ICONS.BACK : Header.ICONS.MENU;
-    return (<ThemedPage fab={true} handleClickFab={() => console.log('FAB clicked')} fabIcon={ICONS.PLUS}>
+    const leftIcon = (this.state.isDisplayedSidePanel || this.state.isDisplayedMenu) ? Header.ICONS.BACK : Header.ICONS.MENU;
+    return (<ThemedPage fab={true} handleClickFab={this.toggleMenu} fabIcon={ICONS.PLUS}>
       <Header
         title='Tasks'
         leftIcon={leftIcon}
-        handleClickLeft={this.displaySidePanel}
+        handleClickLeft={this.handleBack}
         rightText="Reload"
         handleClickRight={this.props.fetchTasks} />
       <AppSidePanel
         logout={this.logout}
         isDisplayed={this.state.isDisplayedSidePanel} />
+      <Menu isDisplayed={this.state.isDisplayedMenu} />
       <div>
         {
           isFetching ? <LoadingList /> : <TaskList tasks={tasks}/>

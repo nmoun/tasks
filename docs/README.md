@@ -17,11 +17,11 @@ npm run launch
 ![alt text](/docs/test.gif)
 
 # TODO
-Creation of tasks by client (action<br/>
+Creation of tasks by client<br/>
+Fake task validation<br/>
 Menu to create task<br/>
+Factorise menu entries (side panel, menu to create tasks)<br/>
 reselect: reorganize selectors<br/>
-Uniformise noms (handlers etc...)<br/>
-Notifications<br/>
 replace ThemedPage by an hoc?<br/>
 refactor Login page<br/>
 Reorganize folder structure (separate view & state?)<br/>
