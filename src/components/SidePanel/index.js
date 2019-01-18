@@ -1,28 +1,29 @@
 import React from 'react'
+import Menu from 'components/Menu'
 
 import './style.scss'
 
-function SidePanel(props) {
-  let className = props.isDisplayed === true ? "side-panel" : "side-panel hide";
+class SidePanel extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      activateTransitions: false
+    }
+  }
 
-  let entries = props.entries
-
-  return <div className='side-panel-container'>
-    <div className={className}>
-      <div>
-        <ul className="entries">
-          {entries.map(function(entry) {
-            return <Entry key={entry.label} {...entry} />
-          })}
-        </ul>
+  componentDidMount(){
+    setTimeout(() => {
+      this.setState({activateTransitions: true})
+    }, 500)
+  }
+  render(){
+    let className = this.props.isDisplayed === true ? "side-panel displayed" : "side-panel";
+    if(this.state.activateTransitions) className += " side-panel-transitions"
+    return <div className='side-panel-container'>
+      <div className={className}>
+        <Menu entries={this.props.entries}/>
       </div>
     </div>
-  </div>
+  }
 }
 export default SidePanel
-
-function Entry(props) {
-  return <li className="entry clickable" id={props.entryId} onClick={props.handleClickEntry}>
-    <span>{props.label}</span>
-  </li>
-}
