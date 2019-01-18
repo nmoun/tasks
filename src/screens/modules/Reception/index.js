@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from 'components/Header'
+import Header, { ICONS } from 'components/Header'
 import {getTask} from 'reducers'
 import ThemedPage from 'components/layout/ThemedPage'
 import {withRouter} from 'react-router-dom'
@@ -11,7 +11,7 @@ function Reception(props){
     history.goBack();
   }
   return <ThemedPage>
-    <Header title="Reception" leftIcon={Header.ICONS.BACK} onLeftClick={goBack}/>
+    <Header title="Reception" leftIcon={ICONS.LEFT} onLeftClick={goBack}/>
     <span className="text-white p-1">Supplier: {task.header ? task.header.supplier : ""}</span>
     <span className="text-white p-1">Articles</span>
   </ThemedPage>

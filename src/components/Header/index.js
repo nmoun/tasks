@@ -4,7 +4,7 @@ import './style.scss'
 
 /**
  * @param {object} props
- * @param {string} leftIcon - possible values in Header.ICONS
+ * @param {string} leftIcon - possible values in ICONS
  */
 function Header(props){
   let classLeft = 'header-left clickable' + (props.leftIcon ? ' ' + props.leftIcon : '');
@@ -25,9 +25,10 @@ function Header(props){
 /**
  * Contains possible values for css class icons
  */
-Header.ICONS = {
+export const ICONS = {
   MENU: 'header-icon-menu',
-  BACK: 'header-icon-back'
+  LEFT: 'header-icon-left',
+  RIGHT: 'header-icon-right',
 }
 
 export default Header

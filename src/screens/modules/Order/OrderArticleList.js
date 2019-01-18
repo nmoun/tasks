@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from 'components/Header'
+import Header, { ICONS } from 'components/Header'
 import ThemedPage from 'components/layout/ThemedPage'
 import ArticleList from 'components/ArticleList'
 import {withRouter} from 'react-router-dom'
@@ -80,7 +80,7 @@ class OrderArticleList extends React.Component{
 
 
     return <ThemedPage fab={true} handleClickFab={() => {openDialog()}}>
-      <Header title={this.props.task.title} leftIcon={Header.ICONS.BACK} handleClickLeft={goBack}/>
+      <Header title={this.props.task.title} leftIcon={ICONS.LEFT} handleClickLeft={goBack}/>
       {this.props.articles.length > 0 ?
         <ArticleList
           articles={this.props.articles}

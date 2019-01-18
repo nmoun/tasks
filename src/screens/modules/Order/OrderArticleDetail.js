@@ -1,7 +1,7 @@
 import React from 'react'
 import ArticleCell from 'components/ArticleCell'
 import ThemedPage from 'components/layout/ThemedPage'
-import Header from 'components/Header'
+import Header, { ICONS } from 'components/Header'
 import { getArticle } from 'reducers'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -26,7 +26,7 @@ class OrderArticleDetail extends React.Component{
     }
 
     return <ThemedPage>
-      <Header title="Article detail" leftIcon={Header.ICONS.BACK} handleClickLeft={goBack}/>
+      <Header title="Article detail" leftIcon={ICONS.LEFT} handleClickLeft={goBack}/>
       <ArticleCell {...this.props.article} handleChangeValue={this.handleChangeValue}/>
     </ThemedPage>
   }

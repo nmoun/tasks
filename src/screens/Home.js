@@ -2,7 +2,7 @@ import React from 'react'
 import { logout } from 'service/AuthService'
 import ThemedPage from 'components/layout/ThemedPage'
 import TaskList from 'components/TaskList'
-import Header from 'components/Header'
+import Header, {ICONS as HEADER_ICONS } from 'components/Header'
 import { withRouter } from 'react-router-dom'
 import { fetchTasks } from 'actions/tasks'
 import { getTasks, getIsFetching } from 'reducers'
@@ -59,7 +59,8 @@ class Home extends React.Component {
 
   render() {
     const { isFetching, tasks } = this.props;
-    const leftIcon = (this.state.isDisplayedSidePanel || this.state.isDisplayedMenu) ? Header.ICONS.BACK : Header.ICONS.MENU;
+    const leftIcon = this.state.isDisplayedSidePanel ?
+      HEADER_ICONS.LEFT : this.state.isDisplayedMenu ? HEADER_ICONS.RIGHT : HEADER_ICONS.MENU;
     return (<ThemedPage fab={true} handleClickFab={this.toggleMenu} fabIcon={ICONS.PLUS}>
       <Header
         title='Tasks'

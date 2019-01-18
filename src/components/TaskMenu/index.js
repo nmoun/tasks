@@ -4,24 +4,44 @@ import { withRouter } from 'react-router-dom'
 
 import './style.scss'
 
-function TaskMenu(props){
-  const classMenu = props.isDisplayed ? "task-menu" : "task-menu-hidden",
-    { history } = props,
-    // hard coded for now
-    entries = [{
-      handleClickEntry: () => {
-        history.push('/order')
-      },
-      label: 'Order',
-    },{
-      handleClickEntry: () => {
-        history.push('/reception')
-      },
-      label: 'Reception',
-    }] 
-  return <div className={classMenu}>
-    <Menu entries={entries}/>
-  </div>
+class TaskMenu extends React.Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      activateTransitions: false
+    }
+  }
+
+  componentDidMount(){
+    setTimeout(() => {
+      this.setState({activateTransitions: true})
+    }, 500)
+  }
+
+  render(){
+    let classMenu = this.props.isDisplayed ? "task-menu" : "task-menu hidden",
+      { history } = this.props,
+      // hard coded for now
+      entries = [{
+        handleClickEntry: () => {
+          history.push('/order')
+        },
+        label: 'Order',
+      },{
+        handleClickEntry: () => {
+          history.push('/reception')
+        },
+        label: 'Reception',
+      }]
+    
+    if(this.state.activateTransitions) classMenu += " task-menu-transitions"
+
+    return <div className="task-menu-container">
+      <div className={classMenu}>
+        <Menu entries={entries}/>
+      </div>
+    </div>
+  }
 }
 
 export default withRouter(TaskMenu)
