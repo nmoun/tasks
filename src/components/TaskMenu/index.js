@@ -29,9 +29,16 @@ class TaskMenu extends React.Component{
         label: 'Order',
       },{
         handleClickEntry: () => {
-          history.push('/reception')
         },
-        label: 'Reception',
+        label: 'Check in (WIP)',
+      },{
+        handleClickEntry: () => {
+        },
+        label: 'Inventory (WIP)',
+      },{
+        handleClickEntry: () => {
+        },
+        label: 'Transfer (WIP)',
       }]
     
     if(this.state.activateTransitions) classMenu += " task-menu-transitions"

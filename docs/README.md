@@ -18,7 +18,7 @@ npm run launch
 
 # TODO
 Fake task validation<br/>
-Menu to create task<br/>
+Number of items in task widget<br/>
 reselect: reorganize selectors<br/>
 replace ThemedPage by an hoc?<br/>
 refactor Login page<br/>

@@ -14,7 +14,6 @@ class Order extends React.Component{
   }
 
   componentDidMount(){
-    this.props.startTransaction()
     if(this.props.match.path === this.props.location.pathname){
       // Root route: create a temporary task and display it
       const { history } = this.props,
@@ -22,10 +21,6 @@ class Order extends React.Component{
       this.props.createTask({id: newTaskId, type: 'order', title: 'Order'})
       history.replace(`${this.props.match.path}/${newTaskId}`)
     }
-  }
-
-  componentWillUnmount(){
-    this.props.stopTransaction()
   }
 
   render(){

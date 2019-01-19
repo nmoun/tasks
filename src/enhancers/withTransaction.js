@@ -6,9 +6,6 @@ function withTransaction(WrappedComponent){
   class WithTransaction extends React.Component {
     constructor(props){
       super(props)
-    }
-
-    componentDidMount(){
       this.props.startTransaction()
     }
 
