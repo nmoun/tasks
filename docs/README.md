@@ -19,7 +19,6 @@ npm run launch
 # TODO
 Fake task validation<br/>
 Menu to create task<br/>
-Factorise menu entries (side panel, menu to create tasks)<br/>
 reselect: reorganize selectors<br/>
 replace ThemedPage by an hoc?<br/>
 Fix task loading placeholder<br/>

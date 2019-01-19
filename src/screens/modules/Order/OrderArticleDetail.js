@@ -13,20 +13,20 @@ class OrderArticleDetail extends React.Component{
   constructor(props){
     super(props)
     this.handleChangeValue = this.handleChangeValue.bind(this)
+    this.goBack = this.goBack.bind(this)
   }
 
   handleChangeValue(articleId, quantity){
     this.props.updateQuantity(this.props.taskId, articleId, quantity);
   }
 
-  render(){
-    let {history} = this.props;
-    let goBack = () => {
-      history.goBack();
-    }
+  goBack(){
+    this.props.history.goBack();
+  }
 
+  render(){
     return <ThemedPage>
-      <Header title="Article detail" leftIcon={ICONS.LEFT} handleClickLeft={goBack}/>
+      <Header title="Article detail" leftIcon={ICONS.LEFT} handleClickLeft={this.goBack}/>
       <ArticleCell {...this.props.article} handleChangeValue={this.handleChangeValue}/>
     </ThemedPage>
   }

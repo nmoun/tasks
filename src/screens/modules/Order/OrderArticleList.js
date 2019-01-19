@@ -17,6 +17,10 @@ class OrderArticleList extends React.Component{
     super(props)
     this.handleChangeValue = this.handleChangeValue.bind(this)
     this.handleClickLeft = this.handleClickLeft.bind(this)
+    this.handleSubmitArticleCode = this.handleSubmitArticleCode.bind(this)
+    this.handleClickRemoval = this.handleClickRemoval.bind(this)
+    this.openDialogScan = this.openDialogScan.bind(this)
+    this.goBack = this.goBack.bind(this)
   }
 
   handleChangeValue(articleId, quantity){
@@ -28,65 +32,73 @@ class OrderArticleList extends React.Component{
     history.push(match.url + "/" + articleId)
   }
 
-  render(){
-    let {history} = this.props;
-    const goBack = () => {
-      if(!this.props.hasTaskChanged){
-        history.goBack();
-      } else {
-        openDialogConfirm({
-          isDismissible: true,
-          message: "Save changes?", 
-          handleYes: () => {
-            this.props.saveChanges()
-            this.props.updateTask(this.props.task)
-            closeDialogConfirm()
-            history.goBack()
-          }, 
-          handleNo: () => {
-            this.props.discardChanges()
-            closeDialogConfirm();
-            history.goBack();
+  handleSubmitArticleCode(articleCode){
+    api.fetchArticle(articleCode)
+      .then((res) => {
+        if(res.length > 0){
+          let tmp = this.props.articles.filter((article) => (article.id == res[0].id))
+          if(tmp.length === 0){
+            this.props.addArticle(res[0], this.props.task.id)
+          }else{
+            this.props.incrementArticle(tmp[0].id, this.props.task.id)
           }
-        })
-      }
-    }
+        }
+      })
+  }
 
-    const openDialog = () => {
-      openDialogScan({
+  handleClickRemoval(articleId){
+    this.props.deleteArticle(articleId, this.props.task.id)
+  }
+
+  openDialogScan() {
+    openDialogScan({
+      isDismissible: true,
+      message: "Scan article code",
+      handleSubmit: this.handleSubmitArticleCode
+    })
+  }
+
+  componentDidMount(){
+    // Display the popup to scan an article if there are no articles
+    if(this.props.articles.length === 0)
+      this.openDialogScan()
+  }
+
+  /**
+   * Go back to the task list
+   */
+  goBack(){
+    const { history } = this.props
+    if(!this.props.hasTaskChanged){
+      history.goBack();
+    } else {
+      openDialogConfirm({
         isDismissible: true,
-        message: "Scan article code",
-        handleSubmit: handleSubmitArticleCode
+        message: "Save changes?", 
+        handleYes: () => {
+          this.props.saveChanges()
+          this.props.updateTask(this.props.task)
+          closeDialogConfirm()
+          history.goBack()
+        }, 
+        handleNo: () => {
+          this.props.discardChanges()
+          closeDialogConfirm();
+          history.goBack();
+        }
       })
     }
+  }
 
-    const handleSubmitArticleCode = (articleCode) => {
-      api.fetchArticle(articleCode)
-        .then((res) => {
-          if(res.length > 0){
-            let tmp = this.props.articles.filter((article) => (article.id == res[0].id))
-            if(tmp.length === 0){
-              this.props.addArticle(res[0], this.props.task.id)
-            }else{
-              this.props.incrementArticle(tmp[0].id, this.props.task.id)
-            }
-          }
-        })
-    }
-
-    const handleClickRemoval = (articleId) => {
-      this.props.deleteArticle(articleId, this.props.task.id)
-    }
-
-
-    return <ThemedPage fab={true} handleClickFab={() => {openDialog()}}>
-      <Header title={this.props.task.title} leftIcon={ICONS.LEFT} handleClickLeft={goBack}/>
+  render(){
+    return <ThemedPage fab={true} handleClickFab={this.openDialogScan}>
+      <Header title={this.props.task.title} leftIcon={ICONS.LEFT} handleClickLeft={this.goBack}/>
       {this.props.articles.length > 0 ?
         <ArticleList
           articles={this.props.articles}
           handleChangeValue={this.handleChangeValue}
           handleClickLeft={this.handleClickLeft}
-          handleClickRemoval={handleClickRemoval}/>
+          handleClickRemoval={this.handleClickRemoval}/>
         : <div>No articles</div>
       }
     </ThemedPage>
