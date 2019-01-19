@@ -7,16 +7,20 @@ function Notify(props){
       props.handleClick()
     }
   }
-  const  classText = "notify-text " + (props.status || Notify.STATUS.INFO)
+  let classText = "notify-text"
+  switch(props.status){
+  case 'error':
+    classText += ' notify-error'
+    break;
+  case 'success':
+    classText += ' notify-success'
+    break;
+  default:
+    classText += ' notify-info'
+  }
   return <div className="notify-container" onClick={handleClick}>
     <span className={classText}>{props.message}</span>
   </div>
-}
-
-Notify.STATUS = {
-  ERROR: 'notify-error',
-  SUCCESS: 'notify-success',
-  INFO: 'notify-info'
 }
 
 export default Notify

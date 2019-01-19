@@ -25,19 +25,29 @@ const updateTaskLocal = (response) => {
 export const fetchTasks = function(){
   return function(dispatch){
     dispatch(startFetchingTasks());
-    return api.fetchTasks().then((response) => {
-      dispatch(receiveTasks(response))
-      setTimeout(() => {dispatch(stopFetchingTasks());}, 500)
-    });
+    return api
+      .fetchTasks()
+      .then((response) => {
+        dispatch(receiveTasks(response))
+        setTimeout(() => {dispatch(stopFetchingTasks());}, 500)
+      })
+      .catch(() => {
+        dispatch(stopFetchingTasks());
+        dispatch(displayNotification("Error occured while fetching tasks", 'error'))
+      });
   };
 }
 
 export const updateTask = function(task){
   return function(dispatch){
-    // dispatch(startFetchingTasks());
-    return api.saveTask(task).then((response) => {
-      dispatch(updateTaskLocal(response))
-      dispatch(displayNotification("Task has been updated"))
-    });
+    return api
+      .saveTask(task)
+      .then((response) => {
+        dispatch(updateTaskLocal(response))
+        dispatch(displayNotification("Task has been updated"))
+      })
+      .catch(() => {
+        dispatch(displayNotification("Error occured while saving the task", 'error'))
+      });
   };
 }

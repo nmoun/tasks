@@ -21,7 +21,6 @@ Fake task validation<br/>
 Menu to create task<br/>
 reselect: reorganize selectors<br/>
 replace ThemedPage by an hoc?<br/>
-Fix task loading placeholder<br/>
 refactor Login page<br/>
 Reorganize folder structure (separate view & state?)<br/>
 language settings<br/>

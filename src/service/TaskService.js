@@ -59,5 +59,6 @@ export function saveTask(task) {
     return {...normalize(res.task, taskSchema), tmpId: res.tmpId}
   }).catch(error => {
     console.log('error: ' + error)
+    throw new Error(error)
   });
 };
