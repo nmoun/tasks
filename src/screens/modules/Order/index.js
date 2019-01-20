@@ -4,7 +4,6 @@ import {Route, withRouter} from 'react-router-dom'
 import OrderArticleList from './OrderArticleList'
 import OrderArticleDetail from './OrderArticleDetail'
 import { createTask } from 'actions/tasks'
-import { startTransaction, stopTransaction } from 'actions/transaction'
 import { generateTmpId } from 'utils/functions'
 
 class Order extends React.Component{
@@ -33,8 +32,6 @@ class Order extends React.Component{
 
 const mapDispatchToProps = {
   createTask,
-  startTransaction,
-  stopTransaction,
 }
 
 export default withRouter(connect(null, mapDispatchToProps)(Order))

@@ -1,28 +1,18 @@
 import React from 'react'
-import Header, { ICONS } from 'components/Header'
-import {getTask} from 'reducers'
-import ThemedPage from 'components/layout/ThemedPage'
-import {withRouter} from 'react-router-dom'
-import { connect } from 'react-redux'
+import { Route, withRouter} from 'react-router-dom'
+import ReceptionHome from './ReceptionHome'
 
-function Reception(props){
-  let {history, task} = props;
-  let goBack = () => {
-    history.goBack();
+class Reception extends React.Component{
+
+  constructor(props){
+    super(props)
   }
-  return <ThemedPage>
-    <Header title="Reception" leftIcon={ICONS.LEFT} onLeftClick={goBack}/>
-    <span className="text-white p-1">Supplier: {task.header ? task.header.supplier : ""}</span>
-    <span className="text-white p-1">Articles</span>
-  </ThemedPage>
+
+  render(){
+    return <React.Fragment>
+      <Route path={`${this.props.match.path}/:taskId`} exact render={(props) => { return <ReceptionHome taskId={props.match.params.taskId} {...props}/> }} />
+    </React.Fragment>
+  }
 }
 
-Reception = withRouter(Reception)
-
-const mapStateToProps = (state, ownProps) => ({
-  task: getTask(state, ownProps.match.params.id),
-})
-
-export default withRouter(connect(
-  mapStateToProps
-)(Reception))
+export default withRouter(Reception)

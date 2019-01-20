@@ -10,6 +10,7 @@ import { saveTask } from 'actions/tasks'
 import { discardChanges, saveChanges } from 'actions/transaction'
 import { openDialogConfirm, closeDialogConfirm } from 'components/dialogs/DialogConfirm'
 import { openDialogScan } from 'components/dialogs/DialogScan'
+import { openDialogInfo } from 'components/dialogs/DialogInfo'
 import * as api from 'service/ArticleService'
 
 class OrderArticleList extends React.Component{
@@ -42,6 +43,8 @@ class OrderArticleList extends React.Component{
           }else{
             this.props.incrementArticle(tmp[0].id, this.props.task.id)
           }
+        }else{
+          openDialogInfo({message: `Article not found for code: ${articleCode}`})
         }
       })
   }

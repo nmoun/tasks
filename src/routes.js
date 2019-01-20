@@ -35,8 +35,8 @@ const routes = [
     // })
   },
   {
-    path: "/reception/:id",
-    component: withAuthentication(Reception)
+    path: "/reception",
+    component: withAuthentication(withTransaction(Reception))
   },
 ];
 

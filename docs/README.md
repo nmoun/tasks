@@ -24,4 +24,5 @@ refactor Login page<br/>
 Reorganize folder structure (separate view & state?)<br/>
 language settings<br/>
 Compute the subtitle rather than save it<br/>
+Modals depending on UI state rather than independant<br/>
 auth0?
