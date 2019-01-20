@@ -18,11 +18,14 @@ npm run launch
 
 # TODO
 Fake task validation<br/>
+Task status: forbid transaction start depending on task status (SAVING...)<br/>
+Transaction status should be entirely independant<br/>
 reselect: reorganize selectors<br/>
 replace ThemedPage by an hoc?<br/>
 refactor Login page<br/>
 Reorganize folder structure (separate view & state?)<br/>
 language settings<br/>
 Compute the subtitle rather than save it<br/>
-Modals depending on UI state rather than independant<br/>
+Modals depending on UI state in store rather than independant<br/>
+Persiste date last update to fetch tasks only after a certain amount of time<br/>
 auth0?

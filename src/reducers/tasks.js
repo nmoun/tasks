@@ -1,4 +1,3 @@
-
 import transaction from './transaction'
 import {combineReducers} from 'redux'
 
@@ -8,6 +7,15 @@ const byId =  function(state = {}, action) {
   case 'RECEIVE_TASKS':
     // server response with all the tasks
     return action.response.entities.tasks
+
+  case 'UPDATE_TASK_STATUS':
+    return {
+      ...state,
+      [action.taskId]: {
+        ...state[action.taskId],
+        status: action.status
+      }
+    }
 
   case 'UPDATE_TASK':
     // server response with one task updated/created

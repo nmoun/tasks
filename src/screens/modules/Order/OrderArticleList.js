@@ -12,6 +12,7 @@ import { openDialogConfirm, closeDialogConfirm } from 'components/dialogs/Dialog
 import { openDialogScan } from 'components/dialogs/DialogScan'
 import { openDialogInfo } from 'components/dialogs/DialogInfo'
 import * as api from 'service/ArticleService'
+import { TASK_STATUS } from 'utils/constants'
 
 class OrderArticleList extends React.Component{
   constructor(props){
@@ -62,6 +63,10 @@ class OrderArticleList extends React.Component{
   }
 
   componentDidMount(){
+    if(this.props.task.status === TASK_STATUS.LOADING){
+      openDialogInfo({message: 'Task is being processed'})
+      this.props.history.goBack()
+    }
     // Display the popup to scan an article if there are no articles
     if(this.props.articles.length === 0)
       this.openDialogScan()
@@ -79,7 +84,6 @@ class OrderArticleList extends React.Component{
         isDismissible: true,
         message: "Save changes?", 
         handleYes: () => {
-          this.props.saveChanges()
           this.props.saveTask({
             ...this.props.task,
             subtitle: this.props.articles.length + " article(s)"

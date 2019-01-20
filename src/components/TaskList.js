@@ -8,10 +8,7 @@ function TaskList(props){
       tasks.map(function(task){
         return <TaskWidget 
           key={task.id}
-          id={task.id}
-          title={task.title}
-          type={task.type}
-          subtitle={task.subtitle} />
+          {...task} />
       })
     }
   </div>

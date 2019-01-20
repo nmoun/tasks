@@ -1,6 +1,6 @@
 import {JWT_TOKEN} from 'utils/constants'
 import { normalize } from 'normalizr'
-import { task as taskSchema, tasks } from 'schemas'
+import { task as taskSchema, tasks, denormalizeTask } from 'schemas'
 
 export function fetchTasks() {
   // var p = new Promise(function(resolve, reject) {
@@ -43,7 +43,7 @@ export function fetchTasks() {
 
 export function saveTask(task) {
   const taskId = task.id,
-    body = JSON.stringify(task);
+    body = JSON.stringify(denormalizeTask(task))
   return fetch(`/api/tasks/${taskId}`, {
     method: 'PUT',
     headers: {

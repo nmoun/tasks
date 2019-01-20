@@ -1,5 +1,7 @@
 import * as api from 'service/TaskService'
-import {startFetchingTasks, stopFetchingTasks, displayNotification } from './ui'
+import { startFetchingTasks, stopFetchingTasks, displayNotification } from './ui'
+import { saveChanges } from './transaction'
+import { TASK_STATUS } from 'utils/constants'
 
 export const receiveTasks = (response) => {
   return {
@@ -15,6 +17,14 @@ export const createTask = (task) => {
   }
 }
 
+const updateTaskStatus = (taskId, status) =>{
+  return  {
+    type: "UPDATE_TASK_STATUS",
+    taskId,
+    status,
+  }
+}
+
 const updateTaskLocal = (response) => {
   return {
     type: "UPDATE_TASK",
@@ -22,6 +32,9 @@ const updateTaskLocal = (response) => {
   }
 }
 
+/**
+ * Fetch all the tasks
+ */
 export const fetchTasks = function(){
   return function(dispatch){
     dispatch(startFetchingTasks());
@@ -29,7 +42,7 @@ export const fetchTasks = function(){
       .fetchTasks()
       .then((response) => {
         dispatch(receiveTasks(response))
-        setTimeout(() => {dispatch(stopFetchingTasks());}, 500)
+        setTimeout(() => {dispatch(stopFetchingTasks());}, 750)
       })
       .catch(() => {
         dispatch(stopFetchingTasks());
@@ -44,11 +57,15 @@ export const fetchTasks = function(){
  */
 export const saveTask = function(task){
   return function(dispatch){
+    dispatch(updateTaskStatus(task.id, TASK_STATUS.LOADING));
+    dispatch(saveChanges());
     return api
       .saveTask(task)
       .then((response) => {
-        dispatch(updateTaskLocal(response))
-        dispatch(displayNotification("Task has been updated"))
+        setTimeout(() => {
+          dispatch(updateTaskLocal(response))
+          dispatch(displayNotification("Task has been updated"))
+        }, 5000)
       })
       .catch(() => {
         dispatch(displayNotification("Error occured while saving the task", 'error'))
