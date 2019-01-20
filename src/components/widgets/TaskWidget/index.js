@@ -10,9 +10,10 @@ class TaskWidget extends React.Component {
     super(props)
   }
 
-
   render(){
-    return <Link to={'/' + this.props.type + '/' + this.props.id }><Widget {...this.props} className="task-widget"/></Link>
+    return <Link to={'/' + this.props.type + '/' + this.props.id }>
+      <Widget {...this.props} className="task-widget"/>
+    </Link>
   }
 }
 

@@ -8,11 +8,11 @@ class Widget extends React.Component {
     super(props)
   }
 
-
   render(){
     let className = 'rounded widget text-white' + (this.props.className ? ' ' + this.props.className : '');
     return <div className={className}>
       <span>{this.props.title}</span>
+      <span>{this.props.subtitle}</span>
     </div>
   }
 }

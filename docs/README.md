@@ -18,10 +18,10 @@ npm run launch
 
 # TODO
 Fake task validation<br/>
-Number of items in task widget<br/>
 reselect: reorganize selectors<br/>
 replace ThemedPage by an hoc?<br/>
 refactor Login page<br/>
 Reorganize folder structure (separate view & state?)<br/>
 language settings<br/>
+Compute the subtitle rather than save it<br/>
 auth0?

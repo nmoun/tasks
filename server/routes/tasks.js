@@ -19,7 +19,7 @@ router.put('/:task?',  (req, res) => {
     // Create
     console.log('id not valid -> creation of task')
 
-    const { title, type, header, articles } = req.body
+    const { title, subtitle, type, header, articles } = req.body
     // Generates id
     Task.findOne().sort({id: 'desc'}).exec((err, task) => {
       if(err){
@@ -27,7 +27,7 @@ router.put('/:task?',  (req, res) => {
       }
       const id = parseInt(task.id, 10) + 1;
       console.log('task creation: new id: ' + id)
-      Task.create({id, title, type, header, articles}, (err, createdTask) => {
+      Task.create({id, title, subtitle, type, header, articles}, (err, createdTask) => {
         if(err){
           handleError(err, res)
         }
@@ -40,12 +40,12 @@ router.put('/:task?',  (req, res) => {
     Task.findOne({id: taskId}, function(err, task){
       if(err) handleError(err, res)
 
-      const { title, header, articles } = req.body
+      const { title, subtitle, header, articles } = req.body
       if(task){
         console.log("task found")
         console.log("task update with:")
-        console.log(JSON.stringify({title, header, articles}))
-        task.set({title, header, articles})
+        console.log(JSON.stringify({title, subtitle, header, articles}))
+        task.set({title, subtitle, header, articles})
         task.save(function(err, updatedTask) {
           if (err) handleError(err, res)
           res.send({task: updatedTask, tmpId: null});

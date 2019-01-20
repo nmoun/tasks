@@ -13,6 +13,10 @@ var TaskSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  subtitle: {
+    type: String,
+    trim: true
+  },
   type: {
     type: String,
     required: true,

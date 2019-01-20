@@ -38,7 +38,11 @@ export const fetchTasks = function(){
   };
 }
 
-export const updateTask = function(task){
+/**
+ * Creates/updates task
+ * @param {*} task 
+ */
+export const saveTask = function(task){
   return function(dispatch){
     return api
       .saveTask(task)
