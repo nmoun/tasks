@@ -17,7 +17,14 @@ export const createTask = (task) => {
   }
 }
 
-const updateTaskStatus = (taskId, status) =>{
+export const deleteTask = (taskId) => {
+  return {
+    type: "DELETE_TASK",
+    taskId,
+  }
+}
+
+export const updateTaskStatus = (taskId, status) =>{
   return  {
     type: "UPDATE_TASK_STATUS",
     taskId,
@@ -65,7 +72,7 @@ export const saveTask = function(task){
         setTimeout(() => {
           dispatch(updateTaskLocal(response))
           dispatch(displayNotification("Task has been updated"))
-        }, 5000)
+        }, 2000)
       })
       .catch(() => {
         dispatch(displayNotification("Error occured while saving the task", 'error'))

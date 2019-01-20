@@ -36,6 +36,12 @@ const byId =  function(state = {}, action) {
       }
     }
 
+  case 'DELETE_TASK':
+    // task creation from client
+    newState = {...state}
+    delete newState[action.taskId]
+    return newState
+
   case 'UPDATE_QUANTITY': 
     newState = {...state}
     newState[action.taskId] = {
@@ -86,6 +92,9 @@ const allIds = (state = [], action) => {
   case 'CREATE_TASK':
     // task creation from client
     return state.concat(action.task.id)
+
+  case 'DELETE_TASK':
+    return state.filter((id) => (id != action.taskId))
 
   case 'UPDATE_TASK':
     // server response with one task

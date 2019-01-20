@@ -8,10 +8,11 @@ import { getTask, getArticles, hasTaskChanged } from 'reducers'
 import { updateQuantity, addArticle, deleteArticle, incrementArticle } from 'actions/articles'
 import { saveTask } from 'actions/tasks'
 import { discardChanges, saveChanges } from 'actions/transaction'
+import { validateTask } from 'actions/order'
 import { openDialogConfirm, closeDialogConfirm } from 'components/dialogs/DialogConfirm'
 import { openDialogScan } from 'components/dialogs/DialogScan'
 import { openDialogInfo } from 'components/dialogs/DialogInfo'
-import * as api from 'service/ArticleService'
+import * as apiArticle from 'service/ArticleService'
 import { TASK_STATUS } from 'utils/constants'
 
 class OrderArticleList extends React.Component{
@@ -23,6 +24,7 @@ class OrderArticleList extends React.Component{
     this.handleClickRemoval = this.handleClickRemoval.bind(this)
     this.openDialogScan = this.openDialogScan.bind(this)
     this.goBack = this.goBack.bind(this)
+    this.validateTask = this.validateTask.bind(this)
   }
 
   handleChangeValue(articleId, quantity){
@@ -35,7 +37,7 @@ class OrderArticleList extends React.Component{
   }
 
   handleSubmitArticleCode(articleCode){
-    api.fetchArticle(articleCode)
+    apiArticle.fetchArticle(articleCode)
       .then((res) => {
         if(res.length > 0){
           let tmp = this.props.articles.filter((article) => (article.id == res[0].id))
@@ -100,9 +102,14 @@ class OrderArticleList extends React.Component{
     }
   }
 
+  validateTask(){
+    this.props.validateTask(this.props.task)
+    this.props.history.goBack()
+  }
+
   render(){
     return <ThemedPage fab={true} handleClickFab={this.openDialogScan}>
-      <Header title={this.props.task.title} leftIcon={ICONS.LEFT} handleClickLeft={this.goBack}/>
+      <Header title={this.props.task.title} leftIcon={ICONS.LEFT} handleClickLeft={this.goBack} rightText="Send" handleClickRight={this.validateTask}/>
       {this.props.articles.length > 0 ?
         <ArticleList
           articles={this.props.articles}
@@ -129,6 +136,7 @@ const mapDispatchToProps = {
   deleteArticle,
   incrementArticle,
   saveTask,
+  validateTask
 }
 
 export default withRouter(connect(
