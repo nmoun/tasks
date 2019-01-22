@@ -1,53 +1,52 @@
-function transaction(reducer){
+function transaction(tasksReducer, taskReducer){
   // Call the reducer with empty action to populate the initial state
   const initialState = {
-    current: reducer(undefined, {}),
-    wip: reducer(undefined, {}),
-    runningTransaction: false,
+    current: null,
+    tasks: tasksReducer(undefined, {}),
+    transactions: {},
   }
 
   // Return a reducer that handles undo and redo
   return function(state = initialState, action) {
-    const { current, wip, runningTransaction = false } = state
-
+    let { current, tasks, transactions } = state
     switch (action.type) {
     case 'DISCARD':
-      // discard changes
+      // discard changes of current transaction
+      let newTransactions = {...transactions}
+      delete newTransactions[action.taskId]
       return {
-        current,
-        wip: current,
-        runningTransaction
-      }
-    case 'SAVE':
-      // save changes
-      return {
-        current: wip,
-        wip,
-        runningTransaction
+        current: null,
+        tasks,
+        transactions: newTransactions
       }
     case 'START_TRANSACTION':
       return {
-        current,
-        wip: current,
-        runningTransaction: true
+        current: action.id, // id of the object
+        tasks,
+        transactions: {...transactions, [action.taskId]: tasks[action.taskId]},
       }
     case 'STOP_TRANSACTION':
+      // Case when the object is no longer in the current transaction but is still being processed
       return {
-        current,
-        wip: current,
-        runningTransaction: false
+        current: null,
+        tasks: state.tasks,
+        transactions: {...state.transactions}
       }
     default:
       // Delegate handling the action to the passed reducer
-      const newWip = reducer(wip, action)
-      if (wip === newWip) {
-        return state
+      if(action.taskId){
+        const newTasks = tasksReducer(state.tasks, action)
+        const newTask = taskReducer(state.transactions[action.taskId], action)
+        return {
+          current,
+          tasks: newTasks,
+          transactions: {
+            ...transactions,
+            [action.taskId]: newTask
+          }
+        }
       }
-      return {
-        current: (runningTransaction) ? current : newWip,
-        wip: newWip,
-        runningTransaction
-      }
+      return state
     }
   }
 }
