@@ -10,9 +10,10 @@ export function saveChanges(){
   }
 }
 
-export function startTransaction(){
+export function startTransaction(taskId){
   return {
-    type: 'START_TRANSACTION'
+    type: 'START_TRANSACTION',
+    taskId,
   }
 }
 

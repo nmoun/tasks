@@ -1,4 +1,5 @@
-// import transaction from './transaction'
+import transaction from './transaction'
+import task from './task'
 import {combineReducers} from 'redux'
 
 const byId =  function(state = {}, action) {
@@ -73,140 +74,40 @@ const allIds = (state = [], action) => {
   }
 }
 
-/**
- * Notes: only one ongoing transaction at any moment, identified by id.
- * {
- *  current: 15, // current object being modified
- *  transactions: {
- *    15: {
- *      id: 15,
- *      ...
- *    },
- *    47: {
- *      ...
- *    }
- *  }
- * }
- * @param {*} state 
- * @param {Object} action 
- * @param {String} action.id
- * @param {Object} action.object
- */
-const transactions = (state = {}, action) => {
-  switch (action.type) {
-  case 'DISCARD':
-    // discard changes of current transaction
-    let newTransactions = {...state.transactions}
-    delete newTransactions[state.current]
-    return {
-      current: null,
-      transactions: newTransactions
-    }
-  case 'START_TRANSACTION':
-    return {
-      current: action.id, // id of the object
-      transactions: {...state.transactions, [action.id]: action.object},
-    }
-  case 'STOP_TRANSACTION':
-    // Case when the object is no longer in the current transaction but is still being processed
-    return {
-      current: null,
-      transactions: {...state.transactions}
-    }
-
-  case 'ADD_ARTICLE': 
-    return {
-      current: state.current,
-      transactions: {
-        ...state.transactions,
-        [state.current]: {
-          ...state.transactions[state.current],
-          articles: state.transactions[state.current].articles.concat({...action.article, quantity: 1})
-        }
-      }
-    }
-
-  case 'DELETE_ARTICLE': 
-    return {
-      current: state.current,
-      transactions: {
-        ...state.transactions,
-        [state.current]: {
-          ...state.transactions[state.current],
-          articles: state.transactions[state.current].articles.filter((article) => {
-            return (article.id !== action.articleId)
-          })
-        }
-      }
-    }
-
-  case 'UPDATE_QUANTITY': 
-    return {
-      current: state.current,
-      transactions: {
-        ...state.transactions,
-        [state.current]: {
-          ...state.transactions[state.current],
-          articles: state.transactions[state.current].articles.map((article) => {
-            return (article.id == action.articleId) ? {...article, quantity: action.quantity} : article
-          })
-        }
-      }
-    }
-
-  case 'INC_QUANTITY':
-    return {
-      current: state.current,
-      transactions: {
-        ...state.transactions,
-        [state.current]: {
-          ...state.transactions[state.current],
-          articles: state.transactions[state.current].articles.map((article) => {
-            return (article.id == action.articleId) ? {...article, quantity: parseInt(article.quantity, 10) + 1} : article
-          })
-        }
-      }
-    }
-  default:
-    return state
-  }
-}
-
-export const getCurrent = (state) => {
-  return state.transactions[state.current]
-}
+// export const getCurrentTask = (state) => {
+//   return state.transactions[state.current]
+// }
 
 export const isBeingProcessed = (state, id) => {
   return typeof state.transactions[id] !== "undefined"
 }
 
-export default combineReducers({
+export default transaction(combineReducers({
   byId,
   allIds,
-  transactions,
-})
+}), task)
 
 export const getTasks = function(state){
-  return state.wip.allIds.map((id) => {
-    return state.wip.byId[id]
+  return state.tasks.allIds.map((id) => {
+    return state.tasks.byId[id]
   });
 }
 
 export const getTask = function(state, taskId){
-  return state.wip.byId[taskId]
+  return  state.transactions[state.current]
 }
 
 export const getArticles = function(state, taskId){
-  return state.wip.byId[taskId].articles
+  return state.transactions[state.current].articles
 }
 
 export const getArticle = function(state, taskId, articleId){
-  return state.wip.byId[taskId].articles
+  return state.transactions[state.current].articles
     .filter((article) => {
       return article.id == articleId
     })[0]
 }
 
 export const hasTaskChanged = function(state, taskId){
-  return state.wip.byId[taskId] !== state.current.byId[taskId]
+  return state.tasks.byId[taskId] !== state.transactions[taskId]
 }

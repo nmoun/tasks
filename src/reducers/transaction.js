@@ -9,44 +9,63 @@ function transaction(tasksReducer, taskReducer){
   // Return a reducer that handles undo and redo
   return function(state = initialState, action) {
     let { current, tasks, transactions } = state
+    var newTransactions
     switch (action.type) {
     case 'DISCARD':
-      // discard changes of current transaction
-      let newTransactions = {...transactions}
-      delete newTransactions[action.taskId]
+      // discard changes of current task
+      if(!current){
+        throw new Error('Outside of a transaction, should not happen')
+      }
+      newTransactions = {...transactions}
+      delete newTransactions[current]
       return {
-        current: null,
+        current,
         tasks,
         transactions: newTransactions
       }
-    case 'START_TRANSACTION':
+
+    case 'SAVE':
+      // save changes of current task
+      if(!current){
+        throw new Error('Outside of a transaction, should not happen')
+      }
+      newTransactions = {...transactions}
+      var task = newTransactions[current];
+      delete newTransactions[current]
       return {
-        current: action.id, // id of the object
+        current,
+        tasks: {
+          byId: {...tasks.byId, [current]: task},
+          allIds: tasks.allIds
+        },
+        transactions: newTransactions
+      }
+    case 'START_TRANSACTION':
+      // put given task in list of transactions
+      return {
+        current: action.taskId,
         tasks,
-        transactions: {...transactions, [action.taskId]: tasks[action.taskId]},
+        transactions: transactions[action.taskId] ? transactions : {...transactions, [action.taskId]: tasks.byId[action.taskId]},
       }
     case 'STOP_TRANSACTION':
-      // Case when the object is no longer in the current transaction but is still being processed
+      // ...
       return {
         current: null,
-        tasks: state.tasks,
-        transactions: {...state.transactions}
+        tasks,
+        transactions,
       }
     default:
       // Delegate handling the action to the passed reducer
+      let newTransactions = {...transactions}
       if(action.taskId){
-        const newTasks = tasksReducer(state.tasks, action)
-        const newTask = taskReducer(state.transactions[action.taskId], action)
-        return {
-          current,
-          tasks: newTasks,
-          transactions: {
-            ...transactions,
-            [action.taskId]: newTask
-          }
-        }
+        newTransactions[action.taskId] = taskReducer(state.transactions[action.taskId], action)
       }
-      return state
+      const newTasks = tasksReducer(state.tasks, action)
+      return {
+        current,
+        tasks: newTasks,
+        transactions: newTransactions
+      }
     }
   }
 }

@@ -9,7 +9,7 @@ export const validateTask = (task) => {
     dispatch(updateTaskStatus(task.id, TASK_STATUS.LOADING))
     dispatch(saveChanges())
     apiOrder.validateTask(task)
-      .then((res) => {
+      .then(() => {
         setTimeout(() => {
           dispatch(deleteTask(task.id))
           dispatch(displayNotification("Order task has been validated"))
