@@ -9,22 +9,12 @@ const byId =  function(state = {}, action) {
     // server response with all the tasks
     return action.response.entities.tasks
 
-  case 'UPDATE_TASK_STATUS':
-    return {
-      ...state,
-      [action.taskId]: {
-        ...state[action.taskId],
-        status: action.status
-      }
-    }
-
   case 'UPDATE_TASK':
     // server response with one task updated/created
     newState = {
       ...state,
       ...action.response.entities.tasks
     }
-    if(action.response.tmpId) delete newState[action.response.tmpId]
     return newState
 
   case 'CREATE_TASK':
@@ -74,18 +64,20 @@ const allIds = (state = [], action) => {
   }
 }
 
-// export const getCurrentTask = (state) => {
-//   return state.transactions[state.current]
-// }
-
-export const isBeingProcessed = (state, id) => {
-  return typeof state.transactions[id] !== "undefined"
-}
-
 export default transaction(combineReducers({
   byId,
   allIds,
 }), task)
+
+// For tests purpose
+export const tasks = combineReducers({
+  byId,
+  allIds,
+})
+
+export const isBeingProcessed = (state, id) => {
+  return typeof state.transactions[id] !== "undefined"
+}
 
 export const getTasks = function(state){
   return state.tasks.allIds.map((id) => {
@@ -94,7 +86,7 @@ export const getTasks = function(state){
 }
 
 export const getTask = function(state, taskId){
-  return  state.transactions[state.current]
+  return state.transactions[state.current]
 }
 
 export const getArticles = function(state, taskId){

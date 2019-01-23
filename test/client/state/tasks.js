@@ -1,8 +1,11 @@
 
 import * as actions from 'actions/tasks'
 import {expect} from 'chai'
-import { createStore} from 'redux'
-import tasks, * as selectors from 'reducers/tasks'
+import { createStore, applyMiddleware } from 'redux'
+import { tasks } from 'reducers/tasks'
+import { normalize } from 'normalizr'
+import { tasks as tasksSchema } from 'schemas'
+import { createLogger } from 'redux-logger'
 
 export function taskTests(){
 
@@ -10,44 +13,27 @@ export function taskTests(){
     let store
 
     before(function() {
-      store = createStore(tasks)
+      const logger = createLogger({});
+      const middlewares = [logger]
+      store = createStore(tasks, applyMiddleware(...middlewares))
     });
 
     describe('actions', () => {
-      it('should return the same object', () => {
-
-        var tasks = [{
-          "id": "4",
-          "title": "Order",
-          "type": "order",
-          "content": "4"
-        }]
-        
-        expect(actions.receiveTasks(tasks).tasks).to.equal(tasks)
-      })
 
       it('should add 1 task to the store', () => {
-        var tasks = [{
+        var response = [{
           "id": "4",
           "title": "Order",
           "type": "order",
-          "content": "4"
+          "content": "4",
+          "articles": []
         }]
 
-        store.dispatch(actions.receiveTasks(tasks));
+        var normalizedData = normalize(response, tasksSchema)
 
-        expect(store.getState().tasks.allIds).to.be.an('array').that.have.lengthOf(1)
-      })
-    })
+        store.dispatch(actions.receiveTasks(normalizedData));
 
-    describe('selectors', () => {
-
-      it('should return one task', () => {
-        expect(selectors.getTask(store.getState(), "4")).to.be.an('object')
-      })
-
-      it('should return an array containing one task', () => {
-        expect(selectors.getTasks(store.getState())).to.be.an('array').to.have.lengthOf(1)
+        expect(store.getState().allIds).to.be.an('array').that.have.lengthOf(1)
       })
     })
   })

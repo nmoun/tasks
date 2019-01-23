@@ -1,5 +1,11 @@
 const task = (state = {}, action) => {
   switch (action.type) {
+
+  case 'UPDATE_TASK_STATUS':
+    return {
+      ...state,
+      status: action.status,
+    }
   case 'ADD_ARTICLE': 
     return {
       ...state,

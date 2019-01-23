@@ -17,8 +17,7 @@ npm run launch
 ![alt text](/docs/test.gif)
 
 # TODO
-Fake task validation<br/>
-Task status: forbid transaction start depending on task status (SAVING...)<br/>
+Remove dependency cycle (tasks transaction)<br/>
 Transaction status should be entirely independant<br/>
 reselect: reorganize selectors<br/>
 replace ThemedPage by an hoc?<br/>

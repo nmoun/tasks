@@ -11,26 +11,27 @@ class Order extends React.Component{
 
   constructor(props){
     super(props)
+    console.log('Order constructor: ' + JSON.stringify(props, null, 2))
+    if(props.location.hash.length > 0){
+      props.startTransaction(props.location.hash.slice(1));
+    }else {
+      // Root route: create a temporary task and display it
+      const { history } = props,
+        newTaskId = generateTmpId()
+      props.createTask({id: newTaskId, type: 'order', title: 'Order'})
+      props.startTransaction(newTaskId);
+      history.replace(`${props.match.path}/${newTaskId}`)
+    }
   }
 
   componentDidMount(){
-    console.log('Order componentDidMount: ' + JSON.stringify(this.props, null, 2))
-    if(this.props.match.path === this.props.location.pathname){
-      // Root route: create a temporary task and display it
-      const { history } = this.props,
-        newTaskId = generateTmpId()
-      this.props.createTask({id: newTaskId, type: 'order', title: 'Order'})
-      history.replace(`${this.props.match.path}/${newTaskId}`)
-    }
   }
 
   render(){
     return <React.Fragment>
       <Route path={`${this.props.match.path}/:taskId`} exact render={(props) => {
-        this.props.startTransaction(props.match.params.taskId);
         return <OrderArticleList taskId={props.match.params.taskId} {...props}/> }} />
       <Route path={`${this.props.match.path}/:taskId/:articleId`} exact render={(props) => {
-        this.props.startTransaction(props.match.params.taskId);
         return <OrderArticleDetail taskId={props.match.params.taskId} articleId={props.match.params.articleId} {...props}/> }} />
     </React.Fragment>
   }

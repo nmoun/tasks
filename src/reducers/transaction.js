@@ -49,10 +49,12 @@ function transaction(tasksReducer, taskReducer){
       }
     case 'STOP_TRANSACTION':
       // ...
+      newTransactions = {...transactions}
+      delete newTransactions[current]
       return {
         current: null,
         tasks,
-        transactions,
+        transactions: newTransactions,
       }
     default:
       // Delegate handling the action to the passed reducer

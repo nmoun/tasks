@@ -71,6 +71,7 @@ export const saveTask = function(task){
       .then((response) => {
         setTimeout(() => {
           dispatch(updateTaskLocal(response))
+          dispatch(deleteTask(response.tmpId))
           dispatch(displayNotification("Task has been updated"))
         }, 2000)
       })
