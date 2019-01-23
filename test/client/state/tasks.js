@@ -7,7 +7,7 @@ import { normalize } from 'normalizr'
 import { tasks as tasksSchema } from 'schemas'
 import { createLogger } from 'redux-logger'
 
-export function taskTests(){
+export function tasksTests(){
 
   describe('tasks', () => {
     let store

@@ -7,7 +7,7 @@ const byId =  function(state = {}, action) {
     // server response with all the tasks
     return action.response.entities.tasks
 
-  case 'UPDATE_TASK':
+  case 'RECEIVE_TASK':
     // server response with one task updated/created
     newState = {
       ...state,
@@ -41,22 +41,16 @@ const allIds = (state = [], action) => {
   case 'RECEIVE_TASKS':
     return action.response.result
 
+  case 'RECEIVE_TASK':
+    return state.concat(action.response.result)
+
   case 'CREATE_TASK':
     // task creation from client
     return state.concat(action.task.id)
 
   case 'DELETE_TASK':
     return state.filter((id) => (id != action.taskId))
-
-  case 'UPDATE_TASK':
-    // server response with one task
-    if(action.response.tmpId)
-      return state
-        .filter((id) => {
-          return action.response.tmpId != id
-        })
-        .concat(action.response.result)
-
+    
   default:
     return state;
   }

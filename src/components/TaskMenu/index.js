@@ -13,9 +13,13 @@ class TaskMenu extends React.Component{
   }
 
   componentDidMount(){
-    setTimeout(() => {
+    this.timeOutID = setTimeout(() => {
       this.setState({activateTransitions: true})
     }, 500)
+  }
+
+  componentWillUnmount(){
+    clearTimeout(this.timeOutID)
   }
 
   render(){

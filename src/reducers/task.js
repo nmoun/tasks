@@ -1,10 +1,10 @@
-const task = (state = {}, action) => {
+const task = (state = {articles: []}, action) => {
   switch (action.type) {
 
-  case 'UPDATE_TASK_STATUS':
+  case 'UPDATE_TASK':
     return {
       ...state,
-      status: action.status,
+      ...action.fields
     }
   case 'ADD_ARTICLE': 
     return {

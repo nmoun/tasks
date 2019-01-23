@@ -12,10 +12,15 @@ class SidePanel extends React.Component {
   }
 
   componentDidMount(){
-    setTimeout(() => {
+    this.timeOutID = setTimeout(() => {
       this.setState({activateTransitions: true})
     }, 500)
   }
+
+  componentWillUnmount(){
+    clearTimeout(this.timeOutID)
+  }
+
   render(){
     let className = this.props.isDisplayed === true ? "side-panel displayed" : "side-panel";
     if(this.state.activateTransitions) className += " side-panel-transitions"

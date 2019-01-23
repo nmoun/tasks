@@ -34,7 +34,7 @@ class OrderArticleDetail extends React.Component{
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    article: getCurrentTaskArticle(state, ownProps.taskId, ownProps.articleId)
+    article: getCurrentTaskArticle(state, ownProps.articleId)
   }
 }
 

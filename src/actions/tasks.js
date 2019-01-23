@@ -24,17 +24,17 @@ export const deleteTask = (taskId) => {
   }
 }
 
-export const updateTaskStatus = (taskId, status) =>{
+export const updateTask = (taskId, fields) =>{
   return  {
-    type: "UPDATE_TASK_STATUS",
+    type: "UPDATE_TASK",
     taskId,
-    status,
+    fields,
   }
 }
 
-const updateTaskLocal = (response) => {
+const receiveTask = (response) => {
   return {
-    type: "UPDATE_TASK",
+    type: "RECEIVE_TASK",
     response
   }
 }
@@ -64,18 +64,19 @@ export const fetchTasks = function(){
  */
 export const saveTask = function(task){
   return function(dispatch){
-    dispatch(updateTaskStatus(task.id, TASK_STATUS.LOADING));
+    dispatch(updateTask(task.id, {status: TASK_STATUS.LOADING}));
     dispatch(saveChanges());
     return api
       .saveTask(task)
       .then((response) => {
         setTimeout(() => {
-          dispatch(updateTaskLocal(response))
+          dispatch(receiveTask(response))
           dispatch(deleteTask(response.tmpId))
           dispatch(displayNotification("Task has been updated"))
         }, 2000)
       })
       .catch(() => {
+        dispatch(updateTask(task.id, {status: null}))
         dispatch(displayNotification("Error occured while saving the task", 'error'))
       });
   };

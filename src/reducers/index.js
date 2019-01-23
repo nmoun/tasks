@@ -17,6 +17,10 @@ export const getCurrentTaskArticles = function(state){
   return fromTransaction.getCurrentTaskArticles(state.transaction)
 }
 
+export const getCurrentTaskArticle = function(state, articleId){
+  return fromTransaction.getCurrentTaskArticle(state.transaction, articleId)
+}
+
 export const getTasks = function(state){
   return fromTransaction.getTasks(state.transaction)
 }

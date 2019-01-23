@@ -11,7 +11,6 @@ class Order extends React.Component{
 
   constructor(props){
     super(props)
-    console.log('Order constructor: ' + JSON.stringify(props, null, 2))
     if(props.location.hash.length > 0){
       props.startTransaction(props.location.hash.slice(1));
     }else {

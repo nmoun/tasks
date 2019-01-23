@@ -1,12 +1,12 @@
 import * as apiOrder from 'service/OrderService'
-import { updateTaskStatus, deleteTask } from './tasks'
+import { updateTask, deleteTask } from './tasks'
 import { displayNotification } from './ui'
 import { saveChanges } from './transaction'
 import { TASK_STATUS } from 'utils/constants'
 
 export const validateTask = (task) => {
   return function(dispatch){
-    dispatch(updateTaskStatus(task.id, TASK_STATUS.LOADING))
+    dispatch(updateTask(task.id, {status: TASK_STATUS.LOADING}))
     dispatch(saveChanges())
     apiOrder.validateTask(task)
       .then(() => {
@@ -16,6 +16,7 @@ export const validateTask = (task) => {
         }, 2000);
       })
       .catch((err) => {
+        dispatch(updateTask(task.id, {status: null}))
         dispatch(displayNotification(err, 'error'))
       })
   }
