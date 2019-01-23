@@ -17,7 +17,7 @@ npm run launch
 ![alt text](/docs/test.gif)
 
 # TODO
-Transaction status should be entirely independant<br/>
+Validation adds a transaction... default of transaction's switch<br/>
 reselect: reorganize selectors<br/>
 replace ThemedPage by an hoc?<br/>
 refactor Login page<br/>

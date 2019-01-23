@@ -25,6 +25,10 @@ export const getTasks = function(state){
   return fromTransaction.getTasks(state.transaction)
 }
 
+export const getTask = function(state, taskId){
+  return fromTransaction.getTask(state.transaction, taskId)
+}
+
 export const hasTaskChanged = function(state, taskId){
   return fromTransaction.hasTaskChanged(state.transaction, taskId)
 }

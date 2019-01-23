@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, withRouter} from 'react-router-dom'
 import ReceptionHome from './ReceptionHome'
+import withTransaction from 'enhancers/withTransaction'
 
 class Reception extends React.Component{
 
@@ -15,4 +16,4 @@ class Reception extends React.Component{
   }
 }
 
-export default withRouter(Reception)
+export default withRouter(withTransaction(Reception, {type: "reception", title: "Reception"}))

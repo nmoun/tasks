@@ -15,7 +15,6 @@ function transaction(tasksReducer, taskReducer){
     transactions: {},
   }
 
-  // Return a reducer that handles undo and redo
   return function(state = initialState, action) {
     let { current, tasks, transactions } = state,
       newTransactions
@@ -45,7 +44,7 @@ function transaction(tasksReducer, taskReducer){
         current,
         tasks: {
           byId: {...tasks.byId, [current]: task},
-          allIds: tasks.allIds
+          allIds: tasks.allIds.indexOf(current) === -1 ? tasks.allIds.concat(current) : tasks.allIds
         },
         transactions: newTransactions
       }
@@ -55,7 +54,7 @@ function transaction(tasksReducer, taskReducer){
       return {
         current: action.taskId,
         tasks,
-        transactions: transactions[action.taskId] ? transactions : {...transactions, [action.taskId]: tasks.byId[action.taskId]},
+        transactions: transactions[action.taskId] ? transactions : {...transactions, [action.taskId]: action.task },
       }
 
     case 'STOP_TRANSACTION':
@@ -86,6 +85,10 @@ export default transaction(tasks, task)
 
 export const getTasks = function(state){
   return fromTasks.getTasks(state.tasks)
+}
+
+export const getTask = function(state, taskId){
+  return fromTasks.getTask(state.tasks, taskId)
 }
 
 export const getCurrentTask = function(state){

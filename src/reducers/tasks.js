@@ -42,7 +42,7 @@ const allIds = (state = [], action) => {
     return action.response.result
 
   case 'RECEIVE_TASK':
-    return state.concat(action.response.result)
+    return state.indexOf(action.response.result) === -1 ? state.concat(action.response.result) : state
 
   case 'CREATE_TASK':
     // task creation from client

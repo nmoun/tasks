@@ -64,7 +64,7 @@ export const fetchTasks = function(){
  */
 export const saveTask = function(task){
   return function(dispatch){
-    dispatch(updateTask(task.id, {status: TASK_STATUS.LOADING}));
+    dispatch(updateTask(task.id, {...task, status: TASK_STATUS.LOADING}));
     dispatch(saveChanges());
     return api
       .saveTask(task)

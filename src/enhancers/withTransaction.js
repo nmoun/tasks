@@ -1,11 +1,28 @@
 import React from 'react'
-import { stopTransaction } from 'actions/transaction'
+import { getTask } from 'reducers'
+import { startTransaction, stopTransaction } from 'actions/transaction'
+import { createTask } from 'utils/functions'
 import { connect } from 'react-redux'
+import { generateTmpId } from 'utils/functions'
 
-function withTransaction(WrappedComponent){
+/**
+ * @param {React.Component} WrappedComponent - Module needing transaction system
+ * @param {Object} defaultTaskFields -
+ */
+function withTransaction(WrappedComponent, defaultTaskFields){
   class WithTransaction extends React.Component {
     constructor(props){
       super(props)
+      if(props.location.hash.length > 0){
+        props.startTransaction(props.location.hash.slice(1), props.task);
+      }else {
+        // Root route: create a temporary task and display it
+        const { history } = props,
+          newTaskId = generateTmpId()
+        const newTask = createTask({id: newTaskId, ...defaultTaskFields})
+        props.startTransaction(newTaskId, newTask);
+        history.replace(`${props.match.path}/${newTaskId}`)
+      }
     }
 
     componentWillUnmount(){
@@ -18,10 +35,17 @@ function withTransaction(WrappedComponent){
   }
 
   const mapDispatchToProps = {
-    stopTransaction
+    startTransaction,
+    stopTransaction,
   }
 
-  return connect(null, mapDispatchToProps)(WithTransaction)
+  const mapStateToProps = (state, ownProps) => {
+    return {
+      task: getTask(state, ownProps.location.hash.slice(1))
+    }
+  }
+
+  return connect(mapStateToProps, mapDispatchToProps)(WithTransaction)
 }
 
 export default withTransaction
