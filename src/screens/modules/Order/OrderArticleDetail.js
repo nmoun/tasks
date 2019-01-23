@@ -2,7 +2,7 @@ import React from 'react'
 import ArticleCell from 'components/ArticleCell'
 import ThemedPage from 'components/layout/ThemedPage'
 import Header, { ICONS } from 'components/Header'
-import { getArticle } from 'reducers'
+import { getCurrentTaskArticle } from 'reducers'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { updateQuantity } from 'actions/articles'
@@ -34,7 +34,7 @@ class OrderArticleDetail extends React.Component{
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    article: getArticle(state, ownProps.taskId, ownProps.articleId)
+    article: getCurrentTaskArticle(state, ownProps.taskId, ownProps.articleId)
   }
 }
 

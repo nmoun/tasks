@@ -1,5 +1,3 @@
-import transaction from './transaction'
-import task from './task'
 import {combineReducers} from 'redux'
 
 const byId =  function(state = {}, action) {
@@ -64,42 +62,28 @@ const allIds = (state = [], action) => {
   }
 }
 
-export default transaction(combineReducers({
-  byId,
-  allIds,
-}), task)
-
-// For tests purpose
-export const tasks = combineReducers({
+export default combineReducers({
   byId,
   allIds,
 })
 
-export const isBeingProcessed = (state, id) => {
-  return typeof state.transactions[id] !== "undefined"
-}
-
 export const getTasks = function(state){
-  return state.tasks.allIds.map((id) => {
-    return state.tasks.byId[id]
+  return state.allIds.map((id) => {
+    return state.byId[id]
   });
 }
 
 export const getTask = function(state, taskId){
-  return state.transactions[state.current]
+  return state.byId[taskId]
 }
 
 export const getArticles = function(state, taskId){
-  return state.transactions[state.current].articles
+  return state.byId[taskId].articles
 }
 
 export const getArticle = function(state, taskId, articleId){
-  return state.transactions[state.current].articles
+  return state.byId[taskId].articles
     .filter((article) => {
       return article.id == articleId
     })[0]
-}
-
-export const hasTaskChanged = function(state, taskId){
-  return state.tasks.byId[taskId] !== state.transactions[taskId]
 }

@@ -4,7 +4,7 @@ import ThemedPage from 'components/layout/ThemedPage'
 import ArticleList from 'components/ArticleList'
 import {withRouter} from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getTask, getArticles, hasTaskChanged } from 'reducers'
+import { getCurrentTask, getCurrentTaskArticles, hasTaskChanged } from 'reducers'
 import { updateQuantity, addArticle, deleteArticle, incrementArticle } from 'actions/articles'
 import { saveTask } from 'actions/tasks'
 import { discardChanges, saveChanges } from 'actions/transaction'
@@ -123,8 +123,8 @@ class OrderArticleList extends React.Component{
 }
 
 const mapStateToProps = (state, props) => ({
-  task: getTask(state, props.taskId),
-  articles: getArticles(state, props.taskId),
+  task: getCurrentTask(state, props.taskId),
+  articles: getCurrentTaskArticles(state, props.taskId),
   hasTaskChanged: hasTaskChanged(state, props.taskId)
 })
 

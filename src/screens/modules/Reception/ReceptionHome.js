@@ -1,6 +1,6 @@
 import React from 'react'
 import Header, { ICONS } from 'components/Header'
-import {getTask} from 'reducers'
+import { getCurrentTask } from 'reducers'
 import ThemedPage from 'components/layout/ThemedPage'
 import {withRouter} from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -21,7 +21,7 @@ function Reception(props){
 Reception = withRouter(Reception)
 
 const mapStateToProps = (state, ownProps) => ({
-  task: getTask(state, ownProps.taskId),
+  task: getCurrentTask(state, ownProps.taskId),
 })
 
 export default withRouter(connect(
