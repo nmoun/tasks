@@ -99,7 +99,10 @@ class OrderArticleList extends React.Component{
   }
 
   validateTask(){
-    this.props.validateTask(this.props.task)
+    this.props.validateTask({
+      ...this.props.task,
+      subtitle: this.props.articles.length + " article(s)"
+    })
     this.props.history.goBack()
   }
 
