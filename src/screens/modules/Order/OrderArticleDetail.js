@@ -7,7 +7,6 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { updateQuantity } from 'state/actions/task'
 
-
 class OrderArticleDetail extends React.Component{
 
   constructor(props){

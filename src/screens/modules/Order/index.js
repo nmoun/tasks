@@ -4,7 +4,6 @@ import OrderArticleList from './OrderArticleList'
 import OrderArticleDetail from './OrderArticleDetail'
 import withTransaction from 'enhancers/withTransaction'
 
-
 class Order extends React.Component{
 
   constructor(props){

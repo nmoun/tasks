@@ -5,7 +5,6 @@ import './style.scss'
 import Barcode from '../../../assets/barcode.svg'
 import throttle from 'lodash.throttle'
 
-
 class DialogScan extends React.Component {
   /**
    * 
@@ -28,12 +27,12 @@ class DialogScan extends React.Component {
             options: response
           })
         })
-        .catch((err) => {
+        .catch(() => {
           this.setState({
             options: []
           })
         })
-    }, 1000);
+    }, 250);
   }
 
   handleSubmit(event){

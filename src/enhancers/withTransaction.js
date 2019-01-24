@@ -4,15 +4,23 @@ import { startTransaction, stopTransaction } from 'state/actions/transaction'
 import { createTask } from 'utils/functions'
 import { connect } from 'react-redux'
 import { generateTmpId } from 'utils/functions'
+import { TASK_STATUS } from 'utils/constants'
+import { openDialogInfo } from 'components/dialogs/DialogInfo'
 
 /**
- * @param {React.Component} WrappedComponent - Module needing transaction system
+ * @param {React.Component} WrappedComponent - module needing transaction system
  * @param {Object} defaultTaskFields -
  */
 function withTransaction(WrappedComponent, defaultTaskFields){
   class WithTransaction extends React.Component {
     constructor(props){
       super(props)
+
+      if(props.task && props.task.status === TASK_STATUS.LOADING){
+        openDialogInfo({message: 'Task is being processed'})
+        props.history.goBack()
+      }
+
       if(props.location.hash.length > 0){
         props.startTransaction(props.location.hash.slice(1), props.task);
       }else {
