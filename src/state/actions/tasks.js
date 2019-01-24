@@ -42,10 +42,10 @@ export const fetchTasks = function(){
       .fetchTasks()
       .then((response) => {
         dispatch(receiveTasks(response))
-        setTimeout(() => {dispatch(stopFetchingTasks());}, 750)
+        dispatch(stopFetchingTasks())
       })
       .catch(() => {
-        dispatch(stopFetchingTasks());
+        dispatch(stopFetchingTasks())
         dispatch(displayNotification("Error occured while fetching tasks", 'error'))
       });
   };
@@ -62,11 +62,9 @@ export const saveTask = function(task){
     return api
       .saveTask(task)
       .then((response) => {
-        setTimeout(() => {
-          dispatch(receiveTask(response))
-          dispatch(deleteTask(response.tmpId))
-          dispatch(displayNotification("Task has been updated"))
-        }, 2000)
+        dispatch(receiveTask(response))
+        dispatch(deleteTask(response.tmpId))
+        dispatch(displayNotification("Task has been updated"))
       })
       .catch(() => {
         dispatch(updateTask(task.id, {status: null}))

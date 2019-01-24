@@ -11,7 +11,10 @@ router.put('/:task?',  (req, res) => {
     res.statusCode(400).send('Task id is incorrect')
   } else if(isNaN(taskId)) {
     console.log('Task exists only on client')
-    res.sendStatus(200);
+    // Fake latency
+    setTimeout(() => {
+      res.sendStatus(200);
+    }, 1500)
   } else {
     // Delete
     Task.findOne({id: taskId}, function(err, task){
@@ -19,7 +22,10 @@ router.put('/:task?',  (req, res) => {
       if(task){
         Task.deleteOne({id: taskId}, function(err){
           if (err) handleError(err, res)
-          res.sendStatus(200);
+          // Fake latency
+          setTimeout(() => {
+            res.sendStatus(200);
+          }, 1500)
         })
       }else {
         res.statusCode(400).send('No existing task for the given id')

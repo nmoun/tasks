@@ -7,8 +7,10 @@ router.get('/',  (req, res) => {
     if(err){
       res.sendStatus(500)
     }
-
-    res.send(result)
+    // Fake latency
+    setTimeout(() => {
+      res.send(result)
+    }, 1500)
   })
 })
 
@@ -32,7 +34,11 @@ router.put('/:task?',  (req, res) => {
           handleError(err, res)
         }
         console.log('task created')
-        res.send({task: createdTask, tmpId: taskId})
+
+        // Fake  latency
+        setTimeout(() => {
+          res.send({task: createdTask, tmpId: taskId})
+        }, 1500)
       })
     })
   } else {
@@ -48,7 +54,11 @@ router.put('/:task?',  (req, res) => {
         task.set({title, subtitle, header, articles})
         task.save(function(err, updatedTask) {
           if (err) handleError(err, res)
-          res.send({task: updatedTask, tmpId: null});
+          
+          // Fake  latency
+          setTimeout(() => {
+            res.send({task: updatedTask, tmpId: null});
+          }, 1500)
         });
       }
     })
