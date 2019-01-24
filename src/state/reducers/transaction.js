@@ -68,7 +68,7 @@ function transaction(tasksReducer, taskReducer){
       }
     default:
       newTransactions = {...transactions}
-      if(action.taskId){
+      if(action.type.startsWith('TASK_')){
         newTransactions[action.taskId] = taskReducer(state.transactions[action.taskId], action)
       }
       const newTasks = tasksReducer(state.tasks, action)

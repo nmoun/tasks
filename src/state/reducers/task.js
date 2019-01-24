@@ -1,18 +1,18 @@
 const task = (state = {articles: []}, action) => {
   switch (action.type) {
 
-  case 'UPDATE_TASK':
+  case 'TASK_UPDATE_TASK':
     return {
       ...state,
       ...action.fields
     }
-  case 'ADD_ARTICLE': 
+  case 'TASK_ADD_ARTICLE': 
     return {
       ...state,
       articles: state.articles.concat({...action.article, quantity: 1})
     }
 
-  case 'DELETE_ARTICLE': 
+  case 'TASK_DELETE_ARTICLE': 
     return {
       ...state,
       articles: state.articles.filter((article) => {
@@ -20,7 +20,7 @@ const task = (state = {articles: []}, action) => {
       })
     }
 
-  case 'UPDATE_QUANTITY': 
+  case 'TASK_UPDATE_QUANTITY': 
     return {
       ...state,
       articles: state.articles.map((article) => {
@@ -28,7 +28,7 @@ const task = (state = {articles: []}, action) => {
       })
     }
 
-  case 'INC_QUANTITY':
+  case 'TASK_INC_QUANTITY':
     return {
       ...state,
       articles: state.articles.map((article) => {

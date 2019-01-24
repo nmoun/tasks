@@ -1,6 +1,7 @@
 import * as api from 'service/TaskService'
 import { startFetchingTasks, stopFetchingTasks, displayNotification } from './ui'
 import { saveChanges } from './transaction'
+import { updateTask } from './task'
 import { TASK_STATUS } from 'utils/constants'
 
 export const receiveTasks = (response) => {
@@ -21,14 +22,6 @@ export const deleteTask = (taskId) => {
   return {
     type: "DELETE_TASK",
     taskId,
-  }
-}
-
-export const updateTask = (taskId, fields) =>{
-  return  {
-    type: "UPDATE_TASK",
-    taskId,
-    fields,
   }
 }
 

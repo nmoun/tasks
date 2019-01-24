@@ -2,10 +2,10 @@ import React from 'react'
 import ArticleCell from 'components/ArticleCell'
 import ThemedPage from 'components/layout/ThemedPage'
 import Header, { ICONS } from 'components/Header'
-import { getCurrentTaskArticle } from 'reducers'
+import { getCurrentTaskArticle } from 'state/reducers'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { updateQuantity } from 'actions/articles'
+import { updateQuantity } from 'state/actions/task'
 
 
 class OrderArticleDetail extends React.Component{

@@ -1,6 +1,6 @@
 import React from 'react'
 import Header, { ICONS } from 'components/Header'
-import { getCurrentTask } from 'reducers'
+import { getCurrentTask } from 'state/reducers'
 import ThemedPage from 'components/layout/ThemedPage'
 import {withRouter} from 'react-router-dom'
 import { connect } from 'react-redux'

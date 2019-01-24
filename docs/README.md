@@ -17,7 +17,7 @@ npm run launch
 ![alt text](/docs/test.gif)
 
 # TODO
-Validation adds a transaction... default of transaction's switch<br/>
+Validation adds a transaction... default of transaction's switch: replace the array transactions by just the current task being modified as there is only one transaction at any time for now<br/>
 reselect: reorganize selectors<br/>
 replace ThemedPage by an hoc?<br/>
 refactor Login page<br/>

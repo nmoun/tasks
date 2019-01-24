@@ -1,6 +1,6 @@
 import React from 'react'
-import { getTask } from 'reducers'
-import { startTransaction, stopTransaction } from 'actions/transaction'
+import { getTask } from 'state/reducers'
+import { startTransaction, stopTransaction } from 'state/actions/transaction'
 import { createTask } from 'utils/functions'
 import { connect } from 'react-redux'
 import { generateTmpId } from 'utils/functions'

@@ -1,9 +1,9 @@
 import React from 'react'
 import Fab from 'components/Fab'
 import Notify from 'components/Notify'
-import { hideNotification } from 'actions/ui'
+import { hideNotification } from 'state/actions/ui'
 import { connect } from 'react-redux'
-import { getNotification } from 'reducers'
+import { getNotification } from 'state/reducers'
 
 const ThemedPage = function(props){
   if(props.fab === true && !props.handleClickFab){

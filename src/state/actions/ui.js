@@ -1,18 +1,18 @@
 export const startFetchingTasks = () => {
   return {
-    type: "START_FETCHING_TASKS"
+    type: "UI_START_FETCHING_TASKS"
   }
 }
 
 export const stopFetchingTasks = () => {
   return {
-    type: "STOP_FETCHING_TASKS"
+    type: "UI_STOP_FETCHING_TASKS"
   }
 }
 
 const showNotification = (message, status) => {
   return {
-    type: "DISPLAY_NOTIFICATION",
+    type: "UI_DISPLAY_NOTIFICATION",
     message,
     status
   }
@@ -20,7 +20,7 @@ const showNotification = (message, status) => {
 
 export const hideNotification = () => {
   return {
-    type: "HIDE_NOTIFICATION",
+    type: "UI_HIDE_NOTIFICATION",
   }
 }
 

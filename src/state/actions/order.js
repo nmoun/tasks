@@ -1,5 +1,6 @@
 import * as apiOrder from 'service/OrderService'
-import { updateTask, deleteTask } from './tasks'
+import { deleteTask } from './tasks'
+import { updateTask } from './task'
 import { displayNotification } from './ui'
 import { saveChanges } from './transaction'
 import { TASK_STATUS } from 'utils/constants'

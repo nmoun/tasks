@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware } from 'redux'
-import reducer from 'reducers'
+import reducer from 'state/reducers'
 import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import { STATE } from 'utils/constants'
