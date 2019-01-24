@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { getCurrentTask, getCurrentTaskArticles, hasTaskChanged } from 'state/reducers'
 import { updateQuantity, addArticle, deleteArticle, incrementArticle } from 'state/actions/task'
 import { saveTask } from 'state/actions/tasks'
-import { discardChanges, saveChanges } from 'state/actions/transaction'
+import { discardChanges } from 'state/actions/transaction'
 import { validateTask } from 'state/actions/order'
 import { openDialogConfirm, closeDialogConfirm } from 'components/dialogs/DialogConfirm'
 import { openDialogScan } from 'components/dialogs/DialogScan'
@@ -60,7 +60,8 @@ class OrderArticleList extends React.Component{
     openDialogScan({
       isDismissible: true,
       message: "Scan article code",
-      handleSubmit: this.handleSubmitArticleCode
+      handleSubmit: this.handleSubmitArticleCode,
+      callWebServiceSuggest: apiArticle.fetchArticleSuggest
     })
   }
 
@@ -131,7 +132,6 @@ const mapStateToProps = (state, props) => ({
 const mapDispatchToProps = {
   updateQuantity,
   discardChanges,
-  saveChanges,
   addArticle,
   deleteArticle,
   incrementArticle,

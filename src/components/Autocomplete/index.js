@@ -2,7 +2,16 @@ import React from 'react'
 
 import './style.scss'
 
+
 class Autocomplete extends React.Component {
+  /**
+   * @param {Object} props 
+   * @param {Array} props.options - suggestions displayed below text input (e.g: [{id: 5, label: "Item 1"}, {id: 2, label: "Item 5"}])
+   * @param {function} props.handleClick - called when an suggestion is clicked. Parameter is the id of the selected option.
+   * @param {function} props.handleChange - called when input's value changes
+   * @param {Number} props.value - value in the input
+   * @param {Number} props.width - (optional) width of input and suggestions
+   */
   constructor(props){
     super(props)
     this.handleClick = this.handleClick.bind(this)
@@ -32,11 +41,8 @@ class Autocomplete extends React.Component {
         onChange={this.props.handleChange}/>
       <ul style={{width: width}} className="autocomplete-list">
         {options.map((option) => {
-          return <li className="autocomplete-entry clickable" onClick={this.handleClick(option.id)}><span>{option.label}</span></li>
+          return <li key={option.id} className="autocomplete-entry clickable" onClick={this.handleClick(option.id)}><span>{option.label}</span></li>
         })}
-        <li className="autocomplete-entry clickable"><span>Article 1</span></li>
-        <li className="autocomplete-entry clickable"><span>Artice 2</span></li>
-        <li className="autocomplete-entry clickable"><span>Artice 3</span></li>
       </ul>
     </div>
   }

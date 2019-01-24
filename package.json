@@ -23,6 +23,7 @@
     "jsonwebtoken": "^8.3.0",
     "jwt-decode": "^2.2.0",
     "lodash.debounce": "^4.0.8",
+    "lodash.throttle": "^4.1.1",
     "mongoose": "^5.1.4",
     "normalizr": "^3.3.0",
     "passport": "^0.4.0",
