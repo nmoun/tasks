@@ -49,7 +49,7 @@ class DialogScan extends React.Component {
 }
 
 export function openDialogScan(props){
-  fromDialog.openDialog(DialogScan, props)
+  fromDialog.openDialog(DialogScan, {...props, showOverflow: true})
 }
 
 export function closeDialogScan(){
