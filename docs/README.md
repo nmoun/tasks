@@ -1,12 +1,12 @@
 # Description
-Testing miscellaneous stuff
+Testing miscellaneous stuff. Simulates in-store web app.
 
 # Launching
 Launch mongo daemon at url specified in .env file
 
 ## DEV
 npm i<br/>
-npm run start
+npm start
 
 ## PROD
 npm i<br/>
@@ -17,13 +17,11 @@ npm run launch
 ![alt text](/docs/test.gif)
 
 # TODO
-Article quick search<br/>
 reselect: reorganize selectors<br/>
 replace ThemedPage by an hoc?<br/>
-refactor Login page<br/>
-Reorganize folder structure (separate view & state?)<br/>
-language settings<br/>
-Compute the subtitle rather than save it<br/>
+Refactor Login page<br/>
+Language settings<br/>
+Compute the task widget's subtitle rather than save it<br/>
 Modals depending on UI state in store rather than independant<br/>
 Persiste date last update to fetch tasks only after a certain amount of time<br/>
 auth0?
