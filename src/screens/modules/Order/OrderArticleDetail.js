@@ -2,7 +2,7 @@ import React from 'react'
 import ArticleCell from 'components/ArticleCell'
 import ThemedPage from 'components/layout/ThemedPage'
 import Header, { ICONS } from 'components/Header'
-import { getCurrentTaskArticle } from 'state/reducers'
+import * as selectors from 'state/reducers'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { updateQuantity } from 'state/actions/task'
@@ -15,6 +15,8 @@ class OrderArticleDetail extends React.Component{
   constructor(props){
     super(props)
     this.handleChangeValue = this.handleChangeValue.bind(this)
+    this.handleClickNext = this.handleClickNext.bind(this)
+    this.handleClickPrevious = this.handleClickPrevious.bind(this)
     this.goBack = this.goBack.bind(this)
   }
 
@@ -25,13 +27,27 @@ class OrderArticleDetail extends React.Component{
   goBack(){
     this.props.history.goBack();
   }
+  
+  handleClickNext(){
+    if(this.props.nextId){
+      this.props.history.replace(`/order/${this.props.taskId}/${this.props.nextId}`)
+    }
+  }
+
+  handleClickPrevious(){
+    if(this.props.previousId){
+      this.props.history.replace(`/order/${this.props.taskId}/${this.props.previousId}`)
+    }
+  }
 
   render(){
+    const title = `Article detail ${this.props.articleIndex !== -1 ? this.props.articleIndex + 1 : 'X'}/${this.props.articles.length}`
     return <ThemedPage>
-      <Header title="Article detail" leftIcon={ICONS.LEFT} handleClickLeft={this.goBack}/>
+      <Header title={title} leftIcon={ICONS.LEFT} handleClickLeft={this.goBack}/>
       <ArticleCell {...this.props.article} handleChangeValue={this.handleChangeValue}/>
       <Footer>
-        <NavButton text="Next" imgSrc={cacheImages["./upArrow.svg"]}/><NavButton text="Prev" imgSrc={cacheImages["./downArrow.svg"]}/>
+        <NavButton text="Next" imgSrc={cacheImages["./downArrow.svg"]} handleClick={this.handleClickNext} disabled={this.props.nextId === null}/>
+        <NavButton text="Prev" imgSrc={cacheImages["./upArrow.svg"]} handleClick={this.handleClickPrevious} disabled={this.props.previousId === null}/>
       </Footer>
     </ThemedPage>
   }
@@ -39,7 +55,11 @@ class OrderArticleDetail extends React.Component{
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    article: getCurrentTaskArticle(state, ownProps.articleId)
+    articles: selectors.getCurrentTaskArticles(state),
+    article: selectors.getCurrentTaskArticle(state, ownProps.articleId),
+    nextId: selectors.getCurrentTaskArticleNext(state, ownProps.articleId),
+    previousId: selectors.getCurrentTaskArticlePrevious(state, ownProps.articleId),
+    articleIndex:  selectors.getCurrentTaskArticleIndex(state, ownProps.articleId),
   }
 }
 

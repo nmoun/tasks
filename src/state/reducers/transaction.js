@@ -106,6 +106,32 @@ export const getCurrentTaskArticle = function(state, articleId){
     })[0]
 }
 
+export const getCurrentTaskArticleIndex = function(state, articleId){
+  return state.transactions[state.current].articles
+    .map((article) => {
+      return article.id
+    })
+    .indexOf(articleId)
+}
+
+export const getCurrentTaskArticleNext = function(state, articleId){
+  const indexNext = state.transactions[state.current].articles
+    .map((article) => {
+      return article.id
+    })
+    .indexOf(articleId) + 1
+  return indexNext > 0 && indexNext < state.transactions[state.current].articles.length ? state.transactions[state.current].articles[indexNext].id : null
+}
+
+export const getCurrentTaskArticlePrevious = function(state, articleId){
+  const indexPrev = state.transactions[state.current].articles
+    .map((article) => {
+      return article.id
+    })
+    .indexOf(articleId) - 1
+  return indexPrev >= 0 ? state.transactions[state.current].articles[indexPrev].id : null
+}
+
 export const hasTaskChanged = function(state, taskId){
   return state.tasks.byId[taskId] !== state.transactions[taskId]
 }

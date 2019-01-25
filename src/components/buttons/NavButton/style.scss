@@ -16,6 +16,10 @@
   justify-content: center;
 }
 
+.navbutton-container.disabled {
+  color: $disabled-color;
+}
+
 .navbutton-img {
   height: 20px;
   margin-left: 10px;
