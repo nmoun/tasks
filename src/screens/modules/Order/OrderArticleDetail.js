@@ -6,6 +6,9 @@ import { getCurrentTaskArticle } from 'state/reducers'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { updateQuantity } from 'state/actions/task'
+import Footer from 'components/Footer'
+import NavButton from 'components/buttons/NavButton'
+import cacheImages from 'utils/cacheImages'
 
 class OrderArticleDetail extends React.Component{
 
@@ -27,6 +30,9 @@ class OrderArticleDetail extends React.Component{
     return <ThemedPage>
       <Header title="Article detail" leftIcon={ICONS.LEFT} handleClickLeft={this.goBack}/>
       <ArticleCell {...this.props.article} handleChangeValue={this.handleChangeValue}/>
+      <Footer>
+        <NavButton text="Next" imgSrc={cacheImages["./upArrow.svg"]}/><NavButton text="Prev" imgSrc={cacheImages["./downArrow.svg"]}/>
+      </Footer>
     </ThemedPage>
   }
 }

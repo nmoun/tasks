@@ -2,7 +2,7 @@ import React from 'react'
 import * as fromDialog from 'components/dialogs/Dialog'
 import Autocomplete from 'components/Autocomplete'
 import './style.scss'
-import Barcode from '../../../assets/barcode.svg'
+import cacheImages from 'utils/cacheImages'
 import throttle from 'lodash.throttle'
 
 class DialogScan extends React.Component {
@@ -73,7 +73,7 @@ class DialogScan extends React.Component {
   render(){
     return <div>
       <div className="dialog-scan-img-container">
-        <img src={Barcode}
+        <img src={cacheImages["./barcode.svg"]}
           alt="Barcode" />
       </div>
       <div className="dialog-scan-msg-container">{this.props.message}</div>
