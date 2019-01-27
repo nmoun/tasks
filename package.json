@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start-client": "webpack-dev-server --config config/webpack.dev.js --open --hot --history-api-fallback",
-    "start": "concurrently \"npm run start-client\" \"nodemon server/index.js\"",
+    "start": "concurrently \"npm run start-client\" \"nodemon src/server/index.js\"",
     "build": "webpack --config config/webpack.prod.js",
     "launch": "nodemon server/index.js",
     "test": "webpack-dev-server --config config/webpack.test.js --open --hot --history-api-fallback"

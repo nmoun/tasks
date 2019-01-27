@@ -4,9 +4,9 @@ const path = require('path')
 console.log('dist folder: '+ path.resolve(__dirname, '../dist'))
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/client/index.js',
   resolve: {
-    modules: ['node_modules', 'src']
+    modules: ['node_modules', 'src/client']
   },
   module: {
     rules: [

@@ -17,6 +17,11 @@ npm run launch
 ![alt text](/docs/test.gif)
 
 # TODO
+Supplier collection<br/>
+Assortment collection (link between supplier & articles)</br>
+Cards in article detail<br/>
+Sales history (sales collection, script filling it for each article...)<br/>
+WS autocomplete takes article description into account<br/>
 reselect: reorganize selectors<br/>
 replace ThemedPage by an hoc?<br/>
 Refactor Login page<br/>

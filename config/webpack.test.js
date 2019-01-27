@@ -6,12 +6,12 @@ const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 
 console.log('cwd: ' + appDirectory);
-console.log('src folder location: ' + resolveApp('./src'));
+console.log('src folder location: ' + resolveApp('./src/client'));
 module.exports = {
   entry: './test/client/test.js',
   devtool: 'source-map',
   resolve: {
-    modules: ['node_modules', resolveApp('./src')]
+    modules: ['node_modules', resolveApp('./src/client')]
   },
   module: {
     rules: [
