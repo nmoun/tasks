@@ -1,16 +1,15 @@
 const router = require('express').Router();
 const Task = require('../models/tasks')
 const { handleError } = require('../db')
+const logger = require('../utils/logger')
 
 // Fake validation of the order task
 router.put('/:task?',  (req, res) => {
   const taskId = req.params.task;
-  console.log('order validation')
-  console.log("taskId: " + taskId)
   if(!taskId){
     res.statusCode(400).send('Task id is incorrect')
   } else if(isNaN(taskId)) {
-    console.log('Task exists only on client')
+    logger(req, res, 'Task exists only on client')
     // Fake latency
     setTimeout(() => {
       res.sendStatus(200);

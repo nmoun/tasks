@@ -41,10 +41,8 @@ router.get('/suggest/:searched',  (req, res) => {
     .limit(5)
     .exec((err, result) => {
       if(err){
-        console.log(JSON.stringify(err))
         handleError(err, res)
       }
-      console.log('about to send response')
       res.send(result)
     })
 })

@@ -7,14 +7,17 @@ const routes = require('./routes')
 const session = require('express-session')
 const {db} = require('./db')
 const MongoStore = require('connect-mongo')(session)
-const passport = require('./passport')
-const helmet = require('helmet')
+const passport = require('./passport') // authentication
+const helmet = require('helmet') // security
+const morgan = require('morgan') // logging
 
 const app = express()
-
 console.log('process.env.NODE_ENV : ' + process.env.NODE_ENV)
 
-app.use(express.static(path.join(__dirname, '..', 'dist')))
+if(process.env.NODE_ENV === 'development'){
+  app.use(morgan('dev'))
+}
+
 app.disable('x-powered-by')
 app.use(helmet.xssFilter())
 app.use(helmet.noSniff())
@@ -28,13 +31,8 @@ app.use(session({
   })
 }));
 app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.session());
 app.use(express.json());
-
-app.use('/', (req, res, next) => {
-  console.log('request received')
-  next()
-})
 
 app.use(express.static(path.resolve(__dirname, "../dist")));
 

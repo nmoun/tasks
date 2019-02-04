@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const Task = require('../models/tasks')
 const {handleError} = require('../db')
+const logger = require('../utils/logger')
 
 router.get('/',  (req, res) => {
   Task.find().sort({type: 'asc'}).exec((err, result) => {
@@ -16,10 +17,9 @@ router.get('/',  (req, res) => {
 
 router.put('/:task?',  (req, res) => {
   const taskId = req.params.task;
-  console.log("taskId: " + taskId)
   if(!taskId || isNaN(taskId)){
     // Create
-    console.log('id not valid -> creation of task')
+    logger(req, res, 'id not valid or given: creation of task')
 
     const { title, subtitle, type, header, articles } = req.body
     // Generates id
@@ -28,12 +28,12 @@ router.put('/:task?',  (req, res) => {
         handleError(err, res)
       }
       const id = parseInt(task.id, 10) + 1;
-      console.log('task creation: new id: ' + id)
+      logger(req, res, 'task creation: new id: ' + id)
       Task.create({id, title, subtitle, type, header, articles}, (err, createdTask) => {
         if(err){
           handleError(err, res)
         }
-        console.log('task created')
+        logger(req, res, 'task created')
 
         // Fake  latency
         setTimeout(() => {
@@ -48,9 +48,8 @@ router.put('/:task?',  (req, res) => {
 
       const { title, subtitle, header, articles } = req.body
       if(task){
-        console.log("task found")
-        console.log("task update with:")
-        console.log(JSON.stringify({title, subtitle, header, articles}))
+        logger(req, res, "task update with:")
+        logger(req, res, JSON.stringify({title, subtitle, header, articles}))
         task.set({title, subtitle, header, articles})
         task.save(function(err, updatedTask) {
           if (err) handleError(err, res)

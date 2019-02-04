@@ -2,6 +2,7 @@ const router = require('express').Router();
 const User = require('../models/users')
 const passport = require('passport')
 const jwt = require('jsonwebtoken');
+const logger = require('../utils/logger')
 
 router.post('/register', function(req, res, next) {
   if (req.body.password !== req.body.passwordConf) {
@@ -25,7 +26,6 @@ router.post('/register', function(req, res, next) {
       if (error) {
         return next(error);
       } else {
-        console.log('user saved')
         // req.session.userId = user._id;
         res.json({ status: 'ok' })
       }
@@ -49,7 +49,6 @@ router.post('/login', function(req, res, next){
       });
     }
 
-    console.log('/api/login, typeof user: ' + typeof user)
     req.login(user, { session: false }, (err) => {
       if (err) {
         return res.status(400).json({
@@ -59,17 +58,16 @@ router.post('/login', function(req, res, next){
 
       // generate a signed son web token with the contents of user object and return it in the response
       const token = jwt.sign(user, process.env.JWT_SECRET, {expiresIn: '2h'});
+      logger(req, res, '/login: success, token: ' + token)
       return res.json({ user, token });
     });
   })(req, res, next);
 })
 
 router.post('/logout', (req, res, next) => {
-  console.log('/api/logout')
   req.session.destroy();
   next();
 }, (req, res) => {
-  console.log('/api/logout after')
   req.logout();
   res.redirect('/')
 })
