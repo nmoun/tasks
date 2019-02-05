@@ -22,7 +22,7 @@ router.post('/register', function(req, res, next) {
       password: req.body.password
     }
 
-    User.create(userData, function(error, user) {
+    User.create(userData, function(error) {
       if (error) {
         return next(error);
       } else {
@@ -41,7 +41,7 @@ router.post('/login', function(req, res, next){
     });
   }
 
-  passport.authenticate('local', { session: false }, (err, user, info) => {
+  passport.authenticate('local', { session: false }, (err, user) => {
     // custom callback to handle authentication
     if (err || !user) {
       return res.status(400).json({

@@ -33,9 +33,15 @@ router.get('/:articleCode',  (req, res) => {
 
 router.get('/suggest/:searched',  (req, res) => {
   const searched = req.params.searched
+  const searchedRegexp = new RegExp(`.*${searched}.*`, 'i')
   
   Article.aggregate()
-    .match({ codes: { $in: [new RegExp(searched, "i"), "$codes"]}})
+    .match({ $or:
+      [
+        { description: { $regex: searchedRegexp} },
+        { codes: { $in: [searchedRegexp, "$codes"]} }
+      ]
+    })
     .project({id: "$_id", label: "$description"})
     .project({_id: 0})
     .limit(5)
