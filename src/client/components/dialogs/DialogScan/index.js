@@ -20,6 +20,7 @@ class DialogScan extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this)
     this.throttledCallWebService = throttle(() => {
       props.callWebServiceSuggest(this.state.value)
         .then((response) => {
@@ -35,12 +36,10 @@ class DialogScan extends React.Component {
     }, 250);
   }
 
-  handleSubmit(event){
+  handleSubmit(value){
     if(this.props.handleSubmit){
-      this.props.handleSubmit(this.state.value)
+      this.props.handleSubmit(value)
     }
-    this.throttledCallWebService.cancel()
-    event.preventDefault()
     closeDialogScan()
   }
 
@@ -65,29 +64,41 @@ class DialogScan extends React.Component {
     }
     closeDialogScan()
   }
+  
+  handleKeyDown(e){
+    if(e.nativeEvent.keyCode === 27){
+      // escape
+      closeDialogScan()
+    }
+  }
 
   componentDidMount(){
     this.codeInput.focus()
   }
 
+  componentWillUnmount(){
+    this.throttledCallWebService.cancel()
+  }
+
   render(){
-    return <div>
-      <div className="dialog-scan-img-container">
-        <img src={cacheImages["./barcode.svg"]}
-          alt="Barcode" />
-      </div>
-      <div className="dialog-scan-msg-container">{this.props.message}</div>
-      <div className="dialog-scan-input-container">
-        <form onSubmit={this.handleSubmit}>
+    return (
+      <div onKeyDown={this.handleKeyDown}>
+        <div className="dialog-scan-img-container">
+          <img src={cacheImages["./barcode.svg"]}
+            alt="Barcode" />
+        </div>
+        <div className="dialog-scan-msg-container">{this.props.message}</div>
+        <div className="dialog-scan-input-container">
           <Autocomplete
             ref={(input) => { this.codeInput = input; }}
             handleChange={this.handleChange}
             handleClick={this.handleClick}
+            handleSubmit={this.handleSubmit}
             value={this.state.value}
             options={this.state.options}/>
-        </form>
+        </div>
       </div>
-    </div>
+    )
   }
 }
 

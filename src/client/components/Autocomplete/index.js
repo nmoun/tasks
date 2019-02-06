@@ -15,6 +15,11 @@ class Autocomplete extends React.Component {
   constructor(props){
     super(props)
     this.handleClick = this.handleClick.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this)
+    this.handleMouseOverEntry = this.handleMouseOverEntry.bind(this)
+    this.state = {
+      selected: null
+    }
   }
 
   focus(){
@@ -28,11 +33,66 @@ class Autocomplete extends React.Component {
     }
   }
 
+  handleMouseOverEntry(entryIndex){
+    return () => {
+      this.setState({
+        selected: entryIndex
+      })
+    }
+  }
+
+  handleKeyDown(e){
+    switch(e.nativeEvent.keyCode){
+    case 40:
+      // up arrow
+      if(this.props.options.length > 0){
+        if(this.state.selected === null){
+          this.setState({
+            selected: 0
+          })
+        }else{
+          this.setState({
+            selected: Math.min(this.state.selected + 1, this.props.options.length - 1)
+          })
+        }
+      }
+      break
+    case 38:
+      // down arrow
+      if(this.props.options.length > 0){
+        if(this.state.selected === null){
+          this.setState({
+            selected: this.props.options.length - 1
+          })
+        }else{
+          this.setState({
+            selected: Math.max(this.state.selected - 1, 0)
+          })
+        }
+      }
+      break
+
+    case 13:
+      // enter
+      if(this.state.selected !== null){
+        this.props.handleSubmit(this.props.options[this.state.selected].id)
+      } else {
+        this.props.handleSubmit(this.props.value)
+      }
+      break
+    default:
+      this.setState({
+        selected: null
+      })
+    }
+  }
+
   render(){
     const width = this.props.width ? this.props.width : "200px",
       options = this.props.options ? this.props.options : []
-    return <div className="autocomplete">
+    return <div className="autocomplete"  >
       <input
+        onKeyDown={this.handleKeyDown}
         style={{width: width}}
         ref={(input) => { this.input = input; }}
         type="text"
@@ -40,8 +100,18 @@ class Autocomplete extends React.Component {
         className="autocomplete-input"
         onChange={this.props.handleChange}/>
       <ul style={{width: width}} className="autocomplete-list">
-        {options.map((option) => {
-          return <li key={option.id} className="autocomplete-entry clickable" onClick={this.handleClick(option.id)}><span>{option.label}</span></li>
+        {options.map((option, index) => {
+          let classEntry = "autocomplete-entry clickable"
+          classEntry += index === this.state.selected ? " autocomplete-entry-selected" : ""
+          return (
+            <li
+              key={option.id}
+              className={classEntry}
+              onClick={this.handleClick(option.id)}
+              onMouseOver={this.handleMouseOverEntry(index)}>
+              <span>{option.label}</span>
+            </li>
+          )
         })}
       </ul>
     </div>
