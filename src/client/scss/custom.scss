@@ -1,11 +1,16 @@
 
 @import "variables.scss";
+@import "node_modules/bootstrap/scss/bootstrap";
 
 :root {
   --primary-bg: #{$primary-bg};
   --primary-bg-image: #{$primary-bg-image};
   --primary-color: #{$primary-color};
   --primary-border: #{$primary-border};
+}
+
+body {
+  line-height: 1;
 }
 
 a {
@@ -46,5 +51,3 @@ a {
   to { transform: rotate(360deg); }
 }
 
-
-@import "node_modules/bootstrap/scss/bootstrap";

@@ -10,72 +10,83 @@ import * as fromTasks from './tasks'
 function transaction(tasksReducer, taskReducer){
   // Call the reducer with empty action to populate the initial state
   const initialState = {
-    current: null,
     tasks: tasksReducer(undefined, {}),
-    transactions: {},
+    snapshots: {},
   }
 
   return function(state = initialState, action) {
-    let { current, tasks, transactions } = state,
-      newTransactions
+    let { tasks, snapshots } = state,
+      newTransactions,
+      newSnapshots,
+      newTasks,
+      newById
     switch (action.type) {
     case 'DISCARD':
       // discard changes of current task
-      if(!current){
-        throw new Error('Outside of a transaction, should not happen')
+      if(!action.taskId){
+        throw new Error('Reducer transaction: taskId required')
       }
-      newTransactions = {...transactions}
-      delete newTransactions[current]
+      newSnapshots = {...snapshots}
+      newById = {...tasks.byId}
+      newTasks = { byId: newById }
+      if(tasks.byId[action.taskId].temporary === true){
+        // task on client only, just delete the task locally
+        delete newById[action.taskId]
+        newTasks.allIds = tasks.allIds.filter((id) => (id != action.taskId))
+      } else {
+        // task existing on the server, use the snapshot
+        newById[action.taskId] = snapshots[action.taskId]
+        newTasks.allIds = [...tasks.allIds]
+      }
+      delete newSnapshots[action.taskId]
       return {
-        current,
-        tasks,
-        transactions: newTransactions
+        tasks: newTasks,
+        snapshots: newSnapshots
       }
 
     case 'SAVE':
       // save changes of current task
-      if(!current){
-        throw new Error('Outside of a transaction, should not happen')
+      if(!action.taskId){
+        throw new Error('Reducer transaction: taskId required')
       }
-      newTransactions = {...transactions}
-      var task = newTransactions[current];
-      delete newTransactions[current]
+      newSnapshots = {...snapshots}
+      delete newSnapshots[action.taskId]
       return {
-        current,
-        tasks: {
-          byId: {...tasks.byId, [current]: task},
-          allIds: tasks.allIds.indexOf(current) === -1 ? tasks.allIds.concat(current) : tasks.allIds
-        },
-        transactions: newTransactions
+        tasks,
+        snapshots: newSnapshots,
       }
 
     case 'START_TRANSACTION':
-      // put given task in list of transactions
+      // save snapshot of current task
+      if(!action.taskId){
+        throw new Error('Reducer transaction: taskId required')
+      }
       return {
-        current: action.taskId,
         tasks,
-        transactions: transactions[action.taskId] ? transactions : {...transactions, [action.taskId]: action.task },
+        snapshots: snapshots[action.taskId] ? snapshots : {...snapshots, [action.taskId]: tasks.byId[action.taskId] },
       }
 
     case 'STOP_TRANSACTION':
       // ...
-      newTransactions = {...transactions}
-      delete newTransactions[current]
+      if(!action.taskId){
+        throw new Error('Reducer transaction: taskId required')
+      }
+      newSnapshots = {...snapshots}
+      delete newSnapshots[action.taskId]
       return {
-        current: null,
         tasks,
-        transactions: newTransactions,
+        snapshots: newSnapshots,
       }
     default:
-      newTransactions = {...transactions}
+      newTasks = {...tasks}
       if(action.type.startsWith('TASK_')){
-        newTransactions[action.taskId] = taskReducer(state.transactions[action.taskId], action)
+        newTasks.byId[action.taskId] = taskReducer(tasks.byId[action.taskId], action)
+      } else {
+        newTasks = tasksReducer(tasks, action)
       }
-      const newTasks = tasksReducer(state.tasks, action)
       return {
-        current,
         tasks: newTasks,
-        transactions: newTransactions
+        snapshots
       }
     }
   }
@@ -91,47 +102,26 @@ export const getTask = function(state, taskId){
   return fromTasks.getTask(state.tasks, taskId)
 }
 
-export const getCurrentTask = function(state){
-  return state.transactions[state.current]
+export const getTaskArticles = function(state, taskId){
+  return fromTasks.getTaskArticles(state.tasks, taskId)
 }
 
-export const getCurrentTaskArticles = function(state){
-  return state.transactions[state.current].articles
+export const getTaskArticle = function(state, taskId, articleId){
+  return fromTasks.getTaskArticle(state.tasks, taskId, articleId)
 }
 
-export const getCurrentTaskArticle = function(state, articleId){
-  return state.transactions[state.current].articles
-    .filter((article) => {
-      return article.id == articleId
-    })[0]
+export const getTaskArticleIndex = function(state, taskId, articleId){
+  return fromTasks.getTaskArticleIndex(state.tasks, taskId, articleId)
 }
 
-export const getCurrentTaskArticleIndex = function(state, articleId){
-  return state.transactions[state.current].articles
-    .map((article) => {
-      return article.id
-    })
-    .indexOf(articleId)
+export const getTaskArticleNext = function(state, taskId, articleId){
+  return fromTasks.getTaskArticleNext(state.tasks, taskId, articleId)
 }
 
-export const getCurrentTaskArticleNext = function(state, articleId){
-  const indexNext = state.transactions[state.current].articles
-    .map((article) => {
-      return article.id
-    })
-    .indexOf(articleId) + 1
-  return indexNext > 0 && indexNext < state.transactions[state.current].articles.length ? state.transactions[state.current].articles[indexNext].id : null
-}
-
-export const getCurrentTaskArticlePrevious = function(state, articleId){
-  const indexPrev = state.transactions[state.current].articles
-    .map((article) => {
-      return article.id
-    })
-    .indexOf(articleId) - 1
-  return indexPrev >= 0 ? state.transactions[state.current].articles[indexPrev].id : null
+export const getTaskArticlePrevious = function(state, taskId, articleId){
+  return fromTasks.getTaskArticlePrevious(state.tasks, taskId, articleId)
 }
 
 export const hasTaskChanged = function(state, taskId){
-  return state.tasks.byId[taskId] !== state.transactions[taskId]
+  return state.tasks.byId[taskId] !== state.snapshots[taskId]
 }

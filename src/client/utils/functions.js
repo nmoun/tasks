@@ -4,11 +4,6 @@ export const generateTmpId = () => {
   return "tmp_" + (counter++)
 }
 
-export const createTask = (taskFields) => {
-  const { id, type, title, header = {}, articles = [] } = taskFields
-  return { id, type, title, header, articles }
-}
-
 export function toggleFullScreen() {
   var doc = window.document;
   var docEl = doc.documentElement;

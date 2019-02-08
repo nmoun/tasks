@@ -4,7 +4,7 @@ import ThemedPage from 'components/layout/ThemedPage'
 import ArticleList from 'components/ArticleList'
 import {withRouter} from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getCurrentTask, getCurrentTaskArticles, hasTaskChanged } from 'state/reducers'
+import { getTask, getTaskArticles, hasTaskChanged } from 'state/reducers'
 import { updateQuantity, addArticle, deleteArticle, incrementArticle } from 'state/actions/task'
 import { saveTask } from 'state/actions/tasks'
 import { discardChanges } from 'state/actions/transaction'
@@ -90,7 +90,7 @@ class OrderArticleList extends React.Component{
           history.goBack()
         }, 
         handleNo: () => {
-          this.props.discardChanges()
+          this.props.discardChanges(this.props.taskId)
           closeDialogConfirm();
           history.goBack();
         }
@@ -122,8 +122,8 @@ class OrderArticleList extends React.Component{
 }
 
 const mapStateToProps = (state, props) => ({
-  task: getCurrentTask(state, props.taskId),
-  articles: getCurrentTaskArticles(state, props.taskId),
+  task: getTask(state, props.taskId),
+  articles: getTaskArticles(state, props.taskId),
   hasTaskChanged: hasTaskChanged(state, props.taskId)
 })
 

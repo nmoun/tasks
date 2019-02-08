@@ -15,6 +15,6 @@ export const tasks = [task];
  */
 export const denormalizeTask = (task) => {
   /* eslint-disable no-unused-vars */
-  const { status, ...rest } = task
+  const { status, temporary,  ...rest } = task
   return rest
 }

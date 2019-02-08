@@ -1,12 +1,14 @@
-export function discardChanges(){
+export function discardChanges(taskId){
   return {
-    type: 'DISCARD'
+    type: 'DISCARD',
+    taskId,
   }
 }
 
-export function saveChanges(){
+export function saveChanges(taskId){
   return {
-    type: 'SAVE'
+    type: 'SAVE',
+    taskId,
   }
 }
 
@@ -18,8 +20,9 @@ export function startTransaction(taskId, task){
   }
 }
 
-export function stopTransaction(){
+export function stopTransaction(taskId){
   return {
-    type: 'STOP_TRANSACTION'
+    type: 'STOP_TRANSACTION',
+    taskId
   }
 }

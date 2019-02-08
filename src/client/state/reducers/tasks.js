@@ -17,11 +17,11 @@ const byId =  function(state = {}, action) {
 
   case 'CREATE_TASK':
     // task creation from client
-    const { id, type, title, header = {}, articles = [] } = action.task
+    const { id, type, title, header = {}, articles = [], temporary = true } = action.task
     return {
       ...state,
       [action.task.id]: {
-        id, type, title, header, articles
+        id, type, title, header, articles, temporary
       }
     }
 
@@ -71,13 +71,39 @@ export const getTask = function(state, taskId){
   return state.byId[taskId]
 }
 
-export const getArticles = function(state, taskId){
+export const getTaskArticles = function(state, taskId){
   return state.byId[taskId].articles
 }
 
-export const getArticle = function(state, taskId, articleId){
+export const getTaskArticle = function(state, taskId, articleId){
   return state.byId[taskId].articles
     .filter((article) => {
       return article.id == articleId
     })[0]
+}
+
+export const getTaskArticleIndex = function(state, taskId, articleId){
+  return state.byId[taskId].articles
+    .map((article) => {
+      return article.id
+    })
+    .indexOf(articleId)
+}
+
+export const getTaskArticleNext = function(state, taskId, articleId){
+  const indexNext = state.byId[taskId].articles
+    .map((article) => {
+      return article.id
+    })
+    .indexOf(articleId) + 1
+  return indexNext > 0 && indexNext < state.byId[taskId].articles.length ? state.byId[taskId].articles[indexNext].id : null
+}
+
+export const getTaskArticlePrevious = function(state, taskId, articleId){
+  const indexPrev = state.byId[taskId].articles
+    .map((article) => {
+      return article.id
+    })
+    .indexOf(articleId) - 1
+  return indexPrev >= 0 ? state.byId[taskId].articles[indexPrev].id : null
 }

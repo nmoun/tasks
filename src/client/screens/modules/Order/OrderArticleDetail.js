@@ -55,11 +55,11 @@ class OrderArticleDetail extends React.Component{
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    articles: selectors.getCurrentTaskArticles(state),
-    article: selectors.getCurrentTaskArticle(state, ownProps.articleId),
-    nextId: selectors.getCurrentTaskArticleNext(state, ownProps.articleId),
-    previousId: selectors.getCurrentTaskArticlePrevious(state, ownProps.articleId),
-    articleIndex:  selectors.getCurrentTaskArticleIndex(state, ownProps.articleId),
+    articles: selectors.getTaskArticles(state, ownProps.taskId),
+    article: selectors.getTaskArticle(state, ownProps.taskId, ownProps.articleId),
+    nextId: selectors.getTaskArticleNext(state, ownProps.taskId, ownProps.articleId),
+    previousId: selectors.getTaskArticlePrevious(state, ownProps.taskId, ownProps.articleId),
+    articleIndex:  selectors.getTaskArticleIndex(state, ownProps.taskId, ownProps.articleId),
   }
 }
 

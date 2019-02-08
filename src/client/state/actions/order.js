@@ -8,7 +8,7 @@ import { TASK_STATUS } from 'utils/constants'
 export const validateTask = (task) => {
   return function(dispatch){
     dispatch(updateTask(task.id, {...task, status: TASK_STATUS.LOADING}))
-    dispatch(saveChanges())
+    dispatch(saveChanges(task.id))
     apiOrder.validateTask(task)
       .then(() => {
         dispatch(deleteTask(task.id))

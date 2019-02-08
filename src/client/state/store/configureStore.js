@@ -8,8 +8,8 @@ import debounce from 'lodash.debounce'
 export const configureStore = () => {
   const logger = createLogger({});
   const middlewares = [thunk, logger]
-  const persistedState = localStorage.getItem(STATE) ? JSON.parse(localStorage.getItem(STATE)) : {}
-  // const persistedState = {}
+  // const persistedState = localStorage.getItem(STATE) ? JSON.parse(localStorage.getItem(STATE)) : {}
+  const persistedState = {}
   let store = createStore(reducer, persistedState, applyMiddleware(...middlewares))
 
   store.subscribe(debounce(() => {

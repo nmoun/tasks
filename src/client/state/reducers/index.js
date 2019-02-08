@@ -9,28 +9,24 @@ export default combineReducers({
   ui
 })
 
-export const getCurrentTask = function(state){
-  return fromTransaction.getCurrentTask(state.transaction)
+export const getTaskArticles = function(state, taskId){
+  return fromTransaction.getTaskArticles(state.transaction, taskId)
 }
 
-export const getCurrentTaskArticles = function(state){
-  return fromTransaction.getCurrentTaskArticles(state.transaction)
+export const getTaskArticle = function(state, taskId, articleId){
+  return fromTransaction.getTaskArticle(state.transaction, taskId, articleId)
 }
 
-export const getCurrentTaskArticle = function(state, articleId){
-  return fromTransaction.getCurrentTaskArticle(state.transaction, articleId)
+export const getTaskArticleIndex = function(state, taskId, articleId){
+  return fromTransaction.getTaskArticleIndex(state.transaction, taskId, articleId)
 }
 
-export const getCurrentTaskArticleIndex = function(state, articleId){
-  return fromTransaction.getCurrentTaskArticleIndex(state.transaction, articleId)
+export const getTaskArticleNext = function(state, taskId, articleId){
+  return fromTransaction.getTaskArticleNext(state.transaction, taskId, articleId)
 }
 
-export const getCurrentTaskArticleNext = function(state, articleId){
-  return fromTransaction.getCurrentTaskArticleNext(state.transaction, articleId)
-}
-
-export const getCurrentTaskArticlePrevious = function(state, articleId){
-  return fromTransaction.getCurrentTaskArticlePrevious(state.transaction, articleId)
+export const getTaskArticlePrevious = function(state, taskId, articleId){
+  return fromTransaction.getTaskArticlePrevious(state.transaction, taskId, articleId)
 }
 
 export const getTasks = function(state){
