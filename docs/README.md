@@ -12,6 +12,3 @@ npm start
 npm i<br/>
 npm run build<br/>
 npm run launch
-
-# Screenshots
-![alt text](/docs/test.gif)

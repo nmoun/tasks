@@ -18,7 +18,7 @@ function QuantityBlock(props){
   return <div className="quantity-block clickable" onClick={handleClick}>
     <input
       className="clickable"
-      type="text"
+      type="number"
       value={props.quantity}
       name="quantity"
       id="quantity"

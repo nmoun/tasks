@@ -16,7 +16,6 @@ function transaction(tasksReducer, taskReducer){
 
   return function(state = initialState, action) {
     let { tasks, snapshots } = state,
-      newTransactions,
       newSnapshots,
       newTasks,
       newById
