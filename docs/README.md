@@ -12,3 +12,6 @@ npm start
 npm i<br/>
 npm run build<br/>
 npm run launch
+
+# Demo
+[Link to video demo](https://nmoun.github.io/tasks/)
