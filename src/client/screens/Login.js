@@ -19,7 +19,6 @@ class Login extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log('allo')
     if(!this.username.value || !this.password.value){
       this.setState({errorMessage: "Mandatory credentials"})
       return;

@@ -3,8 +3,8 @@
 
 
 .widget {
-  height: 50px;
-  margin: 2px 1px;
+  height: 60px;
+  margin: 2px 5px;
   padding: 0 5px;
   font-family: $font-family;
   display: flex;
@@ -16,7 +16,8 @@
 .widget-left {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  height: 100%;
+  justify-content: space-between;
 }
 
 .widget-right {
