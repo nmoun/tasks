@@ -11,6 +11,7 @@ import LoadingList from 'components/LoadingList'
 import SidePanel from 'components/SidePanel'
 import { ICONS } from 'components/Fab'
 import TaskMenu from 'components/TaskMenu'
+import { getLabel } from 'labels/LabelProvider'
 
 class Home extends React.Component {
 
@@ -63,10 +64,10 @@ class Home extends React.Component {
       HEADER_ICONS.LEFT : this.state.isDisplayedMenu ? HEADER_ICONS.RIGHT : HEADER_ICONS.MENU;
     return (<ThemedPage fab={true} handleClickFab={this.toggleMenu} fabIcon={ICONS.PLUS}>
       <Header
-        title='Tasks'
+        title={getLabel('home.title')}
         leftIcon={leftIcon}
         handleClickLeft={this.handleBack}
-        rightText="Reload"
+        rightText={getLabel('home.reload')}
         handleClickRight={this.props.fetchTasks} />
       <AppSidePanel
         logout={this.logout}
@@ -94,7 +95,7 @@ export default withRouter(connect(
 function AppSidePanel(props) {
   let entries = [
     {
-      label: "Logout",
+      label: getLabel('home.logout'),
       handleClickEntry: props.logout
     }
   ]

@@ -65,7 +65,7 @@ module.exports = {
         options: {
           name: '[hash].[ext]'
         }
-      }
+      },
     ]
   },
   plugins: [
