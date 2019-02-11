@@ -31,7 +31,6 @@ app.use(session({
   })
 }));
 app.use(passport.initialize());
-// app.use(passport.session());
 app.use(express.json());
 
 app.use(express.static(path.resolve(__dirname, "../../dist")));
