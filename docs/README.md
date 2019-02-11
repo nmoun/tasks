@@ -1,5 +1,5 @@
 # Description
-Dummy in-store web app. Testing miscellaneous tools.
+Dummy in-store web app. Testing miscellaneous tools.  
 Client: react, redux, sass  
 Server: express, passport, mongo db  
 Test: mocha & chai for app's state, & postman for web service calls
