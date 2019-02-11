@@ -1,5 +1,8 @@
 # Description
-Testing miscellaneous stuff. Simulates in-store web app.
+Dummy in-store web app. Testing miscellaneous tools.
+Client: react, redux, sass  
+Server: express, passport, mongo db  
+Test: mocha & chai for app's state, & postman for web service calls
 
 # Launching
 Launch mongo daemon at url specified in .env file
