@@ -21,11 +21,11 @@ class OrderArticleDetail extends React.Component{
   }
 
   handleChangeValue(articleId, quantity){
-    this.props.updateQuantity(this.props.taskId, articleId, quantity);
+    this.props.updateQuantity(this.props.taskId, articleId, quantity)
   }
 
   goBack(){
-    this.props.history.goBack();
+    this.props.history.goBack()
   }
   
   handleClickNext(){
@@ -46,8 +46,8 @@ class OrderArticleDetail extends React.Component{
       <Header title={title} leftIcon={ICONS.LEFT} handleClickLeft={this.goBack}/>
       <ArticleCell {...this.props.article} handleChangeValue={this.handleChangeValue}/>
       <Footer>
-        <NavButton text="Next" imgSrc={cacheImages["./downArrow.svg"]} handleClick={this.handleClickNext} disabled={this.props.nextId === null}/>
-        <NavButton text="Prev" imgSrc={cacheImages["./upArrow.svg"]} handleClick={this.handleClickPrevious} disabled={this.props.previousId === null}/>
+        <NavButton text="Next" imgSrc={cacheImages['./downArrow.svg']} handleClick={this.handleClickNext} disabled={this.props.nextId === null}/>
+        <NavButton text="Prev" imgSrc={cacheImages['./upArrow.svg']} handleClick={this.handleClickPrevious} disabled={this.props.previousId === null}/>
       </Footer>
     </ThemedPage>
   }

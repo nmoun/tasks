@@ -1,9 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import logo from 'assets/logo.svg';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import logo from 'assets/logo.svg'
 import ThemedButton from 'components/buttons/ThemedButton'
 
-import "scss/custom.scss";
+import 'scss/custom.scss'
 
 function Welcome() {
   return (<div className="container-all">
@@ -18,6 +18,6 @@ function Welcome() {
         <Link to="/register"><ThemedButton text="Register"/></Link>
       </div>
     </div>
-  </div>);
+  </div>)
 };
-export default Welcome;
+export default Welcome

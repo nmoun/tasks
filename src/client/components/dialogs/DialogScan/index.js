@@ -14,7 +14,7 @@ class DialogScan extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      value: "",
+      value: '',
       options: [],
     }
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -33,7 +33,7 @@ class DialogScan extends React.Component {
             options: []
           })
         })
-    }, 250);
+    }, 250)
   }
 
   handleSubmit(value){
@@ -84,13 +84,13 @@ class DialogScan extends React.Component {
     return (
       <div onKeyDown={this.handleKeyDown}>
         <div className="dialog-scan-img-container">
-          <img src={cacheImages["./barcode.svg"]}
+          <img src={cacheImages['./barcode.svg']}
             alt="Barcode" />
         </div>
         <div className="dialog-scan-msg-container">{this.props.message}</div>
         <div className="dialog-scan-input-container">
           <Autocomplete
-            ref={(input) => { this.codeInput = input; }}
+            ref={(input) => { this.codeInput = input }}
             handleChange={this.handleChange}
             handleClick={this.handleClick}
             handleSubmit={this.handleSubmit}
@@ -107,5 +107,5 @@ export function openDialogScan(props){
 }
 
 export function closeDialogScan(){
-  fromDialog.closeDialog();
+  fromDialog.closeDialog()
 }

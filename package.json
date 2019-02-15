@@ -4,11 +4,12 @@
   "description": "Testing various stuff",
   "main": "index.js",
   "scripts": {
-    "start-client": "webpack-dev-server --config config/webpack.dev.js --open --hot --history-api-fallback",
-    "start": "concurrently \"npm run start-client\" \"nodemon src/server/index.js\"",
-    "build": "webpack --config config/webpack.prod.js",
-    "launch": "nodemon src/server/index.js",
-    "test": "webpack-dev-server --config config/webpack.test.js --open --hot --history-api-fallback"
+    "buildProd": "webpack --config config/webpack.prod.js",
+    "launchProd": "node src/server/index.js",
+    "launchDevServer": "webpack-dev-server --config config/webpack.dev.js --open --hot --history-api-fallback",
+    "launchDev": "concurrently \"npm run launchDevServer\" \"nodemon src/server/index.js\"",
+    "test": "env NODE_PATH=./src/client mocha --require @babel/register test/client/test.js",
+    "testBrowser": "webpack-dev-server --config config/webpack.test.js --open --hot --history-api-fallback"
   },
   "keywords": [],
   "author": "",
@@ -40,10 +41,11 @@
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0-beta.46",
-    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
-    "@babel/preset-env": "^7.0.0-beta.46",
-    "@babel/preset-react": "^7.0.0-beta.46",
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.0.0",
     "autoprefixer": "^8.6.2",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^8.0.0-beta.2",

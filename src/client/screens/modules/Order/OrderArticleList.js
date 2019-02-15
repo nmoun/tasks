@@ -27,12 +27,12 @@ class OrderArticleList extends React.Component{
   }
 
   handleChangeValue(articleId, quantity){
-    this.props.updateQuantity(this.props.taskId, articleId, quantity);
+    this.props.updateQuantity(this.props.taskId, articleId, quantity)
   }
 
   handleClickLeft(articleId){
-    const {history, match} = this.props;
-    history.push(match.url + "/" + articleId)
+    const {history, match} = this.props
+    history.push(match.url + '/' + articleId)
   }
 
   handleSubmitArticleCode(articleCode){
@@ -58,7 +58,7 @@ class OrderArticleList extends React.Component{
   openDialogScan() {
     openDialogScan({
       isDismissible: true,
-      message: "Scan article code",
+      message: 'Scan article code',
       handleSubmit: this.handleSubmitArticleCode,
       callWebServiceSuggest: apiArticle.fetchArticleSuggest
     })
@@ -76,23 +76,23 @@ class OrderArticleList extends React.Component{
   goBack(){
     const { history } = this.props
     if(!this.props.hasTaskChanged){
-      history.goBack();
+      history.goBack()
     } else {
       openDialogConfirm({
         isDismissible: true,
-        message: "Save changes?", 
+        message: 'Save changes?', 
         handleYes: () => {
           this.props.saveTask({
             ...this.props.task,
-            subtitle: this.props.articles.length + " article(s)"
+            subtitle: this.props.articles.length + ' article(s)'
           })
           closeDialogConfirm()
           history.goBack()
         }, 
         handleNo: () => {
           this.props.discardChanges(this.props.taskId)
-          closeDialogConfirm();
-          history.goBack();
+          closeDialogConfirm()
+          history.goBack()
         }
       })
     }
@@ -101,7 +101,7 @@ class OrderArticleList extends React.Component{
   validateTask(){
     this.props.validateTask({
       ...this.props.task,
-      subtitle: this.props.articles.length + " article(s)"
+      subtitle: this.props.articles.length + ' article(s)'
     })
     this.props.history.goBack()
   }

@@ -6,7 +6,7 @@ import { STATE } from 'utils/constants'
 import debounce from 'lodash.debounce'
 
 export const configureStore = () => {
-  const logger = createLogger({});
+  const logger = createLogger({})
   const middlewares = [thunk, logger]
   // const persistedState = localStorage.getItem(STATE) ? JSON.parse(localStorage.getItem(STATE)) : {}
   const persistedState = {}

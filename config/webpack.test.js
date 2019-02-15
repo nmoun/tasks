@@ -1,22 +1,16 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const path = require('path')
-const fs = require('fs');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const webpack = require('webpack')
 
-const appDirectory = fs.realpathSync(process.cwd());
-const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
-
-console.log('cwd: ' + appDirectory);
-console.log('src folder location: ' + resolveApp('./src/client'));
 module.exports = {
-  entry: './test/client/test.js',
+  entry: './test/client/testBrowser.js',
   devtool: 'source-map',
   resolve: {
-    modules: ['node_modules', resolveApp('./src/client')]
+    modules: ['node_modules', 'src/client']
   },
   module: {
     rules: [
       {
-        enforce: "pre",
+        enforce: 'pre',
         test: /\.js$/,
         exclude: [/node_modules/, /framework/],
         use: [
@@ -39,6 +33,11 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        IN_BROWSER: true
+      }
+    }),
     new HtmlWebpackPlugin({
       template: './test/client/template/index.html',
       filename: './index.html'
