@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import routes from 'routes'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
@@ -19,4 +19,4 @@ class App extends Component {
   }
 };
 
-export default App;
+export default App

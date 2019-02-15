@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 var ArticleSchema = new mongoose.Schema({
   id: String,
@@ -7,7 +7,7 @@ var ArticleSchema = new mongoose.Schema({
   quantity: String
 }, { _id : false })
 
-var Article = mongoose.model('Article', ArticleSchema);
+var Article = mongoose.model('Article', ArticleSchema)
 
 module.exports = {
   ArticleSchema,

@@ -1,5 +1,5 @@
 // server environment variables
-require('dotenv').config();
+require('dotenv').config()
 
 const express = require('express')
 const path = require('path')
@@ -29,17 +29,16 @@ app.use(session({
   store: new MongoStore({
     mongooseConnection: db
   })
-}));
-app.use(passport.initialize());
-app.use(express.json());
+}))
+app.use(passport.initialize())
+app.use(express.json())
 
-app.use(express.static(path.resolve(__dirname, "../../dist")));
+app.use(express.static(path.resolve(__dirname, '../../dist')))
 
 app.use('/', routes)
 
 app.use((req, res) => {
-  res.sendStatus(404);
-});
-
+  res.sendStatus(404)
+})
 
 app.listen(3000, () => console.log('express listening on port 3000'))

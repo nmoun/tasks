@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 const { ArticleSchema } = require('./articles')
 
 var TaskSchema = new mongoose.Schema({
@@ -26,8 +26,7 @@ var TaskSchema = new mongoose.Schema({
   },
   content: Object,
   articles: [ArticleSchema]
-});
+})
 
-
-var Task = mongoose.model('Task', TaskSchema);
-module.exports = Task;
+var Task = mongoose.model('Task', TaskSchema)
+module.exports = Task
